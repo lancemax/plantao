@@ -1,0 +1,92 @@
+<div class="navbar navbar-fixed-top">	
+		<div class="navbar-inner">
+			<div class="container">
+				<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</a>
+				<!--a class="brand" href="/">Lancemax</a-->
+
+				<div class="nav-collapse">
+
+					<ul class="nav btn-inverse">
+						<li ><a href="/"><i class="icon-white icon-ok"></i>Inicio</a></li>
+						<li><a href="#"><i class="icon-white icon-check"></i>Plantões</a></li>
+						<li><a href="#"><i class="icon-white icon-share-alt"></i>Hospitais</a></li>
+						<!--li><a href="/package"><i class="icon-white icon-shopping-cart"></i>Comprar Lances</a></li-->
+						<% if user_signed_in? %>
+								<li><a href="/customer"><i class="icon-white icon-home"></i>Minha Conta</a></li>
+						<% else %>
+							<li><%= link_to('login', new_user_session_path)  %></li>
+							<li><%= link_to('Cadastre-se', new_user_registration_path)  %></li>
+						<% end %>
+						
+					</ul>
+					<% if user_signed_in? %>
+
+							
+
+							<div class="btn-group pull-right">
+								<a class="btn btn-primary" href="#">
+									<b style="color:#fff">
+			       					<%= current_user.name %>
+			       				</b>
+								</a>
+								<a class="btn btn-primary dropdown-toggle" href="#" data-toggle="dropdown"> 
+									<span class="caret"></span>
+								</a>
+								<ul class="dropdown-menu">
+									
+									<li>
+										<a href="#">
+											<b>Email:</b> <div id="user_numbids_menu" class="btn"><%= current_user.email %></div>
+										</a>
+									</li>
+
+									<li>
+										<a href="#">
+											<i class="icon-shopping-cart"></i>
+											Meus Pacotes
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<i class="icon-th-list"></i>
+											Meus Lances
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<i class="icon-star"></i>
+											Arrematados
+										</a>
+									</li>
+									<li class="divider"></li>
+									<li>
+										<a href="<%= destroy_user_session_path %>"  data-method="delete">
+											<i class="icon-remove-sign"></i>
+											Sair
+											<% link_to("<i class=icon-remove>SAIR</i>", destroy_user_session_path+"#delete", :method => :delete, :class => "remove",:title => 'Sair') %>	
+										</a>
+									</li>
+								</ul>
+
+							</div>
+
+						
+					<% else %>
+					<!--div class="btn-group pull-right">
+						<ul class="nav" >
+							<li>LOGIN:</li>
+						</ul>
+						<a href="/auth/facebook">
+							<%= image_tag "fblogin.png", :title => "Facebook" %>
+						</a>
+						
+					</div-->
+					<% end %>
+				</div><!--/.nav-collapse -->
+			</div>
+		</div>
+	</div>

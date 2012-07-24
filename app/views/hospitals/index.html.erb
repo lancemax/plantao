@@ -1,0 +1,39 @@
+<h1>Listing hospitals</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Address</th>
+    <th>Complement</th>
+    <th>Neighborhood</th>
+    <th>Zip code</th>
+    <th>City</th>
+    <th>State</th>
+    <th>Description</th>
+    <th>Photo</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @hospitals.each do |hospital| %>
+  <tr>
+    <td><%= hospital.name %></td>
+    <td><%= hospital.address %></td>
+    <td><%= hospital.complement %></td>
+    <td><%= hospital.neighborhood %></td>
+    <td><%= hospital.zip_code %></td>
+    <td><%= hospital.city_id %></td>
+    <td><%= hospital.state_id %></td>
+    <td><%= hospital.description %></td>
+    <td><%= hospital.photo %></td>
+    <td><%= link_to 'Show', hospital %></td>
+    <td><%= link_to 'Edit', edit_hospital_path(hospital) %></td>
+    <td><%= link_to 'Destroy', hospital, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Hospital', new_hospital_path %>

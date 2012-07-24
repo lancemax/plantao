@@ -1,0 +1,13 @@
+<h2>Esqueci minha Senha:</h2>
+
+<%= simple_form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post ,:class => 'well form-horizontal'}) do |f| %>
+  <%= devise_error_messages! %>
+
+  <div class="control-group">
+  	<%= f.label :email 	, :class => 'control-label' %>
+  	<div class="controls"><%= f.email_field :email, :class => 'span4' %> 
+  		<%= f.submit "Enviar Instruções para esse email", :class => "btn btn-primary" %></div>
+  </div>
+<% end %>
+
+<%= render "links" %>

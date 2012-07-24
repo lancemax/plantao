@@ -1,0 +1,33 @@
+<div class="content">
+
+	<h2>Proximos Leilões</h2>
+	<ul class="thumbnails">
+	<% if !@nextCampaigns.empty? %>
+
+		<div class="span4">
+			<% @nextCampaigns.each do |camp|%>
+				<div class="thumbnail">
+				
+					<h4><%= camp.name %> </h4>
+					<%= image_tag camp.product.image.url(:small) %>
+
+					<b class="btn btn-large">
+						Preço de Mercado: <b class="btn btn-warning"> <%= to_real(camp.product.price) %></b>
+					</b>
+					<b class="btn btn-large">
+						Maximo de Lances: <b class="btn btn-primary"> <%= camp.max_bids %></b>
+					</b>
+
+				</div>
+			<% end -%>
+		</div>
+
+	<% else %>
+
+		<h3>Ainda não há prévia de Leilões Futuros</h3>
+
+	<% end -%>
+	
+	<br clear="all" />
+	
+</div>

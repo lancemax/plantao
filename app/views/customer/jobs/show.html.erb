@@ -1,0 +1,40 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Hospital:</b>
+  <%= @job.hospital_id %>
+</p>
+
+<p>
+  <b>Area:</b>
+  <%= @job.area_id %>
+</p>
+
+<p>
+  <b>Dependencies:</b>
+  <%= @job.dependencies %>
+</p>
+
+<p>
+  <b>Date:</b>
+  <%= @job.date %>
+</p>
+
+<p>
+  <b>Shift:</b>
+  <%= @job.shift_id %>
+</p>
+
+<p>
+  <b>Price:</b>
+  <%= @job.price %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @job.description %>
+</p>
+
+
+<%= link_to 'Edit', edit_job_path(@job) %> |
+<%= link_to 'Back', jobs_path %>

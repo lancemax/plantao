@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8"/>
+	<title>Área Administrativa</title>
+	<%= stylesheet_link_tag    "admin/application" %>
+  	<%= javascript_include_tag "admin/application" %>
+  	<%= csrf_meta_tags %>
+</head>
+
+
+<body>
+
+	<header id="header">
+		<hgroup>
+			<h1 class="site_title"><a href="index.html">LanceMax</a></h1>
+			<!-- <h2 class="section_title">Dashboard</h2><div class="btn_view_site"><a href="http://www.medialoot.com">View Site</a></div> -->
+		</hgroup>
+	</header> <!-- end of header bar -->
+	
+	<section id="secondary_bar">
+		<div class="user">
+			<p><%= current_user.email %></p>
+			<%= link_to('Sair', destroy_user_session_path, :method => :delete, :class => "logout_user") %>   
+		</div>
+		
+		<div class="breadcrumbs_container">
+
+			<%= render_navigation :renderer => :breadcrumbs,:class => "breadcrumbs",:join_with => '<div class="breadcrumb_divider"></div>' %>
+			
+			
+		</div>
+	</section><!-- end of secondary bar -->
+	
+		<%= render "layouts/admin/admin_menu" %>
+		
+
+	
+	<section id="main" class="column">
+	<% if flash %>
+	<div id="flashmsg">
+		<% if flash[:error] %>
+			<h4 class="alert_error"><%= flash[:error]%></h4>
+		<%end -%> 
+		
+		<% if flash[:warning] %>
+			<h4 class="alert_warning"<%= flash[:warning]%></h4>
+		<%end -%>
+		
+		<% if flash[:notice] %> 
+			<h4 class="alert_success"><%= flash[:notice]%></h4>
+		<%end -%>
+		
+	</div>
+	<% end %>       
+
+		<%= yield %>
+		
+	</section>
+
+
+</body>
+
+</html>

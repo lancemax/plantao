@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @push_time.name %>
+</p>
+
+<p>
+  <b>Value:</b>
+  <%= @push_time.value %>
+</p>
+
+
+<%= link_to 'Edit', edit_push_time_path(@push_time) %> |
+<%= link_to 'Back', push_times_path %>

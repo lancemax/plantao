@@ -1,0 +1,50 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @hospital.name %>
+</p>
+
+<p>
+  <b>Address:</b>
+  <%= @hospital.address %>
+</p>
+
+<p>
+  <b>Complement:</b>
+  <%= @hospital.complement %>
+</p>
+
+<p>
+  <b>Neighborhood:</b>
+  <%= @hospital.neighborhood %>
+</p>
+
+<p>
+  <b>Zip code:</b>
+  <%= @hospital.zip_code %>
+</p>
+
+<p>
+  <b>City:</b>
+  <%= @hospital.city_id %>
+</p>
+
+<p>
+  <b>State:</b>
+  <%= @hospital.state_id %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @hospital.description %>
+</p>
+
+<p>
+  <b>Photo:</b>
+  <%= @hospital.photo %>
+</p>
+
+
+<%= link_to 'Edit', edit_hospital_path(@hospital) %> |
+<%= link_to 'Back', hospitals_path %>

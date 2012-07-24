@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>LanceMax</title>
+	<%= stylesheet_link_tag    "application" %>
+	<%= javascript_include_tag "application" %>
+	<%= csrf_meta_tags %>
+
+</head>
+<body>
+
+	<%= render "layouts/menu" %>
+	
+	
+	<div class="container">
+
+		<div class="row">
+			
+			<% if flash %>
+				<% if flash[:error] %>
+				<div class="alert alert-error">
+					<button class="close" data-dismiss="alert">×</button>
+					<p><%= flash[:error]%></p>
+				</div>
+				<%end%>
+
+				<% if flash[:alert] %>
+				<div class="alert alert-block">
+					<button class="close" data-dismiss="alert">×</button>
+					<p><%= flash[:alert]%></p>
+				</div>
+				<%end%>
+
+				<% if flash[:notice] %>
+				<div class="alert alert-success">
+					<button class="close" data-dismiss="alert">×</button>
+					<p><%= flash[:notice]%></p>
+				</div>
+				<%end%>
+			<% end -%>
+			
+			<br clear="all" />
+			<div class="content">
+				<ul class="nav nav-pills btn btn-warning">
+							<li><a href="/users/edit" >Meus Dados</a></li>
+							<li><a href="#">Meus Plantões</a></li>
+							<li><a href="#">Ceder Plantão</a></li>
+							<li><a href="#">Buscar Plantão</a></li>
+							<li><a href="#">Pagamentos</a></li>
+				</ul>
+
+			<%= yield %>
+		</div>
+		<br clear="all" />		
+	</div>
+
+
+		
+
+	<div id='footer'>
+		
+	</div>
+	
+</body>
+</html>
