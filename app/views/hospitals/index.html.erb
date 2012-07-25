@@ -1,39 +1,24 @@
-<h1>Listing hospitals</h1>
-
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Address</th>
-    <th>Complement</th>
-    <th>Neighborhood</th>
-    <th>Zip code</th>
-    <th>City</th>
-    <th>State</th>
-    <th>Description</th>
-    <th>Photo</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+<h1>Hospitais</h1>
 
 <% @hospitals.each do |hospital| %>
-  <tr>
-    <td><%= hospital.name %></td>
-    <td><%= hospital.address %></td>
-    <td><%= hospital.complement %></td>
-    <td><%= hospital.neighborhood %></td>
-    <td><%= hospital.zip_code %></td>
-    <td><%= hospital.city_id %></td>
-    <td><%= hospital.state_id %></td>
-    <td><%= hospital.description %></td>
-    <td><%= hospital.photo %></td>
-    <td><%= link_to 'Show', hospital %></td>
-    <td><%= link_to 'Edit', edit_hospital_path(hospital) %></td>
-    <td><%= link_to 'Destroy', hospital, confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
+
+    <div class="thumbnail span3">
+            <img src="http://placehold.it/260x180" alt="">
+            <div class="caption">
+              <h5><%= hospital.name %></h5>
+              <h5><%= hospital.address %></h5>
+              <h5><%= hospital.city.name %></h5>
+              <h5><%= hospital.state.name %></h5>
+              <p><%= hospital.description %></p>
+              <p><a class="btn btn-primary" href="#">Action</a> <a class="btn" href="#">Action</a></p>
+            </div>
+    </div>
+
+
 <% end %>
-</table>
 
-<br />
 
-<%= link_to 'New Hospital', new_hospital_path %>
+<br clear="all" />
+<br clear="all" />
+
+<%= link_to 'Cadastrar Hospital', new_hospital_path ,:class => "btn btn-primary" %>

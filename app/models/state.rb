@@ -1,5 +1,6 @@
 class State < ActiveRecord::Base
-	belongs_to :city
+	has_many :cities
+	has_many :hospitals
 
 
   attr_accessible :name, :acronym

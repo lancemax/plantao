@@ -1,4 +1,4 @@
-<%= form_for(@hospital) do |f| %>
+<%= simple_form_for @hospital , :html => {:class => 'well form-horizontal',:multipart => true } do |f| %>
   <% if @hospital.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@hospital.errors.count, "error") %> prohibited this hospital from being saved:</h2>
@@ -8,46 +8,46 @@
         <li><%= msg %></li>
       <% end %>
       </ul>
-    </div>
+    </div>  
   <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
+  <div class="control-group">
+    <%= f.label 'Nome'  , :class => 'control-label' %>
+    <div class="controls"><%= f.text_field :name, :class => 'span4' %></div>
   </div>
-  <div class="field">
-    <%= f.label :address %><br />
-    <%= f.text_field :address %>
+
+  <div class="control-group">
+    <%= f.label 'Endereço'  , :class => 'control-label' %>
+    <div class="controls"><%= f.text_field :address, :class => 'span4' %></div>
   </div>
-  <div class="field">
-    <%= f.label :complement %><br />
-    <%= f.text_field :complement %>
+  <div class="control-group">
+    <%= f.label 'Complemento'  , :class => 'control-label' %>
+    <div class="controls"><%= f.text_field :complement, :class => 'span2' %></div>
   </div>
-  <div class="field">
-    <%= f.label :neighborhood %><br />
-    <%= f.text_field :neighborhood %>
+  <div class="control-group">
+    <%= f.label 'Bairro'  , :class => 'control-label' %>
+    <div class="controls"><%= f.text_field :neighborhood, :class => 'span3' %></div>
   </div>
-  <div class="field">
-    <%= f.label :zip_code %><br />
-    <%= f.number_field :zip_code %>
+  <div class="control-group">
+    <%= f.label 'CEP'  , :class => 'control-label' %>
+    <div class="controls"><%= f.number_field :zip_code, :class => 'span2' %></div>
   </div>
-  <div class="field">
-    <%= f.label :city_id %><br />
-    <%= f.number_field :city_id %>
+  
+  <div class="control-group">
+    <%= f.association :state , :label => 'Estado', :multiple => true %>
+  
+    <% f.association :city , :label => 'Cidade', :collection => City.where(:state_id => 1) %>
+    <%= f.association :city , :label => 'Cidade' %>
+    
   </div>
-  <div class="field">
-    <%= f.label :state_id %><br />
-    <%= f.number_field :state_id %>
+
+  <div class="control-group">
+    <%= f.label 'Descrição do Hospital'  , :class => 'control-label' %>
+    <div class="controls"><%= f.text_area :description, :class => 'span6' %></div>
   </div>
-  <div class="field">
-    <%= f.label :description %><br />
-    <%= f.text_area :description %>
+  <div class="control-group">
+    <%= f.label 'Foto'  , :class => 'control-label' %>
+    <div class="controls"><%= f.file_field :photo ,:tittle => 'Procurar', :class => 'span5' %></div>
   </div>
-  <div class="field">
-    <%= f.label :photo %><br />
-    <%= f.text_field :photo %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  <div class="form-actions"><%= f.submit "Cadastrar", :class => "btn btn-primary" %></div>
 <% end %>

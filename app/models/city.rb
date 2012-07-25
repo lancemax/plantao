@@ -1,4 +1,5 @@
 class City < ActiveRecord::Base
-	has_many :states
+	belongs_to :state
+	has_many :hospitals
   attr_accessible :name, :state_id
 end

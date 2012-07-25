@@ -8,4 +8,8 @@ class Customer::HomeController < ApplicationController
   	authorize! :customer_home, ""
   end
 
+  def show
+  	authorize! :customer_home, ""
+  end
+
 end
