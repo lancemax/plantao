@@ -40,7 +40,7 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.integer :area_id, :null => false, :default => 0
       t.string :workplace
       t.integer :push_time_id, :null => false, :default => 0
-      t.string :phone, :null => false
+      t.string :phone, :null => true
       t.string :cellphone
       t.integer :minor_value, :null => false, :default => 300
       t.string :role, :null => false, :default => 'customer'
