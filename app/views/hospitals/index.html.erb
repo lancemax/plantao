@@ -3,14 +3,17 @@
 <% @hospitals.each do |hospital| %>
 
     <div class="thumbnail span3">
-            <img src="http://placehold.it/260x180" alt="">
+            <%=image_tag hospital.image.url(:small) %>
             <div class="caption">
               <h5><%= hospital.name %></h5>
               <h5><%= hospital.address %></h5>
               <h5><%= hospital.city.name %></h5>
               <h5><%= hospital.state.name %></h5>
               <p><%= hospital.description %></p>
-              <p><a class="btn btn-primary" href="#">Action</a> <a class="btn" href="#">Action</a></p>
+              <p>
+                <%= link_to 'Visualizar', hospital_path(hospital), :class => "btn btn-primary" %>
+                <%= link_to 'Editar', edit_hospital_path(hospital), :class => "btn btn-warning" %>
+              </p>
             </div>
     </div>
 

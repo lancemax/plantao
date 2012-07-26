@@ -1,4 +1,4 @@
-<%= simple_form_for @hospital , :html => {:class => 'well form-horizontal',:multipart => true } do |f| %>
+<%= simple_form_for @hospital , :validate => true ,:html => {:class => 'well form-horizontal',:novalidate => true } do |f| %>
   <% if @hospital.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@hospital.errors.count, "error") %> prohibited this hospital from being saved:</h2>
@@ -47,7 +47,7 @@
   </div>
   <div class="control-group">
     <%= f.label 'Foto'  , :class => 'control-label' %>
-    <div class="controls"><%= f.file_field :photo ,:tittle => 'Procurar', :class => 'span5' %></div>
+    <div class="controls"><%= f.file_field :image ,:title => 'Procurar', :class => 'span5' %></div>
   </div>
   <div class="form-actions"><%= f.submit "Cadastrar", :class => "btn btn-primary" %></div>
 <% end %>

@@ -9,3 +9,4 @@ log/*.log
 tmp/**/*
 config/database.yml
 Gemfile.lock
+public/images/uploads/*
