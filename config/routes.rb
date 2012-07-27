@@ -21,11 +21,14 @@ Plantao::Application.routes.draw do
     get '/users/auth/:provider' => 'users/omniauth_callbacks#passthru'
   end
 
+  match 'showHospitals' => 'hospitals#index', :as => :showHospitals
+
 
 
   root :to => 'home#index'
   
   namespace :customer do
+    resources :jobs
     root :to => 'home#index'
 
   end

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class Customer::RequestsController < ApplicationController
   
   before_filter :authenticate_user!

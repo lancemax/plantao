@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class AreasController < ApplicationController
   # GET /areas
   # GET /areas.json

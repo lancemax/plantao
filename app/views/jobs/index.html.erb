@@ -1,35 +1,9 @@
-<h1>Listing jobs</h1>
 
-<table>
-  <tr>
-    <th>Hospital</th>
-    <th>Area</th>
-    <th>Dependencies</th>
-    <th>Date</th>
-    <th>Shift</th>
-    <th>Price</th>
-    <th>Description</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+<h1>Plantões</h1>
+<div class="well">
+        <p>Aqui você vai encontrar todos os plantões que estão disponiveis, plantões que foram cedidos por outros medicos, assim facilitando a manutenção do serviço nos hospitais e ajudando a evitar as faltas nos plantões e emergencias nos hospitais no Brasil.</p>
+    </div>
+    
+    <br clear="all" />
 
-<% @jobs.each do |job| %>
-  <tr>
-    <td><%= job.hospital_id %></td>
-    <td><%= job.area_id %></td>
-    <td><%= job.dependencies %></td>
-    <td><%= job.date %></td>
-    <td><%= job.shift_id %></td>
-    <td><%= job.price %></td>
-    <td><%= job.description %></td>
-    <td><%= link_to 'Show', job %></td>
-    <td><%= link_to 'Edit', edit_job_path(job) %></td>
-    <td><%= link_to 'Destroy', job, confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
-<% end %>
-</table>
 
-<br />
-
-<%= link_to 'New Job', new_job_path %>

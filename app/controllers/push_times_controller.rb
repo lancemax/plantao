@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class PushTimesController < ApplicationController
   # GET /push_times
   # GET /push_times.json

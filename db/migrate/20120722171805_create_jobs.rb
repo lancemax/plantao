@@ -3,6 +3,7 @@ class CreateJobs < ActiveRecord::Migration
     create_table :jobs do |t|
       t.integer :hospital_id
       t.integer :area_id
+      t.integer :user_id
       t.text :dependencies
       t.timestamp :date
       t.integer :shift_id

@@ -1,13 +1,23 @@
+# -*- coding: utf-8 -*-
 class HospitalsController < ApplicationController
   before_filter :authenticate_user!
   # GET /hospitals
   # GET /hospitals.json
+  
   def index
-    @hospitals = Hospital.all
+    @hospital = Hospital.new
+
+    if params[:hospital].nil?
+      @hospitals = Hospital.all
+    elsif params[:hospital][:state_id]==""
+      @hospitals = Hospital.all
+    else
+      @hospitals = Hospital.find_all_by_state_id(params[:hospital][:state_id],:order => "hospitals.id")
+    end
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @hospitals }
+      #format.json { render json: @hospitals }
     end
   end
 

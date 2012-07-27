@@ -1,7 +1,9 @@
 class User < ActiveRecord::Base
 
 	belongs_to :area
+  has_many :jobs
 	belongs_to :push_time
+  has_many :requests
 
 
 	ROLES = [:admin, :customer]
@@ -13,7 +15,7 @@ class User < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me, 
-  			:name, :phone, :cellphone,:workplace ,:provider, :uid
+  			:name, :phone, :cellphone,:workplace ,:provider, :uid, :area_id, :push_time_id, :minor_value
   # attr_accessible :title, :body
 
   def self.find_for_facebook_oauth(auth, signed_in_resource=nil)
@@ -55,4 +57,15 @@ class User < ActiveRecord::Base
       self.role == "#{role}"
     end
   end
+
+  #alterar dados sem necessidade de digitar a senha (Devise)
+  def update_with_password(params={}) 
+    if params[:password].blank? 
+      params.delete(:password) 
+      params.delete(:password_confirmation) if params[:password_confirmation].blank? 
+    end 
+    update_attributes(params) 
+  end
+
+
 end

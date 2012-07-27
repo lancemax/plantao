@@ -1,4 +1,4 @@
-<%= form_for(@job) do |f| %>
+<%= simple_form_for([:customer,@job] , :validate => true ,:html => {:class => 'well form-horizontal'}) do |f| %>
   <% if @job.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@job.errors.count, "error") %> prohibited this job from being saved:</h2>
@@ -11,35 +11,34 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :hospital_id %><br />
-    <%= f.number_field :hospital_id %>
+  <div class="control-group">
+    <%= f.association :hospital, :label => 'Hospital' %>
+    <%= f.association :area, :label => 'Especialidade' %>
   </div>
-  <div class="field">
-    <%= f.label :area_id %><br />
-    <%= f.number_field :area_id %>
+
+  <div class="control-group">
+    <%= f.label 'Pré-Requisitos'  , :class => 'control-label' %>
+    <div class="controls"><%= f.text_field :dependencies %></div>
   </div>
-  <div class="field">
-    <%= f.label :dependencies %><br />
-    <%= f.text_area :dependencies %>
+
+  <div class="control-group">
+    <%= f.label 'Data do Plantão'  , :class => 'control-label' %>
+    <div class="controls"><%= f.datetime_select :date,:order => [:day , :month, :year ],:prompt => {:day => 'Dia', :month => 'Mês', :year => 'Ano'},:class => 'date' %></div>
   </div>
-  <div class="field">
-    <%= f.label :date %><br />
-    <%= f.datetime_select :date %>
+
+  <div class="control-group">
+    <%= f.association :shift, :label => 'Turno/Horário' %>
   </div>
-  <div class="field">
-    <%= f.label :shift_id %><br />
-    <%= f.number_field :shift_id %>
+
+  <div class="control-group">
+    <%= f.label 'Valor do Plantão' , :class => 'control-label' %>
+    <div class="controls"><%= f.number_field :price %></div>
   </div>
-  <div class="field">
-    <%= f.label :price %><br />
-    <%= f.number_field :price %>
+
+  <div class="control-group">
+    <%= f.label 'Observações' , :class => 'control-label' %>
+    <div class="controls"><%= f.text_field :description %></div>
   </div>
-  <div class="field">
-    <%= f.label :description %><br />
-    <%= f.text_area :description %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  <%= f.hidden_field :user_id,:value => current_user.id %>
+  <div class="form-actions"><%= f.submit "Cadastrar", :class => "btn btn-primary" %></div>
 <% end %>

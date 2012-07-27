@@ -24,6 +24,11 @@
   </div>
 
   <div class="control-group">
+    <%= f.association :area, :label => 'Especialidade', :class => 'span3' %>
+    <div class="controls"></div>
+  </div>
+
+  <div class="control-group">
     <%= f.label 'Local de Trabalho' , :class => 'control-label' %>
     <div class="controls"><%= f.text_field :workplace, :class => 'span4' %></div>
   </div>
@@ -38,10 +43,10 @@
     <div class="controls"><%= f.password_field :password_confirmation %> </div>
   </div>
 
-  <div class="control-group">
+  <!--div class="control-group">
     <%= f.label 'Senha Atual' , :class => 'control-label' %>
     <div class="controls"><%= f.password_field :current_password %> <i>(Você precisa informar a senha atual para completar as alterações)</i></div>
-  </div>
+  </div-->
 
   <div class="form-actions"><%= f.submit "Editar", :class => "btn btn-primary" %></div>
 <% end %>

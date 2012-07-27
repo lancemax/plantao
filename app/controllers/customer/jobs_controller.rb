@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class Customer::JobsController < ApplicationController
 
   before_filter :authenticate_user!
@@ -6,7 +7,7 @@ class Customer::JobsController < ApplicationController
   # GET /jobs
   # GET /jobs.json
   def index
-    @jobs = Job.all
+    @jobs = Job.find_all_by_user_id(current_user,:order => "jobs.id DESC")
 
     respond_to do |format|
       format.html # index.html.erb
@@ -45,10 +46,10 @@ class Customer::JobsController < ApplicationController
   # POST /jobs.json
   def create
     @job = Job.new(params[:job])
-
+    p params[:job]
     respond_to do |format|
       if @job.save
-        format.html { redirect_to @job, notice: 'Job was successfully created.' }
+        format.html { redirect_to [:customer,@job], notice: 'Plantão Cadastrado com Sucesso.' }
         format.json { render json: @job, status: :created, location: @job }
       else
         format.html { render action: "new" }
@@ -64,7 +65,7 @@ class Customer::JobsController < ApplicationController
 
     respond_to do |format|
       if @job.update_attributes(params[:job])
-        format.html { redirect_to @job, notice: 'Job was successfully updated.' }
+        format.html { redirect_to @job, notice: 'Plantão Atualizado com Sucesso.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

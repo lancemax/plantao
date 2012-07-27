@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class ShiftsController < ApplicationController
   # GET /shifts
   # GET /shifts.json

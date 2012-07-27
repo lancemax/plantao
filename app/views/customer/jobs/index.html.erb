@@ -1,35 +1,39 @@
-<h1>Listing jobs</h1>
+<h1>Meus Plantões Cedidos</h1>
 
-<table>
-  <tr>
-    <th>Hospital</th>
-    <th>Area</th>
-    <th>Dependencies</th>
-    <th>Date</th>
-    <th>Shift</th>
-    <th>Price</th>
-    <th>Description</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+<table class="table table-striped table-bordered table-condensed">
+    <thead>
+        <tr>
+            <th>Hospital</th>
+            <th>Especialidade</th>
+            <th>Pré-Requisitos</th>
+            <th>Data</th>
+            <th>Turno</th>
+            <th>Valor</th>
+            <th>Obs</th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
 
 <% @jobs.each do |job| %>
-  <tr>
-    <td><%= job.hospital_id %></td>
-    <td><%= job.area_id %></td>
-    <td><%= job.dependencies %></td>
-    <td><%= job.date %></td>
-    <td><%= job.shift_id %></td>
-    <td><%= job.price %></td>
-    <td><%= job.description %></td>
-    <td><%= link_to 'Show', job %></td>
-    <td><%= link_to 'Edit', edit_job_path(job) %></td>
-    <td><%= link_to 'Destroy', job, confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
+    <tbody>
+        <tr>
+            <td><%= job.hospital.name %></td>
+            <td><%= job.area.name %></td>
+            <td><%= job.dependencies %></td>
+            <td><%= job.date.strftime("%d/%m/%Y - %H:%Mh") %></td>
+            <td><%= job.shift.name %></td>
+            <td><%= to_real(job.price) %></td>
+            <td><%= job.description %></td>
+            <td><%= link_to 'Show', job %></td>
+            <td><%= link_to 'Edit', edit_job_path(job) %></td>
+            <td><%= link_to 'Destroy', job, confirm: 'Are you sure?', method: :delete %></td>
+        </tr>
+    </tbody>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New Job', new_job_path %>
+<%= link_to 'New Job', new_customer_job_path %>
