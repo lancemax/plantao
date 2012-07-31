@@ -1,19 +1,22 @@
 # -*- coding: utf-8 -*-
 class HospitalsController < ApplicationController
-  before_filter :authenticate_user!
+  before_filter :authenticate_user! , :load_cities
   # GET /hospitals
   # GET /hospitals.json
   
   def index
     @hospital = Hospital.new
-
+    
+    
     if params[:hospital].nil?
       @hospitals = Hospital.all
-    elsif params[:hospital][:state_id]==""
+       p "sasasasas"
+    elsif params[:hospital][:state_id]=="" and params[:hospital][:city]==""
       @hospitals = Hospital.all
     else
-      @hospitals = Hospital.find_all_by_state_id(params[:hospital][:state_id],:order => "hospitals.id")
+      @hospitals = Hospital.find_all_by_state_id_and_city_id(params[:hospital][:state_id],params[:hospital][:city_id],:order => "hospitals.id")
     end
+
 
     respond_to do |format|
       format.html # index.html.erb
@@ -91,4 +94,8 @@ class HospitalsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+
+  
+
 end

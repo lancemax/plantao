@@ -20,7 +20,7 @@ Plantao::Application.routes.draw do
   devise_scope :user do 
     get '/users/auth/:provider' => 'users/omniauth_callbacks#passthru'
   end
-
+  match 'cities/load_cities/:state' => 'cities#load_cities'
   match 'showHospitals' => 'hospitals#index', :as => :showHospitals
 
 

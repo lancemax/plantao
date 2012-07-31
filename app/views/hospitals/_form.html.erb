@@ -34,10 +34,11 @@
   </div>
   
   <div class="control-group">
-    <%= f.association :state , :label => 'Estado', :multiple => true %>
-  
-    <% f.association :city , :label => 'Cidade', :collection => City.where(:state_id => 1) %>
-    <%= f.association :city , :label => 'Cidade' %>
+   <%= f.association :state , :prompt => "Escolha um estado", :label => 'Estado' %>
+    <label class="select required control-label" for="hospital_state_id"><abbr title="required">*</abbr> Cidade</label>
+    <div class="controls">
+      <select class="select required" id="result" name="hospital[city_id]"><option>Escolha uma cidade</option></select>
+    </div>
     
   </div>
 

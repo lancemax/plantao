@@ -1,0 +1,4 @@
+#app/views/people/load_cities.html.erb
+<% if @state %>
+<%= select(:person, :city_id, @cities) %>
+<% end %>

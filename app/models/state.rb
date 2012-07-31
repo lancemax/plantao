@@ -3,5 +3,5 @@ class State < ActiveRecord::Base
 	has_many :hospitals
 
 
-  attr_accessible :name, :acronym
+  	attr_accessible :name, :acronym
 end

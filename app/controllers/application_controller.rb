@@ -7,6 +7,18 @@ class ApplicationController < ActionController::Base
     redirect_to root_url, :alert => exception.message
   end
 
+  protected
+   def load_cities
+      unless params[:state_id].blank?
+       @state = State.find(params[:state_id])
+       @cities = @state.cities.collect { |c| [c.name, c.id] }
+       render :layout => false
+      end
+    end
+
+    
+
+
   private
   def after_sign_in_path_for(resource_or_scope)
     if current_user.role == 'admin'
