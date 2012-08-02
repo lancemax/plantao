@@ -6,6 +6,7 @@
   <div class="container">
     <div class="row-fluid">
 
+<<<<<<< HEAD
     <%= simple_form_for @hospital , :url => :showHospitals, :html => {:class => 'well form-horizontal'} do |f| %>
       Filtrar por:
       <%= f.association :state , :prompt => "Escolha um estado", :label => 'Estado' %>
@@ -16,8 +17,26 @@
         <%= link_to 'Cadastrar Hospital', new_hospital_path ,:class => "btn btn-primary" %>
       <% end %>
     <% end %>
+=======
+    <div class="span8"> 
+      <%= simple_form_for @hospital , :url => :showHospitals, :html => {:class => 'well form-horizontal'} do |f| %>
+      Filtrar por:
+      <%= f.association :state , :prompt => "Escolha um estado", :label => 'Estado' %>
+      <label class="select required control-label" for="hospital_state_id"><abbr title="required">*</abbr> Cidade</label>
+      <div class="controls">
+        <select class="select required input-medium" id="result" name="hospital[city_id]"><option>Escolha uma cidade</option></select>
+    </div>
+>>>>>>> 1100decb94381a568f438dbf7f04b2954a905889
 
 
+      
+      <%= f.button :submit, "Filtrar", :class => "btn btn-primary form-inline" %>
+      <% end %>
+    </div>
+    <div class="span4"> 
+    <%= link_to 'Cadastrar Hospital', new_hospital_path ,:class => "btn huge btn-success" %>  
+    </div> 
+    <br clear="all">
     <% @hospitals.each do |hospital| %>
 
         <div class="thumbnail span3">
