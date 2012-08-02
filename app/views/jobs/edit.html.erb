@@ -1,6 +1,17 @@
-<h1>Editar Plantão</h1>
 
-<%= render 'form' %>
+<div class="well hero">
+		<h1>Sistema de Plantões Médicos</h1>
 
-<%= link_to 'Visualizar', @job %> |
-<%= link_to 'Voltar', jobs_path %>
+	</div>
+  <div class="container">
+	    <div class="row-fluid">
+		    <div class="span8 destaque">
+				<h1>Editar Plantão</h1>
+
+				<%= render 'form' %>
+
+				<%= link_to 'Visualizar', @job , :class => "btn btn-primary"%> |
+				<%= link_to 'Voltar', jobs_path , :class => "btn btn-warning"%>
+			</div>	
+		</div>
+	</div>	
