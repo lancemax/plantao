@@ -35,10 +35,8 @@
   
   <div class="control-group">
    <%= f.association :state , :prompt => "Escolha um estado", :label => 'Estado' %>
-    <label class="select required control-label" for="hospital_state_id"><abbr title="required">*</abbr> Cidade</label>
-    <div class="controls">
-      <select class="select required" id="result" name="hospital[city_id]"><option>Escolha uma cidade</option></select>
-    </div>
+   <%= f.association :city ,:collection => City.find_all_by_state_id(@hospital.state_id), :prompt => "Escolha uma Cidade", :label => 'Cidade' %>
+    
     
   </div>
 

@@ -10,8 +10,7 @@ class HospitalsController < ApplicationController
     
     if params[:hospital].nil?
       @hospitals = Hospital.all
-       p "sasasasas"
-    elsif params[:hospital][:state_id]=="" and params[:hospital][:city]==""
+    elsif params[:hospital][:state_id]=="" and params[:hospital][:city_id]==""
       @hospitals = Hospital.all
     else
       @hospitals = Hospital.find_all_by_state_id_and_city_id(params[:hospital][:state_id],params[:hospital][:city_id],:order => "hospitals.id")

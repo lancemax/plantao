@@ -3,10 +3,7 @@
 <%= simple_form_for @hospital , :url => :showHospitals, :html => {:class => 'well form-horizontal'} do |f| %>
 Filtrar por:
 <%= f.association :state , :prompt => "Escolha um estado", :label => 'Estado' %>
-<label class="select required control-label" for="hospital_state_id"><abbr title="required">*</abbr> Cidade</label>
-<div class="controls">
-  <select class="select required" id="result" name="hospital[city_id]"><option>Escolha uma cidade</option></select>
-</div>
+<%= f.association :city ,:collection => City.find_all_by_state_id(0), :prompt => "Escolha uma Cidade", :label => 'Cidade' %>
 
 <br/><br/><br/>
 <%= f.button :submit, "Filtrar", :class => "btn btn-primary form-inline" %>

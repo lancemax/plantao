@@ -8,12 +8,12 @@ jQuery(document).ready(function(){
    
      estado=$(this).val();
     if(estado=="")
-      $("#result").html("<option>Escolha uma cidade</option>");	
+      $("#hospital_city_id").html("<option>Escolha uma cidade</option>");	
   	else
   	{	
 	   	$.post("/cities/load_cities/"+estado, function(data) {
-	      console.log(data);
-	      $("#result").html(data);
+	      //console.log(data);
+	      $("#hospital_city_id").html(data);
 	   	});
    }
 
