@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
 class HospitalsController < ApplicationController
-  before_filter :authenticate_user! , :load_cities
+  before_filter :authenticate_user!, :only => [:new,:create,:edit]
+  before_filter :load_cities  
+
   # GET /hospitals
   # GET /hospitals.json
   
   def index
     @hospital = Hospital.new
-    
     
     if params[:hospital].nil?
       @hospitals = Hospital.all

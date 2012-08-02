@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 class JobsController < ApplicationController
-
+  before_filter :authenticate_user!, :only => [:new,:create,:edit]
 
 	# GET /jobs
 	# GET /jobs.json

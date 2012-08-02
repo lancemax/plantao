@@ -28,7 +28,6 @@ Plantao::Application.routes.draw do
   root :to => 'home#index'
   
   namespace :customer do
-    resources :jobs
     root :to => 'home#index'
 
   end

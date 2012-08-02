@@ -20,25 +20,25 @@
                 <th>Hospital:</th><td><%= @job.hospital.name %></td>
             </tr>
             <tr>
-              <th>Address:</th><td><%= @job.hospital.address %></td>
+              <th>Endereço:</th><td><%= @job.hospital.address %></td>
             </tr>
             <tr>
-              <th>Complement:</th>  <td><%= @job.hospital.complement %></td>
+              <th>Complemento:</th>  <td><%= @job.hospital.complement %></td>
             </tr>
             <tr>
-              <th>Neighborhood:</th><td><%= @job.hospital.neighborhood %></td>
+              <th>Bairro:</th><td><%= @job.hospital.neighborhood %></td>
             </tr>
             <tr>
-              <th>City:</th><td><%= @job.hospital.city.name %></td>
+              <th>Cidade:</th><td><%= @job.hospital.city.name %></td>
             </tr>
             <tr>
-              <th>State:</th>  <td><%= @job.hospital.state.name %></td>
+              <th>Estado:</th>  <td><%= @job.hospital.state.name %></td>
             </tr>
             <tr>
-               <th>Description:</th> <td><%= @job.hospital.description %></td>
+               <th>Descrição do Hopsital:</th> <td><%= @job.hospital.description %></td>
             </tr>
             <tr>
-              <th>Área:</th> <td><%= @job.area.name %></td>
+              <th>Especialidade:</th> <td><%= @job.area.name %></td>
             </tr>
             <tr>
               <th>Médico Responsável:</th>  <td><%= @job.user.name %></td>
@@ -47,16 +47,22 @@
               <th>Pré-requisitos:</th> <td><%= @job.dependencies %></td>
             </tr> 
             <tr>
-               <th>Valor:</th> <td><%= @job.price %></td>
+               <th>Valor:</th> <td><%= to_real(@job.price) %></td>
             </tr>
             <tr>
               <th>Observações:</th> <td><%= @job.description %></td>
             </tr>
            </tbody>          
           </table>
-                <%= link_to 'Edit', edit_job_path(@job) ,:class => "btn btn-primary" %> 
+            <% if user_signed_in? %>
+              <% if current_user.id ==@job.user.id  %>
+                <%= link_to 'Editar', edit_job_path(@job) ,:class => "btn btn-primary" %> 
+              <% else %>
+                <%= link_to 'Candidatar', new_request_path(@job) ,:class => "btn btn-primary" %> 
+              <% end %>
+            <% end %>
                
-                <%= link_to 'Back', jobs_path , :class => "btn btn-warning" %>
+                <%= link_to 'Voltar', jobs_path , :class => "btn btn-warning" %>
       </div>
       
     </div>

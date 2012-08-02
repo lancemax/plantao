@@ -24,6 +24,15 @@
 	</div>
 
 	<div class="control-group">
+    	<%= f.association :shift, :label => 'Turno/Horário',:collection => Shift.all(:order => 'shifts.id') %>
+  	</div>
+
+  	<div class="control-group">
+  	  <%= f.label 'Data do Plantão'  , :class => 'control-label' %>
+    	<div class="controls"><%= f.datetime_select :date,:order => [:day , :month, :year ],:prompt => {:day => 'Dia', :month => 'Mês', :year => 'Ano'},:class => 'date' %></div>
+  	</div>
+
+	<div class="control-group">
 		<%= f.label 'Valor'  , :class => 'control-label' %>
 	<div class="controls"><%= f.text_field :price, :class => 'span2' %></div>
 	</div>
