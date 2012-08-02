@@ -6,28 +6,18 @@
   <div class="container">
     <div class="row-fluid">
 
-<<<<<<< HEAD
-    <%= simple_form_for @hospital , :url => :showHospitals, :html => {:class => 'well form-horizontal'} do |f| %>
-      Filtrar por:
-      <%= f.association :state , :prompt => "Escolha um estado", :label => 'Estado' %>
-      <%= f.association :city ,:collection => City.find_all_by_state_id(0), :prompt => "Escolha uma Cidade", :label => 'Cidade' %>
-      
-      <%= f.button :submit, "Filtrar", :class => "btn btn-primary form-inline" %>
-      <% if user_signed_in? %>
-        <%= link_to 'Cadastrar Hospital', new_hospital_path ,:class => "btn btn-primary" %>
-      <% end %>
-    <% end %>
-=======
-    <div class="span8"> 
-      <%= simple_form_for @hospital , :url => :showHospitals, :html => {:class => 'well form-horizontal'} do |f| %>
-      Filtrar por:
-      <%= f.association :state , :prompt => "Escolha um estado", :label => 'Estado' %>
-      <label class="select required control-label" for="hospital_state_id"><abbr title="required">*</abbr> Cidade</label>
-      <div class="controls">
-        <select class="select required input-medium" id="result" name="hospital[city_id]"><option>Escolha uma cidade</option></select>
-    </div>
->>>>>>> 1100decb94381a568f438dbf7f04b2954a905889
-
+       <div class="span8"> 
+          <%= simple_form_for @hospital , :url => :showHospitals, :html => {:class => 'well form-horizontal'} do |f| %>
+            Filtrar por:
+            <%= f.association :state , :prompt => "Escolha um estado", :label => 'Estado' %>
+            <%= f.association :city ,:collection => City.find_all_by_state_id(0), :prompt => "Escolha uma Cidade", :label => 'Cidade' %>
+            
+            <%= f.button :submit, "Filtrar", :class => "btn btn-primary form-inline" %>
+            <% if user_signed_in? %>
+              <%= link_to 'Cadastrar Hospital', new_hospital_path ,:class => "btn btn-primary" %>
+            <% end %>
+          <% end %>
+        </div>
 
       
       <%= f.button :submit, "Filtrar", :class => "btn btn-primary form-inline" %>
