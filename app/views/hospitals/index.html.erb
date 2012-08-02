@@ -13,18 +13,15 @@
             <%= f.association :city ,:collection => City.find_all_by_state_id(0), :prompt => "Escolha uma Cidade", :label => 'Cidade' %>
             
             <%= f.button :submit, "Filtrar", :class => "btn btn-primary form-inline" %>
-            <% if user_signed_in? %>
-              <%= link_to 'Cadastrar Hospital', new_hospital_path ,:class => "btn btn-primary" %>
-            <% end %>
-          <% end %>
-        </div>
-
+            
+     
       
-      <%= f.button :submit, "Filtrar", :class => "btn btn-primary form-inline" %>
       <% end %>
     </div>
     <div class="span4"> 
-    <%= link_to 'Cadastrar Hospital', new_hospital_path ,:class => "btn huge btn-success" %>  
+      <% if user_signed_in? %> 
+        <%= link_to 'Cadastrar Hospital', new_hospital_path ,:class => "btn huge btn-success" %>  
+      <% end %>
     </div> 
     <br clear="all">
     <% @hospitals.each do |hospital| %>
