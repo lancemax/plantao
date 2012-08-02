@@ -15,4 +15,6 @@
 //= require jquery_ujs
 //= require twitter/bootstrap
 //= require states.js
+//= require jquery.maskmoney.js
+//= require jobs.js
 // require_tree .

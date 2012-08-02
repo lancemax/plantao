@@ -1,15 +1,118 @@
 # -*- coding: utf-8 -*-
 class JobsController < ApplicationController
 
-  
-  # GET /jobs
-  # GET /jobs.json
-  def index
-    @jobs = Job.all
+
+	# GET /jobs
+	# GET /jobs.json
+	def index
+	@jobs = Job.all
+
+	respond_to do |format|
+	  format.html # index.html.erb
+	  format.json { render json: @jobs }
+	end
+	end
+
+
+
+  # GET /jobs/new
+  # GET /jobs/new.json
+  def new
+    @job = Job.new
 
     respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @jobs }
+      format.html # new.html.erb
+      format.json { render json: @job }
     end
   end
+
+  # POST /jobs
+  # POST /jobs.json
+  def create
+    
+	setMoney(params[:job][:price])
+
+	if params[:job][:price].to_f <= 0.00
+			  @name = "O valor não pode ser negativo "
+	 			@sucesso = false
+				return false
+	end
+
+
+	if params[:job][:price].to_f > 9999.99
+		  @name = "O valor não pode ser maior que R$9.999,99 "
+ 			@sucesso = false
+			return false
+	end
+
+	@job = Job.new(params[:job])
+    @job.user_id = current_user.id
+    @job.date = Time.now
+    respond_to do |format|
+      if @job.save
+        format.html { redirect_to @job, notice: 'Plantão Criado com Sucesso.' }
+        format.json { render json: @job, status: :created, location: @job }
+      else
+        format.html { render action: "new" }
+        format.json { render json: @job.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+	
+
+   # GET /jobs/1
+  # GET /jobs/1.json
+  def show
+    @job = Job.find(params[:id])
+    respond_to do |format|
+      format.html # show.html.erb
+      format.json { render json: @job }
+    end
+  end
+
+
+ # GET /jobs/1/edit
+  def edit
+    @job = Job.find(params[:id])
+  end
+  # PUT /jobs/1
+  # PUT /jobs/1.json
+  def update
+	setMoney(params[:job][:price])
+
+	if params[:job][:price].to_f <= 0.00
+			  @name = "O valor não pode ser negativo "
+	 			@sucesso = false
+				return false
+	end
+
+
+	if params[:job][:price].to_f > 9999.99
+		  @name = "O valor não pode ser maior que R$9.999,99 "
+ 			@sucesso = false
+			return false
+	end
+
+    @job = Job.find(params[:id])
+
+    respond_to do |format|
+      if @job.update_attributes(params[:job])
+        format.html { redirect_to @job, notice: 'job atualizado com Sucesso.' }
+        format.json { head :no_content }
+      else
+        format.html { render action: "edit" }
+        format.json { render json: @job.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def setMoney(value)
+		if value.gsub!(".","")
+			#retira o '.' caso o numero seja maior que 999 (Ex: 1.323,00)
+		end
+		 value.gsub!(",",".")
+		 value.gsub!("R$ ","")
+		 value.gsub!("-","")
+
+	end
 end

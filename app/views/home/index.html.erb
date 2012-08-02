@@ -1,11 +1,25 @@
 <div class="content">
-	<h2>Sistema de Plantões Médicos</h2>
-	<div class="well">
-		<p>Plantão Net é um sistema especializado para ajudar você (Médico) a encontrar Substitutos para um plantão, ou você que está a procura de trabalhar em algum plantão. Design facilitado para que você veja todos os plantões da sua area de atuação, sua cidade e dia da semana...</p>
+	
+	<div class="well hero">
+		<h1>Sistema de Plantões Médicos</h1>
+
 	</div>
+  <div class="container">
+	    <div class="row-fluid">
+		    <div class="span8 destaque">
+				<p>Plantão Net é um sistema especializado para ajudar você (Médico) a encontrar Substitutos para um plantão, ou você que está a procura de trabalhar em algum plantão. Design facilitado para que você </p>    
+				
+			</div>
+			 <div class="span4">
+		     	<%= link_to('Cadastre-se', new_user_session_path, :class => 'btn huge btn-success')  %>
+		    </div>	
+		     <div class="span12 destaque">
+		    <%=image_tag "/images/doctors.jpg" , :class => 'medicos' %> 
+		      </div>
+	  	</div> 
+	 <br clear="all" />
 	
-	<br clear="all" />
+	</div> 
 	
-	<%= link_to "Sign in with Facebook", user_omniauth_authorize_path(:facebook) %>
-	<%= link_to "Sign in with Google", user_omniauth_authorize_path(:google_oauth2) %>
+	
 </div>

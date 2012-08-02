@@ -1,5 +1,5 @@
 <div class="navbar navbar-fixed-top">	
-		<div class="navbar-inner">
+		
 			<div class="container">
 				<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
 					<span class="icon-bar"></span>
@@ -10,7 +10,7 @@
 
 				<div class="nav-collapse">
 
-					<ul class="nav btn-inverse">
+					<ul class="nav">
 						<li ><a href="/"><i class="icon-white icon-ok"></i>Inicio</a></li>
 						<li><a href="/jobs"><i class="icon-white icon-check"></i>Plantões</a></li>
 						<li><a href="/hospitals"><i class="icon-white icon-share-alt"></i>Hospitais</a></li>
@@ -28,6 +28,7 @@
 							
 
 							<div class="btn-group pull-right">
+	
 								<a class="btn btn-primary" href="#">
 									<b style="color:#fff">
 			       					<%= current_user.name %>
@@ -76,17 +77,18 @@
 
 						
 					<% else %>
-					<!--div class="btn-group pull-right">
-						<ul class="nav" >
-							<li>LOGIN:</li>
-						</ul>
-						<a href="/auth/facebook">
-							<%= image_tag "fblogin.png", :title => "Facebook" %>
-						</a>
+					<div class="btn-group pull-right">
 						
-					</div-->
+						<!--a href="<%= user_omniauth_authorize_path(:facebook) %>">
+							<%= image_tag "fblogin.png", :title => "Facebook" %>
+						</a-->
+						
+						<%= link_to('Sign in with Facebook',user_omniauth_authorize_path(:facebook), :class => 'btn btn-large btn-primary')  %>
+						<%= link_to('Sign in with Google', user_omniauth_authorize_path(:google_oauth2), :class => 'btn btn-large btn-primary')  %>
+						
+					</div>
 					<% end %>
 				</div><!--/.nav-collapse -->
 			</div>
-		</div>
+		
 	</div>
