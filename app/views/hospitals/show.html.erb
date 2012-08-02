@@ -27,12 +27,12 @@
 
 <p>
   <b>City:</b>
-  <%= @hospital.city_id %>
+  <%= @hospital.city.name %>
 </p>
 
 <p>
   <b>State:</b>
-  <%= @hospital.state_id %>
+  <%= @hospital.state.name %>
 </p>
 
 <p>
@@ -46,5 +46,5 @@
 </p>
 
 
-<%= link_to 'Edit', edit_hospital_path(@hospital) %> |
-<%= link_to 'Back', hospitals_path %>
+<%= link_to 'Edit', edit_hospital_path(@hospital) ,:class => "btn btn-primary" %> |
+<%= link_to 'Back', hospitals_path , :class => "btn btn-warning" %>

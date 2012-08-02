@@ -10,7 +10,6 @@ class HospitalsController < ApplicationController
     
     if params[:hospital].nil?
       @hospitals = Hospital.all
-       p "sasasasas"
     elsif params[:hospital][:state_id]=="" and params[:hospital][:city]==""
       @hospitals = Hospital.all
     else

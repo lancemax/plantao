@@ -1,9 +1,38 @@
 
-<h1>Plantões</h1>
-<div class="well">
-        <p>Aqui você vai encontrar todos os plantões que estão disponiveis, plantões que foram cedidos por outros medicos, assim facilitando a manutenção do serviço nos hospitais e ajudando a evitar as faltas nos plantões e emergencias nos hospitais no Brasil.</p>
-    </div>
+
+<div class="well hero">
+	<h1>Plantões</h1>
+       
+</div>
+  <div class="container">
+    <div class="row-fluid">
+
+	    <div class="span10">
+	 		<h2>Aqui você vai encontrar todos os plantões que estão disponiveis, plantões que foram cedidos por outros médicos, assim facilitando a manutenção do serviço nos hospitais e ajudando a evitar as faltas nos plantões e emergencias nos hospitais no Brasil.</h2>
+
+	    </div> 
+	    <div class="span2">
+			<%= link_to 'Cadastrar Plantão', new_job_path ,:class => "btn huge btn-success" %>
+		</div> 
+	    <br clear="all" />
+		<br clear="all" />
+	    <% @jobs.each do |job| %>
     
-    <br clear="all" />
+        <table class="table well span3">
+			 <tr> <th>Área:</th><td><%= job.area.name %></td> </tr>
+			 <tr> <th>Valor:</th><td><%= job.price%></td> </tr>
+             <tr> <th>Hospital:</th><td><%= job.hospital.name %></td></tr>
+             <tr> <th>Cidade:</th><td><%= job.hospital.city.name %></td> </tr>
+             <tr> <th>Estado:</th><td><%= job.hospital.state.name %></td> </tr>
+              
+              <tr>
+              	<td colspan="2" align="right"><%= link_to 'Visualizar', job_path(job), :class => "btn btn-inverse" %></td>
+              </tr>
+        </table>
+	    
 
 
+		<% end %>
+
+  </div> 
+</div> 

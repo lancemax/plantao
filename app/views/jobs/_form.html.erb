@@ -1,0 +1,40 @@
+<%= simple_form_for @job , :validate => true ,:html => {:class => 'well form-horizontal',:novalidate => true } do |f| %>
+  <% if @job.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@job.errors.count, "error") %> prohibited this job from being saved:</h2>
+
+      <ul>
+      <% @job.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>  
+  <% end %>
+	<div class="control-group">
+		<%= f.association :hospital , :prompt => "Escolha um Hospital", :label => 'Hospital' %>
+	</div>
+
+	<div class="control-group">
+		<%= f.association :area , :prompt => "Escolha uma Área", :label => 'Área' %>
+	</div>
+
+	<div class="control-group">
+		<%= f.label 'Pré_requisitos'  , :class => 'control-label' %>
+	<div class="controls"><%= f.text_area :dependencies,:rows => 4 %></div>
+	</div>
+
+	<div class="control-group">
+		<%= f.label 'Valor'  , :class => 'control-label' %>
+	<div class="controls"><%= f.text_field :price, :class => 'span2' %></div>
+	</div>
+
+	<div class="control-group">
+		<%= f.label 'Observações'  , :class => 'control-label' %>
+		<div class="controls">
+			<%= f.text_area :description, :rows => 4,:cols => 860 ,:maxlength => 140 %>
+		</div>
+	</div>
+
+ 
+  <div class="form-actions"><%= f.submit "Cadastrar", :class => "btn btn-primary" %></div>
+<% end %>
