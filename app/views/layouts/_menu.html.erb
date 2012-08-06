@@ -11,15 +11,18 @@
 				<div class="nav-collapse">
 
 					<ul class="nav">
-						<li ><a href="/"><i class="icon-white icon-ok"></i>Inicio</a></li>
-						<li><a href="/jobs"><i class="icon-white icon-check"></i>Plantões</a></li>
-						<li><a href="/hospitals"><i class="icon-white icon-share-alt"></i>Hospitais</a></li>
+						<li ><a href="/"><i class="icon-white icon-home"></i>Inicio</a></li>
+						<li><a href="/jobs"><i class="icon-white icon-time"></i>Plantões</a></li>
+						<li><a href="/hospitals"><i class="icon-white  icon-plus-sign"></i>Hospitais</a></li>
 						<!--li><a href="/package"><i class="icon-white icon-shopping-cart"></i>Comprar Lances</a></li-->
 						<% if user_signed_in? %>
 								<li><a href="/customer"><i class="icon-white icon-home"></i>Minha Conta</a></li>
 						<% else %>
-							<li><%= link_to('login', new_user_session_path)  %></li>
-							<li><%= link_to('Cadastre-se', new_user_registration_path)  %></li>
+							<li><a href="/users/sign_in"><i class="icon-white icon-user"></i>Login</a>
+								<% link_to('login', new_user_session_path)  %>
+							</li>
+							<li><a href="/users/sign_up"><i class="icon-white icon-pencil"></i>Cadastre-se</a>
+								<% link_to('Cadastre-se', new_user_registration_path)  %></li>
 						<% end %>
 						
 					</ul>
@@ -29,7 +32,7 @@
 
 							<div class="btn-group pull-right">
 	
-								<a class="btn btn-primary" href="#">
+								<a class="btn btn-primary" href="#"><i class="icon-white icon-user"></i>
 									<b style="color:#fff">
 			       					<%= current_user.name %>
 			       				</b>
@@ -77,14 +80,17 @@
 
 						
 					<% else %>
-					<div class="btn-group pull-right">
-						
+					<div class="pull-right">
+						<b class="btn">Login com:</b>
 						<!--a href="<%= user_omniauth_authorize_path(:facebook) %>">
 							<%= image_tag "fblogin.png", :title => "Facebook" %>
 						</a-->
-						
-						<%= link_to('Sign in with Facebook',user_omniauth_authorize_path(:facebook), :class => 'btn btn-large btn-primary')  %>
-						<%= link_to('Sign in with Google', user_omniauth_authorize_path(:google_oauth2), :class => 'btn btn-large btn-primary')  %>
+						<%= link_to image_tag('facebook.png'),user_omniauth_authorize_path(:facebook)  %>
+						<%= link_to image_tag('google.png'), user_omniauth_authorize_path(:google_oauth2) %>
+
+
+						<% link_to('Login com Facebook',user_omniauth_authorize_path(:facebook), :class => 'btn btn-large btn-primary')  %>
+						<% link_to('Login com Google', user_omniauth_authorize_path(:google_oauth2), :class => 'btn btn-large btn-primary')  %>
 						
 					</div>
 					<% end %>

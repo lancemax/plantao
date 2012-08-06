@@ -97,7 +97,7 @@ class JobsController < ApplicationController
 
     respond_to do |format|
       if @job.update_attributes(params[:job])
-        format.html { redirect_to @job, notice: 'job atualizado com Sucesso.' }
+        format.html { redirect_to @job, notice: 'Plantão atualizado com Sucesso.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
