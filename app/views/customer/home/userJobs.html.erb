@@ -10,6 +10,8 @@
             <th>Turno</th>
             <th>Valor</th>
             <th>Obs</th>
+            <th>Candidatos</th>
+            <th></th>
             <th></th>
             <th></th>
        
@@ -24,11 +26,15 @@
             <td><%= job.area.name %></td>
             <td><%= job.dependencies %></td>
             <td><%= job.date.strftime("%d/%m/%Y - %H:%Mh") %></td>
-            <td><%= job.shift.name %></td>
+            <td><%= job.try(:shift).try(:name) %></td>
             <td><%= to_real(job.price) %></td>
             <td><%= job.description %></td>
+            <td><%= job.requests.count %></td>
             <td><%= link_to 'Ver', job %></td>
-            <td><%= link_to 'Editar', edit_job_path(job) %></td>
+            <% if job.request_id.nil? %>
+                 <td><%= link_to 'Editar', edit_job_path(job) %></td>
+                 <td><%= link_to 'Excluir', job_path(job) , confirm: 'Você tem Certeza?', method: :delete, :remote => true %></td>
+            <% end %> 
         </tr>
     </tbody>
 <% end %>

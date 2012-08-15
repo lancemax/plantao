@@ -72,7 +72,7 @@ class Customer::RequestsController < ApplicationController
     @job = Job.find_by_id(@request.job_id)
     respond_to do |format|
       #caso o moderador ainda não tenho escolhido, ou ele escolheu um candidato diferente do current. então deleta
-      if @job.request_id.nil? or @job.request_id != @request.id
+      if @job.request_id.nil?
         @request.destroy  
         @deletou = 'sim'
         format.js

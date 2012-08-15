@@ -8,4 +8,6 @@ class Job < ActiveRecord::Base
 
   attr_accessible :area_id, :date, :dependencies, :description, :hospital_id, :price, :shift_id, :user_id, :request_id
   validates_presence_of :hospital_id, :area_id , :price
+
+
 end

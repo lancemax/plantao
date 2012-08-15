@@ -1,26 +1,35 @@
-<h2>Acessar PlantãoNet</h2>
+<div class="well hero">
+    <h1>Acessar PlantãoNet</h1>
 
-<%= simple_form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => {:class => 'well form-horizontal' }) do |f| %>
-  <div class="control-group">
-  	<%= f.label 'Email' 	, :class => 'control-label' %>
-  	<div class="controls"><%= f.email_field :email, :class => 'span3' %></div>
   </div>
+  <div class="container">
+      <div class="row-fluid">
+        <div class="span8 destaque">
+         
 
-  <div class="control-group">
-  	<%= f.label 'Senha', :class => 'control-label' %>
-  	<div class="controls"><%= f.password_field :password, :class => 'span3' %></div>
+        <%= simple_form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => {:class => 'well form-horizontal' }) do |f| %>
+          <div class="control-group">
+          	<%= f.label 'Email' 	, :class => 'control-label' %>
+          	<div class="controls"><%= f.email_field :email, :class => 'span3' %></div>
+          </div>
+
+          <div class="control-group">
+          	<%= f.label 'Senha', :class => 'control-label' %>
+          	<div class="controls"><%= f.password_field :password, :class => 'span3' %></div>
+          </div>
+
+          <% if devise_mapping.rememberable? -%>
+
+            <div class="control-group">
+          	
+          	<div class="controls"><%= f.check_box :remember_me %> Lembrar-me</div>
+
+          	 </div>
+          <% end -%>
+
+          <div class="form-actions"><%= f.submit "Entrar", :class => "btn huge btn-success" %></div>
+        <% end %>
+
+      </div> 
+    </div> 
   </div>
-
-  <% if devise_mapping.rememberable? -%>
-
-    <div class="control-group">
-  	
-  	<div class="controls"><%= f.check_box :remember_me %> Lembrar-me</div>
-
-  	 </div>
-  <% end -%>
-
-  <div class="form-actions"><%= f.submit "Entrar", :class => "btn btn-success" %></div>
-<% end %>
-
-<%= render "links" %>

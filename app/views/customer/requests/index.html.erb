@@ -27,7 +27,13 @@
     </td>
     
     <td><%= link_to 'Ver', customer_request_path(request) %></td>
-    <td><%= link_to 'Desistir', customer_request_path(request), confirm: 'Você tem Certeza?', method: :delete, :remote => true %></td>
+    <% if request.job.request_id.nil? %>
+      <td><%= link_to 'Desistir', customer_request_path(request), confirm: 'Você tem Certeza?', method: :delete, :remote => true %>
+      </td>
+     <% elsif  request.job.request_id == request.id %>  
+       <td><%= link_to 'Solicitar Desistência', customer_request_path(request), confirm: 'A desistência depende da aceitação do moderador desse plantão.Você tem certeza que deseja continuar?', method: :delete, :remote => true %>
+        </td>
+    <% end %> 
   </tr>
 <% end %>
 </table>

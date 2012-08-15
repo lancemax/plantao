@@ -64,11 +64,7 @@ class JobsController < ApplicationController
   # GET /jobs/1.json
   def show
     @job = Job.find(params[:id])
-    #se o current_user é o dono do plantão, procurar os candidatos ao mesmo...
-    if @job.user_id == current_user.id
-      @request = Request.find_all_by_job_id(@job.id)
-      p @request
-    end
+   
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @job }

@@ -15,6 +15,8 @@ class Customer::HomeController < ApplicationController
   def userJobs
   	authorize! :customer_home, ""
   	@jobs = Job.find_all_by_user_id(current_user.id)
+    
+    
   	 
   end
 
