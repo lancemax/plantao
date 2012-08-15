@@ -36,16 +36,19 @@ class Customer::RequestsController < ApplicationController
   # POST /requests.json
   def create
     @request = Request.new(params[:request])
-    @request.user_id = current_user.id
-    
-    respond_to do |format|
-      if @request.save
-        @name='Você se candidatou a esse plantão com sucesso.'
-        format.js
-      else
-        @name='Não foi possivel completar sua requisição'
+    @verifica = Request.where(:user_id => current_user.id,:job_id =>@request.job_id).first
+    unless @verifica
+      @request.user_id = current_user.id
+      respond_to do |format|
+        if @request.save
+          @name='Você se candidatou a esse plantão com sucesso.'
+          format.js
+        else
+          @name='Não foi possivel completar sua requisição'
+        end
       end
-    end
+    end 
+     
   end
 
   # PUT /requests/1
@@ -73,7 +76,7 @@ class Customer::RequestsController < ApplicationController
     respond_to do |format|
       #caso o moderador ainda não tenho escolhido, ou ele escolheu um candidato diferente do current. então deleta
       if @job.request_id.nil?
-        @request.destroy  
+        @request.uptdate(@request.id, :quit)
         @deletou = 'sim'
         format.js
       else

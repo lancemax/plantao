@@ -9785,3 +9785,14 @@ City.create!(:state_id=>'27',:name=>'Tupiratins')
 City.create!(:state_id=>'27',:name=>'Venus')
 City.create!(:state_id=>'27',:name=>'Wanderlandia')
 City.create!(:state_id=>'27',:name=>'Xambioa')
+
+Status_request.create!(:name=>'aguardando resposta')
+Status_request.create!(:name=>'aceito')
+Status_request.create!(:name=>'negado')
+Status_request.create!(:name=>'cancelado')
+Status_request.create!(:name=>'solicitação de desistência')
+Status_request.create!(:name=>'desistente')
+
+
+
+

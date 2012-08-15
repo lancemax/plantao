@@ -20,12 +20,12 @@
 
 	<ul class="thumbnails">
 		<% @jobs.each do |job| %>
-	    	<li class="span3 white">
+	    	<a href="<%=  job_path(job) %>"><li class="span3 white">
 		        <table class="table table-condensed	caixa thumbnail" >
 		        	<thead>
 		        	<tr>
 		        		<th colspan="2">
-		        			<h4><%= job.area.name %> (<%= job.hospital.city.name %> - <%= job.hospital.state.acronym %>) </h4>
+		        			<h4><%= job.area.name %> <br>(<%= job.hospital.city.name %> - <%= job.hospital.state.acronym %>) </h4>
 		        		</th>
 		        	</tr>
 		        	 <tr>
@@ -45,15 +45,22 @@
 						<td><%= truncate(job.user.name,:ommision => "...", :length => 30) %></td> 
 					</tr>
 		            <tr>
-		            	<td>
-		            			<%= link_to 'Ver', job_path(job), :class => "btn btn-inverse" %>
-		            	</td>
-		            	<td>
-		            			<% if current_user.id != job.user_id %>
-		            				<%= simple_form_for [:customer,@request],:html => {:class => 'form-inline'}, :remote => true  do |f| %>
-		            					<%= f.hidden_field :job_id ,:value => job.id %>
-		            					<%= f.submit "Pegar Plantão", :class => "btn btn-success" %>
-		            				<% end %>
+		            
+
+		            	<td colspan="2">
+		            			<% if user_signed_in? %>
+			            			<% if !Request.where(:user_id => current_user.id,:job_id =>job.id).first %>
+				            			<% if current_user.id != job.user_id  %>
+				            				<%= simple_form_for [:customer,@request],:html => {:class => 'form-inline'}, :remote => true  do |f| %>
+				            					<%= f.hidden_field :job_id ,:value => job.id %>
+				            					<%= f.submit "Pegar Plantão", :class => "btn btn-success" %>
+				            				<% end %>
+				            			<% else %>	
+				            			<div class="btn">Meu Plantão</div>
+				            			<% end %>
+				            		<% else  %>		
+				            			<div class="btn btn-warning">Pleiteado</div>
+				            		<% end %>	
 		            			<% end %>
 		            	</td>
 		             </tr>
@@ -61,7 +68,7 @@
 
 		        </table>
 		    </li>
-
+		</a>
 	      
 	        <!--div class="thumbnail span3">
 					<h4><%= job.area.name %> (<%= job.hospital.city.name %> - <%= job.hospital.state.acronym %>) </h4>
