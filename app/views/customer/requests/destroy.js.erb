@@ -1,0 +1,5 @@
+<% if @deletou == 'sim' %>
+	 window.location = "<%= customer_requests_path %>";
+<% else %>
+ alert(unescape("<%= @name %>"));
+<% end %>

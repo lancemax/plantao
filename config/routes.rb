@@ -1,5 +1,5 @@
 Plantao::Application.routes.draw do
-  resources :requests
+  
 
   resources :shifts
 
@@ -23,11 +23,14 @@ Plantao::Application.routes.draw do
   match 'cities/load_cities/:state' => 'cities#load_cities'
   match 'showHospitals' => 'hospitals#index', :as => :showHospitals
 
-
+  
+  match 'myJobs' => 'customer/home#userJobs', :as => :my_jobs
+  match 'setJobRequest' => 'customer/home#setJobRequest', :as => :setJobRequest
 
   root :to => 'home#index'
   
   namespace :customer do
+    resources :requests
     root :to => 'home#index'
 
   end

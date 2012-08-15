@@ -45,8 +45,16 @@
 						<td><%= truncate(job.user.name,:ommision => "...", :length => 30) %></td> 
 					</tr>
 		            <tr>
-		            	<td colspan="2">
-		            			<%= link_to 'Visualizar', job_path(job), :class => "btn btn-inverse" %>
+		            	<td>
+		            			<%= link_to 'Ver', job_path(job), :class => "btn btn-inverse" %>
+		            	</td>
+		            	<td>
+		            			<% if current_user.id != job.user_id %>
+		            				<%= simple_form_for [:customer,@request],:html => {:class => 'form-inline'}, :remote => true  do |f| %>
+		            					<%= f.hidden_field :job_id ,:value => job.id %>
+		            					<%= f.submit "Pegar Plantão", :class => "btn btn-success" %>
+		            				<% end %>
+		            			<% end %>
 		            	</td>
 		             </tr>
 		             </thead>

@@ -4,7 +4,8 @@ class Job < ActiveRecord::Base
 	belongs_to :shift
 	belongs_to :user
 	has_many :requests
+	has_one :request
 
-  attr_accessible :area_id, :date, :dependencies, :description, :hospital_id, :price, :shift_id, :user_id
+  attr_accessible :area_id, :date, :dependencies, :description, :hospital_id, :price, :shift_id, :user_id, :request_id
   validates_presence_of :hospital_id, :area_id , :price
 end

@@ -62,9 +62,40 @@
               <% end %>
             <% end %>
                
-                <%= link_to 'Voltar', jobs_path , :class => "btn btn-warning" %>
+            <%= link_to 'Voltar', jobs_path , :class => "btn btn-warning" %>
+            <% if @request.empty? %>
+              <div class="btn btn-warning">Nenhum Candidato ao Plantão</div>
+            <% else %>
+              <div class="btn btn-success" data-toggle="collapse" data-target="#candidatos"><%= @request.count %> Cadidatos</div><br clear="all" />
+            <% end %>
+            <div class="collapse out" id="candidatos">
+              <table class="table table-striped table-bordered table-condensed">
+                <tr>
+                  <th>Nome</th>
+                  <th>Especialidade</th>
+                  <th>Email</th>
+                  <th></th>
+                </tr>
+              <% @request.each do |cand| %>
+              <tr>
+                <td><%=cand.user.name%></td>
+                <td><%=cand.user.try(:area).try(:name)%></td>
+                <td><%=cand.user.email%></td>
+                <td>
+                    <%= simple_form_for :job, :url => '/setJobRequest' ,:html => {:confirm => 'Voce',:class => 'form-inline'}, :remote => true  do |f| %>
+                          <%= f.hidden_field :job_id ,:value => @job.id %>
+                          <%= f.hidden_field :request_id ,:value => cand.id %>
+                          <%= f.submit "Eleger", :class => "btn btn-success" %>
+                        <% end %>
+                </td>
+              </tr>
+              <% end %>      
+            </div>
       </div>
+    
       
+
+
     </div>
   </div>
 

@@ -9,6 +9,7 @@ class CreateJobs < ActiveRecord::Migration
       t.integer :shift_id
       t.integer :price
       t.text :description
+      t.integer :request_id
 
       t.timestamps
     end

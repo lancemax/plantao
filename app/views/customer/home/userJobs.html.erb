@@ -12,11 +12,12 @@
             <th>Obs</th>
             <th></th>
             <th></th>
-            <th></th>
+       
         </tr>
     </thead>
 
 <% @jobs.each do |job| %>
+<% p job %>
     <tbody>
         <tr>
             <td><%= job.hospital.name %></td>
@@ -26,14 +27,10 @@
             <td><%= job.shift.name %></td>
             <td><%= to_real(job.price) %></td>
             <td><%= job.description %></td>
-            <td><%= link_to 'Show', job %></td>
-            <td><%= link_to 'Edit', edit_job_path(job) %></td>
-            <td><%= link_to 'Destroy', job, confirm: 'Are you sure?', method: :delete %></td>
+            <td><%= link_to 'Ver', job %></td>
+            <td><%= link_to 'Editar', edit_job_path(job) %></td>
         </tr>
     </tbody>
 <% end %>
 </table>
 
-<br />
-
-<%= link_to 'New Job', new_customer_job_path %>
