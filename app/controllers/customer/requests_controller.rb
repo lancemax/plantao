@@ -15,38 +15,29 @@ class Customer::RequestsController < ApplicationController
     end
   end
 
-  # GET /requests/1
-  # GET /requests/1.json
-  def show
-    @request = Request.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @request }
-    end
-  end
-
-
-  # GET /requests/1/edit
-  def edit
-    @request = Request.find(params[:id])
-  end
 
   # POST /requests
   # POST /requests.json
   def create
     @request = Request.new(params[:request])
     @verifica = Request.where(:user_id => current_user.id,:job_id =>@request.job_id).first
-    unless @verifica
-      @request.user_id = current_user.id
-      respond_to do |format|
+    respond_to do |format|
+      unless @verifica
+        @request.user_id = current_user.id
+        @request.status_request_id = 1
+      
         if @request.save
           @name='Você se candidatou a esse plantão com sucesso.'
-          format.js
+          #passa o id do job para o js
+          @save=@request.job_id
+          #passa o numero de candidatos pro js
+          @num=@request.job.requests.count
+          p @num
         else
           @name='Não foi possivel completar sua requisição'
         end
       end
+      format.js
     end 
      
   end
@@ -55,14 +46,15 @@ class Customer::RequestsController < ApplicationController
   # PUT /requests/1.json
   def update
     @request = Request.find(params[:id])
-
     respond_to do |format|
-      if @request.update_attributes(params[:request])
-        format.html { redirect_to @request, notice: 'Request was successfully updated.' }
-        format.json { head :no_content }
+      #caso o moderador ainda não tenho escolhido o eleito. então Cancela
+      if @request.job.request_id.nil?
+        Request.update(@request.id,"status_request_id" => 1)
+        @alterou = 'sim'
+        format.js
       else
-        format.html { render action: "edit" }
-        format.json { render json: @request.errors, status: :unprocessable_entity }
+        @name = 'Seleção para esse Plantão já foi encerrada. Você não pode mais Pleitear'
+        format.js
       end
     end
   end
@@ -71,15 +63,17 @@ class Customer::RequestsController < ApplicationController
   # DELETE /requests/1.json
   def destroy
     @request = Request.find(params[:id])
-    #localiza o plantão referente a esse request
-    @job = Job.find_by_id(@request.job_id)
     respond_to do |format|
-      #caso o moderador ainda não tenho escolhido, ou ele escolheu um candidato diferente do current. então deleta
-      if @job.request_id.nil?
-        @request.uptdate(@request.id, :quit)
-        @deletou = 'sim'
+      #caso o moderador ainda não tenho escolhido o eleito. então Cancela
+      if @request.job.request_id.nil?
+        Request.update(@request.id,"status_request_id" => 4)
+        @cancelou = 'sim'
         format.js
-      else
+      elsif @request.job.request_id == @request.id
+        Request.update(@request.id,"status_request_id" => 5)
+        @cancelou = 'sim'
+        format.js
+      else  
         @name = 'Seleção para esse Plantão já foi encerrada. Você não pode mais Desistir'
         format.js
       end

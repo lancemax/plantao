@@ -1,4 +1,4 @@
-<% if @cancelou == 'sim' %>
+<% if @alterou == 'sim' %>
 	 window.location = "<%= customer_requests_path %>";
 <% else %>
  alert(unescape("<%= @name %>"));

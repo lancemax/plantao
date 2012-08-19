@@ -1,2 +1,6 @@
 
- alert(unescape("<%= @name %>"));
+ alert(unescape("<%= @name %>"));	
+ <% if @save %>
+ 	$('#job<%=@save%>').html('<div class="btn btn-info"><b><%= @num %></b> Candidato(s)</div><div class="btn btn-warning">Pleiteado</div>');
+ <% end %>
+ 

@@ -1,6 +1,10 @@
 Plantao::Application.routes.draw do
   
 
+  resources :packages
+
+  resources :status_requests
+
   resources :shifts
 
   resources :jobs
@@ -26,6 +30,8 @@ Plantao::Application.routes.draw do
   
   match 'myJobs' => 'customer/home#userJobs', :as => :my_jobs
   match 'setJobRequest' => 'customer/home#setJobRequest', :as => :setJobRequest
+  match 'acceptResire' => 'customer/home#acceptResire', :as => :acceptResire
+  match 'denyResire' => 'customer/home#denyResire', :as => :denyResire
 
   root :to => 'home#index'
   

@@ -20,77 +20,58 @@
 
 	<ul class="thumbnails">
 		<% @jobs.each do |job| %>
-	    	<a href="<%=  job_path(job) %>"><li class="span3 white">
-		        <table class="table table-condensed	caixa thumbnail" >
-		        	<thead>
-		        	<tr>
-		        		<th colspan="2">
-		        			<h4><%= job.area.name %> <br>(<%= job.hospital.city.name %> - <%= job.hospital.state.acronym %>) </h4>
-		        		</th>
-		        	</tr>
-		        	 <tr>
-		            	<th>Local:</th>
-		            	<td><%=truncate(job.hospital.name, :ommision => "...", :length => 31) %></td>
-		            </tr>
-		            <tr>
-		            	<th>Data:</th>
-		            	<td><%= job.date.strftime("%d/%m/%Y - %H:%Mh")	 %></td>
-		            </tr>
-					<tr>
-						<th>Valor:</th>
-						<td><%= to_real(job.price) %></td> 
-					</tr>
-					<tr>
-						<th>Cedente:</th>
-						<td><%= truncate(job.user.name,:ommision => "...", :length => 30) %></td> 
-					</tr>
-		            <tr>
-		            
+	    	<a href="<%=  job_path(job) %>">
+	    		<li class="span3 white">
+			        <table class="table table-condensed	caixa thumbnail" >
+			        	<thead>
+			        	<tr>
+			        		<th colspan="2">
+			        			<h4><%= job.area.name %> <br>(<%= job.hospital.city.name %> - <%= job.hospital.state.acronym %>) </h4>
+			        		</th>
+			        	</tr>
+			        	 <tr>
+			            	<th>Local:</th>
+			            	<td><%=truncate(job.hospital.name, :ommision => "...", :length => 31) %></td>
+			            </tr>
+			            <tr>
+			            	<th>Data:</th>
+			            	<td><%= job.date.strftime("%d/%m/%Y - %H:%Mh")	 %></td>
+			            </tr>
+						<tr>
+							<th>Valor:</th>
+							<td><%= to_real(job.price) %></td> 
+						</tr>
+						<tr>
+							<th>Cedente:</th>
+							<td><%= truncate(job.user.name,:ommision => "...", :length => 30) %></td> 
+						</tr>
+			            <tr>
+			            
 
-		            	<td colspan="2">
+			            	<td colspan="2" id="job<%=job.id%>">
 		            			<% if user_signed_in? %>
-			            			<% if !Request.where(:user_id => current_user.id,:job_id =>job.id).first %>
-				            			<% if current_user.id != job.user_id  %>
-				            				<%= simple_form_for [:customer,@request],:html => {:class => 'form-inline'}, :remote => true  do |f| %>
+		            				<%= simple_form_for [:customer,@request],:html => {:class => 'form-inline'}, :remote => true  do |f| %>
+		            					<div class="btn btn-info"><b><%=job.requests.count%></b> Candidato(s)</div>
+				            			<% if !Request.where(:user_id => current_user.id,:job_id =>job.id).first %>
+					            			<% if current_user.id != job.user_id  %>
+				            				
 				            					<%= f.hidden_field :job_id ,:value => job.id %>
 				            					<%= f.submit "Pegar Plantão", :class => "btn btn-success" %>
+				            				<% else %>	
+				            					<div class="btn">Meu Plantão</div>
 				            				<% end %>
-				            			<% else %>	
-				            			<div class="btn">Meu Plantão</div>
-				            			<% end %>
-				            		<% else  %>		
-				            			<div class="btn btn-warning">Pleiteado</div>
-				            		<% end %>	
+				            			<% else  %>		
+				            				<div class="btn btn-warning">Pleiteado</div>
+				            			<% end %>	
+				            		<% end %>
 		            			<% end %>
-		            	</td>
-		             </tr>
-		             </thead>
 
-		        </table>
-		    </li>
-		</a>
-	      
-	        <!--div class="thumbnail span3">
-					<h4><%= job.area.name %> (<%= job.hospital.city.name %> - <%= job.hospital.state.acronym %>) </h4>
-					<div class="caption">
-						<p><b>Responsável:</b> <%= job.user.name %></p>
-						<p><b>Preço:</b> <%= to_real(job.price) %></p>
-						<h5><%= job.hospital.name %></h5>
-						<p><%= job.description %></p>
-						<p>
-						<%= link_to 'Visualizar', job_path(job), :class => "btn btn-primary" %>
-						<% if user_signed_in? %>
-						<%= link_to 'Editar', edit_job_path(job), :class => "btn btn-warning" %>
-						<% end %>
-						</p>
-					</div>
-			</div-->
-		
-
-
-			
-			<% end %>
-		</ul>
-
-  </div> 
+			            	</td>
+			             </tr>
+			             </thead>
+			        </table>
+		    	</li>
+			</a>
+		<% end %>
+	</ul>
 </div> 
