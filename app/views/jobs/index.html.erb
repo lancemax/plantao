@@ -18,6 +18,25 @@
 	<br clear="all" />
 	<br clear="all" />
 
+
+	<%= simple_form_for @search ,  :url => :showJobs , :validate => true ,:html => {:class => 'well form-horizontal',:novalidate => true } do |f| %>
+ 
+   Filtrar por:
+            <div class="control-group">
+				<%= f.association :hospital , :prompt => "Escolha um Hospital", :label => 'Hospital' %>
+			</div>
+			<div class="control-group">
+					<%= f.association :area , :prompt => "Escolha uma Área", :label => 'Área' %>
+			</div>
+			<div class="control-group">
+    			<%= f.association :shift,:prompt => "Escolha um Turno", :label => 'Turno/Horário',:collection => Shift.all(:order => 'shifts.id') %>
+  			</div>
+
+			 <%= f.button :submit, "Filtrar", :class => "btn btn-primary form-inline" %>
+            
+	<% end %>
+
+
 	<ul class="thumbnails">
 		<% @jobs.each do |job| %>
 	    	<a href="<%=  job_path(job) %>">
