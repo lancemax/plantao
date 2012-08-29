@@ -19,7 +19,7 @@
 	<br clear="all" />
 
 
-	<%= simple_form_for @search ,  :url => :showJobs , :validate => true ,:html => {:class => 'well form-horizontal',:novalidate => true } do |f| %>
+	<%= simple_form_for @search ,  :url => :showJobs , :validate => true ,:html => {:class => 'well well-small form-horizontal ',:novalidate => true } do |f| %>
  
    Filtrar por:
             <div class="control-group">
@@ -92,5 +92,7 @@
 		    	</li>
 			</a>
 		<% end %>
+
 	</ul>
+	<%= will_paginate @jobs %>
 </div> 
