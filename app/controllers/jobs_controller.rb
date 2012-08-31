@@ -5,8 +5,25 @@ class JobsController < ApplicationController
 	# GET /jobs
 	# GET /jobs.json
 	def index
-	@jobs = Job.all
+    query = Job
+    
+  if !params[:job].nil?  && !params[:job][:hospital_id].nil?  && params[:job][:hospital_id] != ""
+      query =  query.where("hospital_id = ?",params[:job][:hospital_id])
+ 	end
+
+   if !params[:job].nil?  && !params[:job][:area_id].nil?  && params[:job][:area_id] != ""
+      query =  query.where("area_id = ?",params[:job][:area_id])
+   end
+
+   if !params[:job].nil?  && !params[:job][:shift_id].nil?  && params[:job][:shift_id] != ""
+      query =  query.where("shift_id = ?",params[:job][:shift_id])
+   end
+
+    @jobs = query.where(:date => 1.days.ago..Time.now+10.days).paginate(:page => params[:page], :per_page => 4).order("date")
+
+
   @request = Request.new
+  @search = Job.new
 	respond_to do |format|
 	  format.html # index.html.erb
 	  format.json { render json: @jobs }
@@ -50,6 +67,7 @@ class JobsController < ApplicationController
     @job.date = Time.now
     respond_to do |format|
       if @job.save
+         UserMailer.send_emails(@job)
         format.html { redirect_to @job, notice: 'Plantão Criado com Sucesso.' }
         format.json { render json: @job, status: :created, location: @job }
       else
@@ -98,6 +116,7 @@ class JobsController < ApplicationController
 
     respond_to do |format|
       if @job.update_attributes(params[:job])
+        UserMailer.send_emails(@job)
         format.html { redirect_to @job, notice: 'Plantão atualizado com Sucesso.' }
         format.json { head :no_content }
       else
