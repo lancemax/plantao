@@ -49,7 +49,7 @@ Plantao::Application.configure do
     :domain         => 'www.example.com',
     :authentication => :login,
     :user_name      => 'samuelteixeiras@gmail.com',
-    :password       => 'senhaaqui',
+    :password       => 'karol480112',
     :authentication       => 'plain',
     :enable_starttls_auto => true 
   }
