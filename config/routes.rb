@@ -1,23 +1,9 @@
 Plantao::Application.routes.draw do
   
 
-  resources :packages
-
-  resources :status_requests
-
-  resources :shifts
-
   resources :jobs
-
-  resources :states
-
-  resources :cities
-
   resources :hospitals
-
-  resources :push_times
-
-  resources :areas
+  resources :packages
 
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
 
@@ -37,7 +23,24 @@ Plantao::Application.routes.draw do
   
   namespace :customer do
     resources :requests
+    resources :packages
     root :to => 'home#index'
+
+  end
+
+
+  namespace :admin do
+    root :to => 'home#index'
+    resources :users
+    resources :orders
+    resources :packages
+    resources :status_requests
+    resources :shifts
+    resources :jobs
+    resources :states
+    resources :cities
+    resources :packages
+    resources :status_orders
 
   end
   # The priority is based upon order of creation:

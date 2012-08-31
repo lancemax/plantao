@@ -1,0 +1,21 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @package.name %>
+</p>
+
+<p>
+  <b>Price:</b>
+  <%= to_real(@package.price) %>
+</p>
+
+<p>
+  <b>Amount:</b>
+  <%= @package.amount %>
+</p>
+
+<%=image_tag @package.image.url(:small) %>
+
+<%= link_to 'Edit', edit_admin_package_path(@package) %> |
+<%= link_to 'Back', admin_packages_path %>

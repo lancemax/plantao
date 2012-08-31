@@ -27,4 +27,14 @@ class ApplicationController < ActionController::Base
       customer_root_path
     end
   end
+
+  def setMoney(value)
+    if value.gsub!(".","")
+      #retira o '.' caso o numero seja maior que 999 (Ex: 1.323,00)
+    end
+     value.gsub!(",",".")
+     value.gsub!("R$ ","")
+     value.gsub!("-","")
+
+  end
 end

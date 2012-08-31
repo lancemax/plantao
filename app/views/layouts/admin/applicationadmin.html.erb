@@ -1,65 +1,66 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-	<meta charset="utf-8"/>
-	<title>Área Administrativa</title>
+	<title>PlantãoNet</title>
 	<%= stylesheet_link_tag    "admin/application" %>
-  	<%= javascript_include_tag "admin/application" %>
-  	<%= csrf_meta_tags %>
+	<%= javascript_include_tag "admin/application" %>
+	<%= csrf_meta_tags %>
+
 </head>
-
-
 <body>
 
-	<header id="header">
-		<hgroup>
-			<h1 class="site_title"><a href="index.html">LanceMax</a></h1>
-			<!-- <h2 class="section_title">Dashboard</h2><div class="btn_view_site"><a href="http://www.medialoot.com">View Site</a></div> -->
-		</hgroup>
-	</header> <!-- end of header bar -->
+	<%= render "layouts/admin/admin_menu" %>
 	
-	<section id="secondary_bar">
-		<div class="user">
-			<p><%= current_user.email %></p>
-			<%= link_to('Sair', destroy_user_session_path, :method => :delete, :class => "logout_user") %>   
-		</div>
-		
-		<div class="breadcrumbs_container">
+	
+	<div class="container">
 
-			<%= render_navigation :renderer => :breadcrumbs,:class => "breadcrumbs",:join_with => '<div class="breadcrumb_divider"></div>' %>
+		<div class="row">
 			
+			<% if flash %>
+				<% if flash[:error] %>
+				<div class="alert alert-error">
+					<button class="close" data-dismiss="alert">×</button>
+					<p><%= flash[:error]%></p>
+				</div>
+				<%end%>
+
+				<% if flash[:alert] %>
+				<div class="alert alert-block">
+					<button class="close" data-dismiss="alert">×</button>
+					<p><%= flash[:alert]%></p>
+				</div>
+				<%end%>
+
+				<% if flash[:notice] %>
+				<div class="alert alert-success">
+					<button class="close" data-dismiss="alert">×</button>
+					<p><%= flash[:notice]%></p>
+				</div>
+				<%end%>
+			<% end -%>
 			
+			<br clear="all" />
+			<div class="content">
+				<ul class="nav nav-pills btn btn-inverse">
+							<li><a href="/users/edit" >Meus Dados</a></li>
+							<li><%= link_to 'Plantões Cedidos', '/myJobs' %></li>
+							<li><%= link_to 'Plantões Pleiteados', customer_requests_path %></li>
+							<li><%= link_to 'Ceder Plantão', new_job_path %></li>
+							<li><a href="#">Buscar Plantão</a></li>
+							<li><a href="#">Pagamentos</a></li>
+				</ul>
+
+			<%= yield %>
 		</div>
-	</section><!-- end of secondary bar -->
-	
-		<%= render "layouts/admin/admin_menu" %>
+		<br clear="all" />		
+	</div>
+
+
 		
 
-	
-	<section id="main" class="column">
-	<% if flash %>
-	<div id="flashmsg">
-		<% if flash[:error] %>
-			<h4 class="alert_error"><%= flash[:error]%></h4>
-		<%end -%> 
-		
-		<% if flash[:warning] %>
-			<h4 class="alert_warning"<%= flash[:warning]%></h4>
-		<%end -%>
-		
-		<% if flash[:notice] %> 
-			<h4 class="alert_success"><%= flash[:notice]%></h4>
-		<%end -%>
+	<div id='footer'>
 		
 	</div>
-	<% end %>       
-
-		<%= yield %>
-		
-	</section>
-
-
+	
 </body>
-
 </html>

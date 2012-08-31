@@ -1,10 +1,10 @@
-<%= simple_form_for(@package) do |f| %>
+<%= simple_form_for(@order) do |f| %>
   <%= f.error_notification %>
 
   <div class="form-inputs">
-    <%= f.input :name %>
-    <%= f.input :price %>
-    <%= f.input :amount %>
+    <%= f.input :user_id %>
+    <%= f.input :package_id %>
+    <%= f.input :status_order_id %>
   </div>
 
   <div class="form-actions">

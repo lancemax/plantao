@@ -1,42 +1,95 @@
-<aside id="sidebar" class="column">
-
-	<h3>Produtos</h3>
-	<ul class="">
-		<li class="icn_categories"><a href="/admin/categories">Categorias</a></li>
-		<li class="icn_categories"><a href="/admin/products">Produtos</a></li>
-	</ul>
-	
-	<h3>Leilões</h3>
-	<ul class="">
-		<li class="icn_categories"><a href="/admin/campaigns">Campanhas</a></li>
-		<li class="icn_categories"><a href="/admin/bids">Lances</a></li>		
-	</ul>
+<div class="navbar navbar-inner navbar-fixed-top">	
 		
-	<h3>Merrecas</h3>
-	<ul class="">
- 		<li class="icn_categories"><a href="/admin/packages">Pacotes de Merrecas</a></li>
-  </ul>
+			<div class="container">
+				<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</a>
+				<!--a class="brand" href="/">Lancemax</a-->
 
-	<h3>Vendas/Pedidos</h3>
-	<ul class="">
-		<li class="icn_categories"><a href="/admin/sales">Vendas/Arremates</a></li>
-		<li class="icn_categories"><a href="/admin/orders">Compra de Pacotes</a></li>
-		<li class="icn_categories"><a href="/admin/payments">Formas de Pagamento</a></li>
-	</ul>
+				<div class="nav-collapse">
+
+					<ul class="nav">
+						<li ><a href="/admin"><i class="icon-white icon-home"></i>Inicio</a></li>
+						<li><a href="/admin/jobs"><i class="icon-white icon-time"></i>Plantões</a></li>
+						<li><a href="/admin/hospitals"><i class="icon-white icon-plus-sign"></i>Hospitais</a></li>
+						<li><a href="/customer"><i class="icon-white icon-home"></i>Minha Conta</a></li>
+						<li><a href="/admin/packages"><i class="icon-white icon-gift"></i>Pacotes</a></li>
+						<li><a href="/admin/orders"><i class="icon-white icon-shopping-cart"></i>Pedidos</a></li>
+						<li><a href="/admin/users"><i class="icon-white icon-tasks"></i>Usuarios</a></li>
+						
+					</ul>
+					<% if user_signed_in? %>
+
+							
+
+							<div class="btn-group pull-right">
 	
-	<h3>Clientes</h3>
-	<ul class="">
-		<li class="icn_categories"><a href="/admin/listUsers">Lista</a></li>
-	</ul>
+								<a class="btn btn-primary" href="#"><i class="icon-white icon-user"></i>
+									<b style="color:#fff">
+			       					<%= current_user.name %>
+			       				</b>
+								</a>
+								<a class="btn btn-primary dropdown-toggle" href="#" data-toggle="dropdown"> 
+									<span class="caret"></span>
+								</a>
+								<ul class="dropdown-menu">
+									
+									<li>
+										<a href="#">
+											<b>Email:</b> <div id="user_numbids_menu" class="btn"><%= current_user.email %></div>
+										</a>
+									</li>
+
+									<li>
+										<a href="#">
+											<i class="icon-shopping-cart"></i>
+											Meus Plantões
+										</a>
+									</li>
+									<li>
+										<a href="/users/edit">
+											<i class="icon-th-list"></i>
+											Meus Dados
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<i class="icon-star"></i>
+											Créditos
+										</a>
+									</li>
+									<li class="divider"></li>
+									<li>
+										<a href="<%= destroy_user_session_path %>"  data-method="delete">
+											<i class="icon-remove-sign"></i>
+											Sair
+											<% link_to("<i class=icon-remove>SAIR</i>", destroy_user_session_path+"#delete", :method => :delete, :class => "remove",:title => 'Sair') %>	
+										</a>
+									</li>
+								</ul>
+
+							</div>
+
+						
+					<% else %>
+					<div class="pull-right">
+						<b class="btn">Login com:</b>
+						<!--a href="<%= user_omniauth_authorize_path(:facebook) %>">
+							<%= image_tag "fblogin.png", :title => "Facebook" %>
+						</a-->
+						<%= link_to image_tag('facebook.png'),user_omniauth_authorize_path(:facebook)  %>
+						<%= link_to image_tag('google.png'), user_omniauth_authorize_path(:google_oauth2) %>
 
 
-	<h3>Usuários</h3>
+						<% link_to('Login com Facebook',user_omniauth_authorize_path(:facebook), :class => 'btn btn-large btn-primary')  %>
+						<% link_to('Login com Google', user_omniauth_authorize_path(:google_oauth2), :class => 'btn btn-large btn-primary')  %>
+						
+					</div>
+					<% end %>
+				</div><!--/.nav-collapse -->
+			</div>
 		
-	<h3>Relatórios</h3>
-	
-	<footer>
-		<hr />
-		<p><strong>Copyright &copy; LanceMax</strong></p>
-
-	</footer>
-</aside><!-- end of sidebar -->
+	</div>
+</div>

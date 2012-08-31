@@ -1,0 +1,26 @@
+<%= simple_form_for [:admin,@package], :validate => true ,:html => {:class => 'well form-horizontal',:novalidate => true } do |f| %>
+	<%= f.error_notification %>
+
+	<div class="control-group">
+		<%= f.label 'Nome'  , :class => 'control-label' %>
+     	<div class="controls"><%= f.text_field :name %></div>
+  	</div>
+
+   <div class="control-group">
+   	<%= f.label 'Preço'  , :class => 'control-label' %>
+    	<div class="controls"><%= f.text_field :price %></div>
+   </div>
+   <div class="control-group">
+   	<%= f.label 'Qtd'  , :class => 'control-label' %>
+    	<div class="controls"><%= f.text_field :amount %></div>
+  	</div>
+
+  	<div class="control-group">
+    <%= f.label 'Foto'  , :class => 'control-label' %>
+    <div class="controls"><%= f.file_field :image ,:title => 'Procurar', :class => 'span5' %></div>
+  </div>
+
+  	<div class="form-actions"><%= f.submit "Cadastrar", :class => "btn btn-primary" %></div>
+
+  
+<% end %>
