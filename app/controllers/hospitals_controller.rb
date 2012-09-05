@@ -10,13 +10,13 @@ class HospitalsController < ApplicationController
     @hospital = Hospital.new
     
     if params[:hospital].nil?
-      @hospitals = Hospital.all
+      @hospitals = Hospital.paginate(:page => params[:page], :per_page => 3)
     elsif params[:hospital][:state_id]=="" and params[:hospital][:city_id]==""
-      @hospitals = Hospital.all
+      @hospitals = Hospital.paginate(:page => params[:page], :per_page => 3)
     else
-      @hospitals = Hospital.find_all_by_state_id_and_city_id(params[:hospital][:state_id],params[:hospital][:city_id],:order => "hospitals.id")
-    end
+      @hospitals = Hospital.paginate(:page => params[:page], :per_page => 3).find_all_by_state_id_and_city_id(params[:hospital][:state_id],params[:hospital][:city_id],:order => "hospitals.id")
 
+    end 
 
     respond_to do |format|
       format.html # index.html.erb
