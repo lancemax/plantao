@@ -4,6 +4,8 @@ Plantao::Application.routes.draw do
   resources :jobs
   resources :hospitals
   resources :packages
+  resources :cities
+  resources :states
 
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
 
