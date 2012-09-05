@@ -20,6 +20,13 @@ class Customer::HomeController < ApplicationController
   	 
   end
 
+  def buy
+    @packages = Package.all
+    @order = Order.new
+    
+  end
+
+
   def setJobRequest
     p params[:job]
     

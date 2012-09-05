@@ -11,18 +11,59 @@
 				<div class="nav-collapse">
 
 					<ul class="nav">
+						<li><a href="">ADMINISTRADOR</a></li>
 						<li ><a href="/admin"><i class="icon-white icon-home"></i>Inicio</a></li>
-						<li><a href="/admin/jobs"><i class="icon-white icon-time"></i>Plantões</a></li>
-						<li><a href="/admin/hospitals"><i class="icon-white icon-plus-sign"></i>Hospitais</a></li>
+						<li class="dropdown">
+							<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+								<i class="icon-white icon-time"></i>Plantões
+							</a>
+							<ul class="dropdown-menu">
+								<li><a href="/admin/jobs"><i class="icon-white icon-plus-sign"></i>Criar</a></li>
+								<li><a href="/admin/jobs"><i class="icon-white icon-plus-sign"></i>Editar</a></li>
+							</ul>
+						</li>
+						<li class="dropdown">
+							<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+								<i class="icon-white icon-plus-sign"></i>Hospitais
+							</a>
+							<ul class="dropdown-menu">
+								<li><a href="/admin/hospitals/new"><i class="icon-white icon-plus-sign"></i>Criar</a></li>
+								<li><a href="/admin/hospitals"><i class="icon-white icon-plus-sign"></i>Editar</a></li>
+							</ul>
+						</li>
+						<li class="dropdown">
+							<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+								<i class="icon-white icon-gift"></i>Pacotes
+							</a>
+							<ul class="dropdown-menu">
+								<li><a href="/admin/packages/new"><i class="icon-white icon-plus-sign"></i>Criar</a></li>
+								<li><a href="/admin/packages"><i class="icon-white icon-plus-sign"></i>Editar</a></li>
+							</ul>
+						</li>
+						<li class="dropdown">
+							<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+								<i class="icon-white icon-shopping-cart"></i>Pedidos
+							</a>
+							<ul class="dropdown-menu">
+								<li><a href="/admin/orders"><i class="icon-white icon-plus-sign"></i>Ver</a></li>
+							</ul>
+						</li>
+						<li class="dropdown">
+							<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+								<i class="icon-white icon-tasks"></i>Usuários
+							</a>
+							<ul class="dropdown-menu">
+								<li><a href="/admin/users"><i class="icon-white icon-plus-sign"></i>Editar</a></li>
+							</ul>
+						</li>
+
 						<li><a href="/customer"><i class="icon-white icon-home"></i>Minha Conta</a></li>
-						<li><a href="/admin/packages"><i class="icon-white icon-gift"></i>Pacotes</a></li>
-						<li><a href="/admin/orders"><i class="icon-white icon-shopping-cart"></i>Pedidos</a></li>
-						<li><a href="/admin/users"><i class="icon-white icon-tasks"></i>Usuarios</a></li>
 						
 					</ul>
-					<% if user_signed_in? %>
+					
 
-							
+
+
 
 							<div class="btn-group pull-right">
 	
@@ -72,22 +113,7 @@
 
 							</div>
 
-						
-					<% else %>
-					<div class="pull-right">
-						<b class="btn">Login com:</b>
-						<!--a href="<%= user_omniauth_authorize_path(:facebook) %>">
-							<%= image_tag "fblogin.png", :title => "Facebook" %>
-						</a-->
-						<%= link_to image_tag('facebook.png'),user_omniauth_authorize_path(:facebook)  %>
-						<%= link_to image_tag('google.png'), user_omniauth_authorize_path(:google_oauth2) %>
 
-
-						<% link_to('Login com Facebook',user_omniauth_authorize_path(:facebook), :class => 'btn btn-large btn-primary')  %>
-						<% link_to('Login com Google', user_omniauth_authorize_path(:google_oauth2), :class => 'btn btn-large btn-primary')  %>
-						
-					</div>
-					<% end %>
 				</div><!--/.nav-collapse -->
 			</div>
 		

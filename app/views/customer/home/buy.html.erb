@@ -1,0 +1,34 @@
+<div class="content">
+
+	<h2>Pacotes de Plantões</h2>
+	<ul class="thumbnails">
+		<%@packages.each do |package|%>
+			<li class="span3">
+				<div class="thumbnail">
+					<h3><%= package.name %></h3>
+					<%= image_tag package.image.url(:small) %>
+					<div class="caption">
+						<em>
+							<h3>Pacote de <%= package.amount %> Plantões</h3>
+						</em>
+						<br clear="all">
+						
+							
+								<b class="label label-info price"><%= to_real(package.price) %></b>
+								<div id="package<%=package.id%>">
+									<%= simple_form_for [:customer,@order] , :html => { :id => 'order_form',:class => 'form-inline' },:remote => 'true' do |f| %>
+										
+										<%= f.hidden_field :package_id, :value => package.id %>
+
+										<%= f.button :submit ,:class => "btn btn-large btn-success buy" ,:value => "COMPRAR" %>
+										
+									<% end %>
+								</div>
+							
+						
+					</div>
+				</div>
+			</li>
+		<%end%>
+	</ul>
+</div>

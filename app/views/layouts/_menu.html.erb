@@ -16,7 +16,34 @@
 						<li><a href="/hospitals"><i class="icon-white  icon-plus-sign"></i>Hospitais</a></li>
 						<!--li><a href="/package"><i class="icon-white icon-shopping-cart"></i>Comprar Lances</a></li-->
 						<% if user_signed_in? %>
-								<li><a href="/customer"><i class="icon-white icon-home"></i>Minha Conta</a></li>
+								<li class="dropdown">
+									<a class="dropdown-toggle" data-toggle="dropdown" href="/customer">
+										<i class="icon-white icon-home"></i>Minha Conta
+									</a>
+									<ul class="dropdown-menu">
+
+										<li><a href="/users/edit"><i class="icon-white icon-plus-sign"></i>Meus Dados</a></li>
+										<li><a href="/myJobs"><i class="icon-white icon-plus-sign"></i>Plantões Cedidos</a></li>
+										<li>
+											<%= link_to customer_requests_path do %>
+												<i class="icon-white icon-plus-sign"></i>Plantões Pleiteados
+											<% end %>
+										</li>
+										<li>
+											<%= link_to new_job_path do %>
+												<i class="icon-white icon-plus-sign"></i>Ceder Plantão
+											<% end %>
+										</li>
+									</ul>
+								</li>
+
+
+								<li><a href="/buy"><i class="icon-white icon-shopping-cart"></i>Pacotes de Plantão</a></li>
+
+								<% if current_user.role == 'admin'%>
+									<li><a href="/admin"><i class="icon-white icon-home"></i>Admin</a></li>
+								<% end %>
+
 						<% else %>
 							<li><a href="/users/sign_in"><i class="icon-white icon-user"></i>Login</a>
 								<% link_to('login', new_user_session_path)  %>

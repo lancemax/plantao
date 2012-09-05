@@ -35,8 +35,8 @@ body {
 
 @navbarHeight: 40px;
 @navbarLinkColor: #000;
-@navbarBackground: #DDD;
-@navbarBackgroundHighlight: #EEE;
+@navbarBackground: #008B45;
+@navbarBackgroundHighlight: #C0FF3E;
 //@navbarLinkColorHover: @blue;
 //@navbarBackground: @btnSuccessBackgroundHighlight;
 //@navbarBackgroundHighlight: @btnSuccessBackground;
@@ -54,4 +54,10 @@ body {
 }
 form{
 	margin: 0;
+}
+ul.nav li.dropdown:hover ul.dropdown-menu{
+    display: block;    
+}
+a.menu:after, .dropdown-toggle:after {
+    content: none;
 }

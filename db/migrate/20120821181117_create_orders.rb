@@ -4,6 +4,7 @@ class CreateOrders < ActiveRecord::Migration
       t.integer :user_id
       t.integer :package_id
       t.integer :status_order_id
+      t.float :price
 
       t.timestamps
     end

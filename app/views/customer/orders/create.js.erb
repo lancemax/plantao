@@ -1,0 +1,5 @@
+ alert(unescape("<%= @name %>"));	
+ <% if @save %>
+ 	$('#package<%=@save%>').html('<div class="btn btn-info"><b>Pagar <%= to_real(@num) %></b></div>');
+ <% end %>
+ 

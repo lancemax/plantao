@@ -19,11 +19,14 @@ Plantao::Application.routes.draw do
   match 'acceptResire' => 'customer/home#acceptResire', :as => :acceptResire
   match 'denyResire' => 'customer/home#denyResire', :as => :denyResire
 
+  match 'buy' => 'customer/home#buy', :as => :buy
+
   root :to => 'home#index'
   
   namespace :customer do
     resources :requests
     resources :packages
+    resources :orders
     root :to => 'home#index'
 
   end
