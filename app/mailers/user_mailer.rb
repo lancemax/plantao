@@ -1,13 +1,13 @@
 class UserMailer < ActionMailer::Base
-  default from: "from@example.com"
+  default from: "Plantao Net <noreply@plantaonet.com>"
 
 
   	def send_email(user,job)
 
 	  @user = user
 	  @job = job
-   	  @url  = "www.soprostudio.com.br"
-   		# attachments['terms.pdf'] = File.read('/path/terms.pdf')
+   	  @url = "www.plantaonet.com" 
+	# attachments['terms.pdf'] = File.read('/path/terms.pdf')
        mail(:to => user.email,:subject => job.description)
        sleep 1
 	end
