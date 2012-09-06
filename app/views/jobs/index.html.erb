@@ -5,38 +5,52 @@
        
 </div>
 <div class="container">
-    <div class="row-fluid">
+   <div class="row-fluid">
 
-	    <div class="span10">
-	 		<h2>Aqui você vai encontrar todos os plantões que estão disponiveis, plantões que foram cedidos por outros médicos, assim facilitando a manutenção do serviço nos hospitais e ajudando a evitar as faltas nos plantões e emergencias nos hospitais no Brasil.</h2>
+	   <div class="span10">
+	 		<h3>Aqui você vai encontrar todos os plantões que estão disponiveis, plantões que foram cedidos por outros médicos, assim facilitando a manutenção do serviço nos hospitais e ajudando a evitar as faltas nos plantões e emergencias nos hospitais no Brasil.</h2>
 
-	    </div> 
-	    <div class="span2">
+	   </div> 
+	   <div class="span2">
 			<%= link_to 'Cadastrar Plantão', new_job_path ,:class => "btn huge btn-success" %>
 		</div> 
 	</div>
 	<br clear="all" />
+	<div class="row-fluid">
+		<div class="span3">
+			<%= simple_form_for @search ,  :url => :showJobs , :validate => true ,:html => {:class => 'form ',:novalidate => true } do |f| %>
+		 
+		   Filtrar por:<br>
+		         
+					<%= f.association :hospital , :prompt => "--- Hospital ---", :label => false %>
+					<%= f.button :submit, "Filtrar", :class => "btn-mini btn-primary" %>
+		         
+			<% end %>
+		</div>
+
+		<div class="span3">
+			<%= simple_form_for @search ,  :url => :showJobs , :validate => true ,:html => {:class => 'form ',:novalidate => true } do |f| %>
+		 
+		   Filtrar por:<br>
+		            
+					<%= f.association :area , :prompt => "--- Área ---", :label => false %>
+					<%= f.button :submit, "Filtrar", :class => "btn-mini btn-primary" %>
+		            
+			<% end %>
+		</div>
+
+		<div class="span3">
+			<%= simple_form_for @search ,  :url => :showJobs , :validate => true ,:html => {:class => 'form ',:novalidate => true } do |f| %>
+		 
+		   Filtrar por:<br>
+		            
+	    			<%= f.association :shift,:prompt => "--- Turno ---", :label => false %>
+	    			<%= f.button :submit, "Filtrar", :class => "btn-mini btn-primary form-inline" %>
+		            
+			<% end %>
+		</div>
+	</div>
 	<br clear="all" />
-
-
-	<%= simple_form_for @search ,  :url => :showJobs , :validate => true ,:html => {:class => 'well well-small form-horizontal ',:novalidate => true } do |f| %>
- 
-   Filtrar por:
-            <div class="control-group">
-				<%= f.association :hospital , :prompt => "Escolha um Hospital", :label => 'Hospital' %>
-			</div>
-			<div class="control-group">
-					<%= f.association :area , :prompt => "Escolha uma Área", :label => 'Área' %>
-			</div>
-			<div class="control-group">
-    			<%= f.association :shift,:prompt => "Escolha um Turno", :label => 'Turno/Horário',:collection => Shift.all(:order => 'shifts.id') %>
-  			</div>
-
-			 <%= f.button :submit, "Filtrar", :class => "btn btn-primary form-inline" %>
-            
-	<% end %>
-
-
 	<ul class="thumbnails">
 		<% @jobs.each do |job| %>
 	    	<a href="<%=  job_path(job) %>">
