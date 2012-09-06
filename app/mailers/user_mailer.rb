@@ -20,6 +20,14 @@ class UserMailer < ActionMailer::Base
 		end
 	end	
 
+	
+	def send_email_ownner_job(job_id,user_id)
+
+    	@job = Job.find_all_by_id(job_id)
+    	@user = User.find_all_by_id(user_id)
+    		UserMailer.send_email(user,job).deliver
+    	
+    end
 
 	
 end
