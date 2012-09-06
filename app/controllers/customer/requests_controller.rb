@@ -25,13 +25,17 @@ class Customer::RequestsController < ApplicationController
       unless @verifica
         @request.user_id = current_user.id
         @request.status_request_id = 1
-      
+         
         if @request.save
           @name='Você se candidatou a esse plantão com sucesso.'
           #passa o id do job para o js
           @save=@request.job_id
           #passa o numero de candidatos pro js
           @num=@request.job.requests.count
+
+          # envia o email para o dono do plantão 
+          UserMailer.send_email_ownner_job(@request.job_id,current_user.id)
+          
           p @num
         else
           @name='Não foi possivel completar sua requisição'
