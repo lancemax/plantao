@@ -1,13 +1,13 @@
 class UserMailer < ActionMailer::Base
-  default from: "from@example.com"
+  default from: "Plantao Net <noreply@plantaonet.com>"
 
 
   	def send_email(user,job)
 
 	  @user = user
 	  @job = job
-   	  @url  = "www.soprostudio.com.br"
-   		# attachments['terms.pdf'] = File.read('/path/terms.pdf')
+   	  @url = "www.plantaonet.com" 
+	# attachments['terms.pdf'] = File.read('/path/terms.pdf')
        mail(:to => user.email,:subject => job.description)
        sleep 1
 	end
@@ -20,6 +20,14 @@ class UserMailer < ActionMailer::Base
 		end
 	end	
 
+	
+	def send_email_ownner_job(job_id,user_id)
+
+    	@job = Job.find_all_by_id(job_id)
+    	@user = User.find_all_by_id(user_id)
+    		UserMailer.send_email(user,job).deliver
+    	
+    end
 
 	
 end
