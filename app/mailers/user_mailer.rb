@@ -1,5 +1,6 @@
+# -*- coding: utf-8 -*-
 class UserMailer < ActionMailer::Base
-  default from: "Plantao Net <noreply@plantaonet.com>"
+  default from: "PlantaoNet <noreply@plantaonet.com>"
 
 
   	def send_email(user,job)
@@ -8,7 +9,7 @@ class UserMailer < ActionMailer::Base
 	  @job = job
    	  @url = "www.plantaonet.com" 
 	# attachments['terms.pdf'] = File.read('/path/terms.pdf')
-       mail(:to => user.email,:subject => job.description)
+       mail(:to => user.email,:subject => "[PLANTÂO] "+job.area.name+" - "+job.hospital.name)
        sleep 1
 	end
 
