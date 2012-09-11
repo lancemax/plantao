@@ -24,7 +24,7 @@
       <% end %>
     </div> 
   </div>
-  <br clear="all">
+  <br clear="all"> 
   <br clear="all">
   <ul class="thumbnails">
     <% @hospitals.each do |hospital| %>
@@ -32,6 +32,7 @@
         <li class="span3">
           <div class="thumbnail">
                   <%=image_tag hospital.image.url(:small) %>
+                  
                   <div class="caption">
                     <h5><%= hospital.name %></h5>
                     <h5><%= hospital.address %></h5>
