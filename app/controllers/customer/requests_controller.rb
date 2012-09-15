@@ -54,6 +54,7 @@ class Customer::RequestsController < ApplicationController
       #caso o moderador ainda não tenho escolhido o eleito. então Cancela
       if @request.job.request_id.nil?
         Request.update(@request.id,"status_request_id" => 1)
+        UserMailer.send_email_ownner_job(@request.job_id,current_user.id)
         @alterou = 'sim'
         format.js
       else
