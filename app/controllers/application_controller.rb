@@ -1,6 +1,13 @@
 # -*- coding: utf-8 -*-
 class ApplicationController < ActionController::Base
   protect_from_forgery
+  
+  before_filter :check_url
+  
+
+  def check_url
+    redirect_to request.protocol + "www." + request.host_with_port + request.fullpath if !/^www/.match(request.host) if Rails.env == 'production'
+  end
 
 
   rescue_from CanCan::AccessDenied do |exception|
