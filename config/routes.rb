@@ -31,7 +31,7 @@ Plantao::Application.routes.draw do
     resources :requests
     resources :packages
     resources :orders
-    root :to => 'jobs#index'
+    root :to => 'home#index'
 
   end
 
