@@ -67,7 +67,9 @@ class JobsController < ApplicationController
     @job.date = Time.now
     respond_to do |format|
       if @job.save
-         UserMailer.send_emails(@job)
+        if Rails.env == 'production' 
+          UserMailer.send_emails(@job) 
+        end 
         format.html { redirect_to @job, notice: 'Plantão Criado com Sucesso.' }
         format.json { render json: @job, status: :created, location: @job }
       else

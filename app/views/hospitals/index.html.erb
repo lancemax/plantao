@@ -28,7 +28,7 @@
   <br clear="all">
   <ul class="thumbnails">
     <% @hospitals.each do |hospital| %>
-
+        
         <li class="span3">
           <div class="thumbnail">
                   <%=image_tag hospital.image.url(:small) %>
@@ -48,7 +48,6 @@
                   </div>
           </div>
         </li>
-
 
     <% end %>
   </ul>

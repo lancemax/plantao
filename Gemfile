@@ -50,6 +50,8 @@ gem 'therubyracer'
 
 #bootstrap layout
 gem "twitter-bootstrap-rails"
+#bootstrap datepicker
+gem 'bootstrap-datepicker-rails'
 
 #para buscas
 gem 'meta_search'

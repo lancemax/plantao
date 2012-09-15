@@ -7,7 +7,6 @@
   <div class="container">
      <div class="row-fluid">
       <div class="span4">
-            <%=image_tag @job.hospital.image.url(:small) %>
             <div id="mapa"></div>
 
             
@@ -17,7 +16,7 @@
           <table class="table table-striped well">
           <tbody>
             <tr>
-                <th>Hospital:</th><td><%= @job.hospital.name %></td>
+                <th>Hospital:</th><td><%= @job.hospital.name %></td><td rowspan="6" width="250px"><%=image_tag @job.hospital.image.url(:small) %></td>
             </tr>
            
             <tr>
@@ -30,10 +29,13 @@
               <th>Pré-requisitos:</th> <td><%= @job.dependencies %></td>
             </tr> 
             <tr>
+               <th>Data:</th> <td><%= @job.date.strftime("%d/%m/%Y") %> (<%= I18n.t("date."+@job.date.strftime("%A"))%> - <%= @job.shift.name %>)</td>
+            </tr>
+            <tr>
                <th>Valor:</th> <td><%= to_real(@job.price) %></td>
             </tr>
             <tr>
-              <th>Observações:</th> <td><%= @job.description %></td>
+              <th>Observações:</th> <td colspan="2"><%= @job.description %></td>
             </tr>
            </tbody>          
           </table>

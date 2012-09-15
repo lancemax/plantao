@@ -14,6 +14,8 @@
 //= require jquery
 //= require jquery_ujs
 //= require twitter/bootstrap
+//= require bootstrap-datepicker
+//= require bootstrap-datepicker/core
 //= require states.js
 //= require jquery.maskmoney.js
 //= require jobs.js

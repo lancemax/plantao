@@ -1,6 +1,7 @@
 #encoding: utf-8
 require 'open-uri'
-	
+
+Area.create!(:name => 'Não Tenho Residência')
 Area.create!(:name => 'Anestesiologia')
 Area.create!(:name => 'Cardiologia')
 Area.create!(:name => 'Cirurgia de Cabeça e Pescoço')
@@ -9793,12 +9794,10 @@ StatusRequest.create!(:name=>'cancelado')
 StatusRequest.create!(:name=>'solicitação de desistência')
 StatusRequest.create!(:name=>'desistente')
 
-Shift.create!(:name=>'T1')
-Shift.create!(:name=>'T1/T2')
-Shift.create!(:name=>'T2')
-Shift.create!(:name=>'T2/T3')
-Shift.create!(:name=>'T3')
-Shift.create!(:name=>'T3/T1')
+Shift.create!(:name=>'M')
+Shift.create!(:name=>'T')
+Shift.create!(:name=>'MT')
+Shift.create!(:name=>'N')
 
 PushTime.create!(:name=>'Manhã (06h-12h)',:value=>'1')
 PushTime.create!(:name=>'Tarde (12h-18h)',:value=>'2')

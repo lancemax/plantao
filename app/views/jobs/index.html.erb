@@ -68,7 +68,7 @@
 			            </tr>
 			            <tr>
 			            	<th>Data:</th>
-			            	<td><%= job.date.strftime("%d/%m/%Y - %H:%Mh")	 %></td>
+			            	<td><%= job.date.strftime("%d/%m/%Y") %> (<%= I18n.t("date."+job.date.strftime("%A"))%>)</td>
 			            </tr>
 						<tr>
 							<th>Valor:</th>

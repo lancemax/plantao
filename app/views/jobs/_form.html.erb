@@ -15,11 +15,17 @@ select { width: auto;}
     </div>  
   <% end %>
 	<div class="control-group">
-		<%= f.association :hospital , :prompt => "Escolha um Hospital", :label => 'Hospital' %>
+		<%= f.label 'Hospital'  , :class => 'control-label' %>
+		<div class="controls">
+			<%= f.association :hospital , :prompt => "Escolha um Hospital", :label => false %>
+		</div>
 	</div>
 
 	<div class="control-group">
-		<%= f.association :area , :prompt => "Escolha uma Área", :label => 'Área' %>
+		<%= f.label 'Área'  , :class => 'control-label' %>
+		<div class="controls">
+			<%= f.association :area , :prompt => "Escolha uma Área", :label => false %>
+		</div>
 	</div>
 
 	<div class="control-group">
@@ -28,13 +34,17 @@ select { width: auto;}
 	</div>
 
 	<div class="control-group">
-    	<%= f.association :shift, :label => 'Turno/Horário',:collection => Shift.all(:order => 'shifts.id') %>
+  	  <%= f.label 'Data do Plantão'  , :class => 'control-label' %>
+    	<div class="controls"><%= f.text_field :date , :class => 'date' %></div>
   	</div>
 
-  	<div class="control-group">
-  	  <%= f.label 'Data do Plantão'  , :class => 'control-label' %>
-    	<div class="controls"><%= f.datetime_select :date, :order => [:day , :month, :year ], :prompt => {:day => 'Dia', :month => 'Mês', :year => 'Ano' } , :class => 'date' %></div>
+	<div class="control-group">
+		<%= f.label 'Turno/Horário'  , :class => 'control-label' %>
+		<div class="controls">
+    		<%= f.association :shift, :label => false,:collection => Shift.all(:order => 'shifts.id') %>
+    	</div>
   	</div>
+  
 
 	<div class="control-group">
 		<%= f.label 'Valor'  , :class => 'control-label' %>
