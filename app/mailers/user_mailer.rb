@@ -9,7 +9,7 @@ class UserMailer < ActionMailer::Base
 	  @job = job
    	  @url = "www.plantaonet.com" 
 	# attachments['terms.pdf'] = File.read('/path/terms.pdf')
-       mail(:to => user.email,:subject => "[PLANTÂO] "+job.area.name+" - "+job.hospital.name)
+       mail(:to => user.email,:subject => "[PLANTÃO] "+job.area.name+" - "+job.hospital.name)
        sleep 1
 	end
 
@@ -26,8 +26,10 @@ class UserMailer < ActionMailer::Base
 
     	@job = Job.find_all_by_id(job_id)
     	@user = User.find_all_by_id(user_id)
-    		UserMailer.send_email(user,job).deliver
-    	
+   	  	@url = "www.plantaonet.com" 
+    	mail(:to => user.email,:subject => "[PLANTÃO] "+job.area.name+" - "+job.hospital.name)
+       	sleep 1
+ 	
     end
 
 	

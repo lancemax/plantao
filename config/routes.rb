@@ -23,13 +23,15 @@ Plantao::Application.routes.draw do
 
   match 'buy' => 'customer/home#buy', :as => :buy
 
+  
+
   root :to => 'home#index'
   
   namespace :customer do
     resources :requests
     resources :packages
     resources :orders
-    root :to => 'home#index'
+    root :to => 'jobs#index'
 
   end
 

@@ -436,7 +436,7 @@
                                                             <!-- // Begin Module: Standard Content \\ -->
                                                             <table border="0" cellpadding="5" cellspacing="0" width="100%">
                                                                 <tr>
-                                                                  <td colspan="2" align="center"> Mais um plantão foi disponibilizado para você:
+                                                                  <td colspan="2" align="center"> Você tem mais um candidato ao plantão que foi disponibilizado por você:
                                                                     </td>
                                                                 <tr>
                                                                     <th align="left">Hospital:</th><td><%= @job.hospital.name %></td>
@@ -456,7 +456,11 @@
                                                                 <tr>
                                                                   <th align="left">Observações:</th> <td><%= @job.description %></td>
                                                                 </tr>
-                                                               
+                                                                <tr>
+                                                                  <th>
+                                                                    <a href="http://www.plantaonet.com.br/jobs/<%= @job.id %>">Mais detalhes</a>
+                                                                  </th>
+                                                                </tr>
                                                             </table>
                                                             <!-- // End Module: Standard Content \\ -->
                                                             <br />
