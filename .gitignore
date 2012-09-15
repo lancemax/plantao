@@ -11,3 +11,4 @@ config/database.yml
 Gemfile.lock
 public/images/uploads/*
 config/initializers/devise.rb
+public/assets/*
