@@ -25,12 +25,14 @@ class UserMailer < ActionMailer::Base
 	def send_email_ownner_job(job_id,user_id)
 		@job = Job.find_all_by_id(job_id)
 		@user = User.find_all_by_id(user_id)
-		send_email_owen_job_deliver(@user[0],@job[0])    	
+		send_email_owen_job_deliver(@user[0],@job[0]).deliver    	
     	
  	end
 
  	def send_email_owen_job_deliver(user,job)
- 		@url = "www.plantaonet.com" 
+ 		@user = user
+ 		@job  = job
+ 		@url  = "www.plantaonet.com" 
     	mail(:to => user.email,:subject => "[PLANTÃO] "+job.area.name+" - "+job.hospital.name)
        	sleep 1
  	end	
