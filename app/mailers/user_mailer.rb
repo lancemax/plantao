@@ -43,6 +43,7 @@ class UserMailer < ActionMailer::Base
  		@requests.each do |request|
  			@user = User.find_all_by_id(request.user_id)
  			@user = @user[0]
+ 			@job  = @job[0]
  			# candidato aceito
  			if @user.id == user_id
 
