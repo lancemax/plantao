@@ -36,4 +36,38 @@ class UserMailer < ActionMailer::Base
        	sleep 1
  	end	
 
+
+ 	def send_email_request(job_id,user_id)
+ 		@job = Job.find_all_by_id(job_id)
+ 		@requests = Request.find_all_by_job_id(job_id)
+ 		@requests.each do |request|
+ 			@user = User.find_all_by_id(request.user_id)
+ 			@user = @user[0]
+ 			# candidato aceito
+ 			if @user.id == user_id
+
+				UserMailer.send_email_accept_job(@user,@job).deliver
+			#candidato recusado
+			else
+				UserMailer.send_email_deny_job(@user,@job).deliver
+			end
+		end
+ 		
+ 	end
+
+ 	def send_email_accept_job(user,job)
+ 		@user = user
+ 		@job  = job
+ 		@url  = "www.plantaonet.com" 
+    	mail(:to => job.user.email,:subject => "[VOCÊ FOI ELEITO NO PLANTÃO] "+job.area.name+" - "+job.hospital.name)
+    end
+
+    def send_email_deny_job(user,job)
+ 		@user = user
+ 		@job  = job
+ 		@url  = "www.plantaonet.com" 
+    	mail(:to => job.user.email,:subject => "[RESULTADO DO PLANTÃO] "+job.area.name+" - "+job.hospital.name)
+    end
+
+
 end
