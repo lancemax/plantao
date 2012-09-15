@@ -6,7 +6,7 @@ class Customer::HomeController < ApplicationController
   	
   def index
   	authorize! :customer_home, ""
-    redirect_to :controller => 'jobs' , :action => 'index'
+    redirect_to :showJobs
   end
 
   def show
@@ -85,3 +85,4 @@ class Customer::HomeController < ApplicationController
   end
 
 end
+  
