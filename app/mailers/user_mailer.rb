@@ -26,8 +26,6 @@ class UserMailer < ActionMailer::Base
 		@job = Job.find_all_by_id(job_id)
 		@user = User.find_all_by_id(user_id)
 		UserMailer.send_email_owen_job_deliver(@user[0],@job[0]).deliver  
-		UserMailer.test(@user[0],@job[0]).deliver  
-
  	end
 
  	def send_email_owen_job_deliver(user,job)
@@ -38,13 +36,4 @@ class UserMailer < ActionMailer::Base
        	sleep 1
  	end	
 
- 	def test(user,job)
- 		@user = user
- 		@job  = job
- 		@url  = "www.plantaonet.com" 
-    	mail(:to => job.user.email,:subject => "[NOVO CANDIDATO PLANTÃO] "+job.area.name+" - "+job.hospital.name)
-       	sleep 1
- 	end	
-
-	
 end
