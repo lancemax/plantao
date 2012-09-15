@@ -31,7 +31,7 @@ class UserMailer < ActionMailer::Base
 
  	def send_email_owen_job_deliver(user,job)
  		@url = "www.plantaonet.com" 
-    	mail(:to => @user.email,:subject => "[PLANTÃO] "+@job.area.name+" - "+@job.hospital.name)
+    	mail(:to => user.email,:subject => "[PLANTÃO] "+job.area.name+" - "+job.hospital.name)
        	sleep 1
  	end	
 
