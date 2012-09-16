@@ -16,6 +16,10 @@
       <div class="span8">
           <table class="table table-striped well">
           <tbody>
+            <% if !@job.request_id.nil? %>
+                <h1>Plantão encerrado.</h1>
+            <% end %>
+
             <tr>
                 <th>Hospital:</th><td><%= @job.hospital.name %></td>
             </tr>
