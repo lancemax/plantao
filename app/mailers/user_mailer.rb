@@ -39,11 +39,14 @@ class UserMailer < ActionMailer::Base
 
  	def send_email_request(job_id,user_id)
  		@job = Job.find_all_by_id(job_id)
+		@job = @job[0]
+		p @job
+		
  		@requests = Request.find_all_by_job_id(job_id)
  		@requests.each do |request|
  			@user = User.find_all_by_id(request.user_id)
+			p @user
  			@user = @user[0]
- 			@job  = @job[0]
  			# candidato aceito
  			if @user.id == user_id
 
@@ -64,6 +67,8 @@ class UserMailer < ActionMailer::Base
     end
 
     def send_email_deny_job(user,job)
+		p job
+		p user
  		@user = user
  		@job  = job
  		@url  = "www.plantaonet.com" 

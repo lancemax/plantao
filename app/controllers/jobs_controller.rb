@@ -18,7 +18,7 @@ class JobsController < ApplicationController
    if !params[:job].nil?  && !params[:job][:shift_id].nil?  && params[:job][:shift_id] != ""
       query =  query.where("shift_id = ?",params[:job][:shift_id])
    end
-
+	query = query.where("request_id is null")
     @jobs = query.where(:date => 1.days.ago..Time.now+10.days).paginate(:page => params[:page], :per_page => 4).order("date")
 
 
