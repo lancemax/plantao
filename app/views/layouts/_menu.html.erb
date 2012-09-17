@@ -14,10 +14,10 @@
 						<li ><a href="/"><i class="icon-white icon-home"></i>Inicio</a></li>
 						<li><a href="/jobs"><i class="icon-white icon-time"></i>Plantões</a></li>
 						<li><a href="/hospitals"><i class="icon-white  icon-plus-sign"></i>Hospitais</a></li>
-						<!--li><a href="/package"><i class="icon-white icon-shopping-cart"></i>Comprar Lances</a></li-->
+						
 						<% if user_signed_in? %>
 								<li class="dropdown">
-									<a class="dropdown-toggle" data-toggle="dropdown" href="/customer">
+									<a class="dropdown-toggle" data-toggle="dropdown" href="#">
 										<i class="icon-white icon-home"></i>Minha Conta
 									</a>
 									<ul class="dropdown-menu">
@@ -98,7 +98,7 @@
 										<a href="<%= destroy_user_session_path %>"  data-method="delete">
 											<i class="icon-remove-sign"></i>
 											Sair
-											<% link_to("<i class=icon-remove>SAIR</i>", destroy_user_session_path+"#delete", :method => :delete, :class => "remove",:title => 'Sair') %>	
+											<% link_to("<i class=icon-remove>SAIR</i>", destroy_user_session_path, :method => :delete, :class => "remove",:title => 'Sair') %>	
 										</a>
 									</li>
 								</ul>

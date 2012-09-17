@@ -147,6 +147,11 @@ en:
       not_saved:
         one: "1 error prohibited this %{resource} from being saved:"
         other: "%{count} errors prohibited this %{resource} from being saved:"
+      not_a_date: "is not a date"
+      after: "must be after %{date}"
+      after_or_equal_to: "must be after or equal to %{date}"
+      before: "must be before %{date}"
+      before_or_equal_to: "must be before or equal to %{date}"
     template:
       body: ! 'There were problems with the following fields:'
       header:
@@ -239,6 +244,11 @@ en:
         city_id: "City"
         state_id: "State"
         description: "Description"
+      job:
+        area_id: "Area"
+        price: "Price"
+        date: "Date"
+        shift_id: "Shift"
   devise:
     failure:
       already_authenticated: 'You are already signed in.'

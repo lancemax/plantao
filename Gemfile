@@ -53,6 +53,9 @@ gem "twitter-bootstrap-rails"
 #bootstrap datepicker
 gem 'bootstrap-datepicker-rails'
 
+#validaçao de data
+gem 'date_validator'
+
 #para buscas
 gem 'meta_search'
 

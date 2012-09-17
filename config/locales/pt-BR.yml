@@ -141,6 +141,11 @@ pt-BR:
       not_saved:
         one: "1 error prohibited this %{resource} from being saved:"
         other: "%{count} errors prohibited this %{resource} from being saved:"
+      not_a_date: "inválida"
+      after: "deve ser maior que %{date}"
+      after_or_equal_to: "deve ser maior ou igual a %{date}"
+      before: "Deve ser menor que %{date}"
+      before_or_equal_to: "deve ser menor ou igual a %{date}"
     template:
       body: ! 'Por favor, verifique o(s) seguinte(s) campo(s):'
       header:
@@ -241,6 +246,11 @@ pt-BR:
         city_id: "Cidade"
         state_id: "Estado"
         description: "Descrição"
+      job:
+        area_id: "Especilidade"
+        price: "Preço"
+        date: "Data"
+        shift_id: "Turno"
   devise:
     failure:
       already_authenticated: 'Você já está Logado.'

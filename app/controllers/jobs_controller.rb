@@ -50,22 +50,27 @@ class JobsController < ApplicationController
     
 	setMoney(params[:job][:price])
 
-	if params[:job][:price].to_f <= 0.00
-			  @name = "O valor não pode ser negativo "
-	 			@sucesso = false
-				return false
-	end
+	#if params[:job][:price].to_f <= 0.00
+	#		  @name = "O valor não pode ser negativo."
+	# 			@sucesso = false
+#				return false
+	#end
 
 
-	if params[:job][:price].to_f > 9999.99
-		  @name = "O valor não pode ser maior que R$9.999,99 "
- 			@sucesso = false
-			return false
-	end
+	#if params[:job][:price].to_f > 9999.99
+	#	  @name = "O valor não pode ser maior que R$9.999,99."
+ 	#		@sucesso = false
+	#		return false
+	#end
+	#if params[:job][:date] < Time.now
+	#	  @name = "A Data do Plantão não pode ser um data retroativa."
+#		  @sucesso = false
+#		  return false
+#	end
 
 	@job = Job.new(params[:job])
-    @job.user_id = current_user.id
-    @job.date = Time.now
+	@job.user_id = current_user.id
+	#@job.date = Time.now
     respond_to do |format|
       if @job.save
         if Rails.env == 'production' 
