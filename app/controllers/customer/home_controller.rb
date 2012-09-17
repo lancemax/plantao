@@ -6,6 +6,7 @@ class Customer::HomeController < ApplicationController
   	
   def index
   	authorize! :customer_home, ""
+    redirect_to :showJobs
   end
 
   def show
@@ -35,8 +36,12 @@ class Customer::HomeController < ApplicationController
       if Job.update(params[:job][:job_id],"request_id" => params[:job][:request_id])
         #declara o request com aceito
         Request.update(params[:job][:request_id],"status_request_id" => 2)
+        
         #declara todos os outros como negados
         Request.update_all("status_request_id = 3", ["id != ?",params[:job][:request_id]])
+        #notifica candidatos por email
+        UserMailer.send_email_request(params[:job][:job_id],params[:job][:request_id])
+
         @name='Substituto Selecionado com Sucesso'
         @job=params[:job][:job_id]
       else
@@ -84,3 +89,4 @@ class Customer::HomeController < ApplicationController
   end
 
 end
+  

@@ -43,7 +43,7 @@
                         <% end %>
                     <% elsif  request.job.request_id == request.id and request.status_request_id == 2 %>  
                         <%= link_to customer_request_path(request), confirm: 'A desistência depende da aceitação do moderador desse plantão, Caso o moderador não conceda a Desistência até o dia do plantão, você deverá assumi-lo. Você tem certeza que deseja continuar?', method: :delete, :remote => true do %>
-                            <div class="btn btn-danger"><b>Solicitar Desistencia</b></div>
+                            <div class="btn btn-danger"><b>Solicitar Desistência</b></div>
                         <% end %>
                     <% end %> 
                   </td>

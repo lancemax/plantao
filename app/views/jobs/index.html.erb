@@ -80,13 +80,14 @@
 						</tr>
 			            <tr>
 			            
-
 			            	<td colspan="2" id="job<%=job.id%>">
 		            			<% if user_signed_in? %>
 		            				<%= simple_form_for [:customer,@request],:html => {:class => 'form-inline'}, :remote => true  do |f| %>
 		            					<div class="btn btn-info"><b><%=job.requests.count%></b> Candidato(s)</div>
 				            			<% if !Request.where(:user_id => current_user.id,:job_id =>job.id).first %>
-					            			<% if current_user.id != job.user_id  %>
+					            			<% if !job.request_id.nil? %>
+					            				<div class="btn">Plantão Encerrado</div>
+					            			<% elsif current_user.id != job.user_id  %>
 				            				
 				            					<%= f.hidden_field :job_id ,:value => job.id %>
 				            					<%= f.submit "Pegar Plantão", :class => "btn btn-success" %>

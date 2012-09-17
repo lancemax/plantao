@@ -20,6 +20,7 @@ class Admin::HomeController < ApplicationController
 
   def editUser
   	@user = User.find(params[:user])
+	p @user.email
   end
 
   def deleteUser
