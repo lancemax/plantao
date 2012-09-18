@@ -36,9 +36,7 @@ class JobsController < ApplicationController
   # filtro dos dias da semana 
  $diasSemana.each do  |i|
  
-   if cookies[i].nil?
-      p "a"
-   elsif cookies[i] == "false"
+   if !cookies[i].nil? &&  cookies[i] == "false"
      query = query.where("EXTRACT(dow from date) != ? ",$diasSemana.index(i))      
    end 
  end   
