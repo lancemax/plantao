@@ -20,7 +20,7 @@ jQuery(document).ready(function(){
 			$(this).addClass("btn-kilo");
 		}
 			
-		else{
+		else {
 
 			$(this).addClass("btn-"+dia);
 			$(this).removeClass("btn-kilo");
@@ -40,6 +40,8 @@ function verificaBotoes(){
 	  	console.log(dias[x]);
 	  	console.log(getCookie(dias[x]));
 
+  		if ( getCookie(dias[x]) == null )
+  			setCookie(dias[x],"true",1);
 
 	  if ( getCookie(dias[x]) == "false" ){
 		
