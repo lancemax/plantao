@@ -1,11 +1,22 @@
 # -*- coding: utf-8 -*-
 class JobsController < ApplicationController
   before_filter :authenticate_user!, :only => [:new,:create,:edit]
+  attr_accessor :diasSemana
 
+  $diasSemana = [
+    "domingo",
+    "segunda",
+    "terca",
+    "quarta",
+    "quinta",
+    "sexta",
+    "sabado",
+    ]
 	# GET /jobs
 	# GET /jobs.json
 	def index
     query = Job
+  
     
   if !params[:job].nil?  && !params[:job][:hospital_id].nil?  && params[:job][:hospital_id] != ""
       query =  query.where("hospital_id = ?",params[:job][:hospital_id])
@@ -19,6 +30,22 @@ class JobsController < ApplicationController
       query =  query.where("shift_id = ?",params[:job][:shift_id])
    end
 	query = query.where("request_id is null")
+
+  p $diasSemana
+
+  # filtro dos dias da semana 
+ $diasSemana.each do  |i|
+ 
+   if cookies[i].nil?
+      p "a"
+   elsif cookies[i] == "false"
+     query = query.where("EXTRACT(dow from date) != ? ",$diasSemana.index(i))      
+   end 
+ end   
+
+
+
+  p query
 
     @jobs = query.where(:date => 1.days.ago..Time.now+10.days).paginate(:page => params[:page], :per_page => 4).order("date")
 

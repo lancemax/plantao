@@ -49,8 +49,17 @@
 		            
 			<% end %>
 		</div>
+
+		 <button class=" clicavel btn btn-mini btn-domingo" id="domingo" type="button">Domingo</button>
+		 <button class=" clicavel btn btn-mini btn-segunda" id="segunda" type="button">Segunda</button>
+		 <button class=" clicavel btn btn-mini btn-terca" id="terca" type="button">Terça</button>
+		 <button class=" clicavel btn btn-mini btn-quarta" id="quarta" type="button">Quarta</button>
+		 <button class=" clicavel btn btn-mini btn-quinta" id="quinta" type="button">Quinta</button>
+		 <button class=" clicavel btn btn-mini btn-sexta" id="sexta" type="button">Sexta</button>
+		 <button class=" clicavel btn btn-mini btn-sabado" id="sabado" type="button">Sábado</button>
 	</div>
-	<br clear="all" />
+
+	<br clea clicavel r="all" />
 	<ul class="thumbnails">
 		<% @jobs.each do |job| %>
 	    	<a href="<%=  job_path(job) %>">
@@ -68,7 +77,13 @@
 			            </tr>
 			            <tr>
 			            	<th>Data:</th>
-			            	<td><%= job.date.strftime("%d/%m/%Y") %> (<%= I18n.t("date."+job.date.strftime("%A"))%>)</td>
+			            	<td><%= job.date.strftime("%d/%m/%Y") %> 
+
+							<button class=" clicavel btn btn-mini btn-d<%= job.date.strftime('%w')%>"  type="button">
+			            	
+			            	<%= I18n.t("date."+job.date.strftime("%A"))%>
+			            	</button>
+			            	</td>
 			            </tr>
 						<tr>
 							<th>Valor:</th>
