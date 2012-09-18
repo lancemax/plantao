@@ -1,5 +1,3 @@
-
-
 <div class="well hero">
 	<h1>Plantões</h1>
        
@@ -17,46 +15,61 @@
 	</div>
 	<br clear="all" />
 	<div class="row-fluid">
-		<div class="span3">
-			<%= simple_form_for @search ,  :url => :showJobs , :validate => true ,:html => {:class => 'form ',:novalidate => true } do |f| %>
-		 
-		   Filtrar por:<br>
-		         
-					<%= f.association :hospital , :prompt => "--- Hospital ---", :label => false %>
-					<%= f.button :submit, "Filtrar", :class => "btn-mini btn-primary" %>
-		         
-			<% end %>
+		<div class="span12 tabbable">
+			<%= simple_form_for @job, :validate => true ,:html => {:class => 'form ',:novalidate => true },:method => 'get' do |f| %>
+			<a href="#submitform" data-toggle="tab" class="btn">Filtrar: 
+			   <b class="btn btn-small btn-primary" data-toggle="collapse" data-target="#hospitalform">Hospital</b>
+			   <b class="btn btn-small btn-primary" data-toggle="collapse" data-target="#areaform">Especialidade</b>
+			   <b class="btn btn-small btn-primary" data-toggle="collapse" data-target="#shiftform">Turno</b>
+			   <b class="btn btn-small btn-primary" data-toggle="collapse" data-target="#priceform">Valor</b>
+			   
+			
+		
+
+			
+				<b class="btn btn-small btn-group bordazero">
+					<b class="btn btn-small btn-primary">	Dias da Semana:</b>	
+					<b class=" clicavel btn btn-small btn-domingo" id="domingo" type="button">Domingo</b>
+					<b class=" clicavel btn btn-small btn-segunda" id="segunda" type="button">Segunda</b>
+					<b class=" clicavel btn btn-small btn-terca" id="terca" type="button">Terça</b>
+					<b class=" clicavel btn btn-small btn-quarta" id="quarta" type="button">Quarta</b>
+					<b class=" clicavel btn btn-small btn-quinta" id="quinta" type="button">Quinta</b>
+					<b class=" clicavel btn btn-small btn-sexta" id="sexta" type="button">Sexta</b>
+					<b class=" clicavel btn btn-small btn-sabado" id="sabado" type="button">Sábado</b>
+				</b>
+			</a>
+		</div>
+		<br clear="all"><br clear="all">
+		<div class="span4">
+			<div id="hospitalform" class="collapse out">
+
+						<%= f.association :hospital , :prompt => "--- Hospital ---", :label => false, :class => "span3" %>
+			</div>
+		
+			<div id="areaform" class="collapse out">
+						<%= f.association :area , :prompt => "--- Especialidade ---", :label => false, :class => "span3" %>
+			</div>
+		
+			<div id="shiftform" class="collapse out">
+		    			<%= f.association :shift,:prompt => "--- Turno ---", :label => false, :class => "span3" %>
+			</div>
+
+			<div id="priceform" class="collapse out input-prepend">
+		    			<span class="add-on">Maior que </span><%= f.text_field :price, :class => 'span3', :placeholder => "Valor" %>
+			</div>
+			
+			<div class="tab-content">
+				<div id="submitform" class="tab-pane">
+					<%= f.button :submit, "Filtrar", :class => "btn btn-primary " %>
+				</div>
+			</div>
 		</div>
 
-		<div class="span3">
-			<%= simple_form_for @search ,  :url => :showJobs , :validate => true ,:html => {:class => 'form ',:novalidate => true } do |f| %>
-		 
-		   Filtrar por:<br>
-		            
-					<%= f.association :area , :prompt => "--- Área ---", :label => false %>
-					<%= f.button :submit, "Filtrar", :class => "btn-mini btn-primary" %>
-		            
-			<% end %>
-		</div>
-
-		<div class="span3">
-			<%= simple_form_for @search ,  :url => :showJobs , :validate => true ,:html => {:class => 'form ',:novalidate => true } do |f| %>
-		 
-		   Filtrar por:<br>
-		            
-	    			<%= f.association :shift,:prompt => "--- Turno ---", :label => false %>
-	    			<%= f.button :submit, "Filtrar", :class => "btn-mini btn-primary form-inline" %>
-		            
-			<% end %>
-		</div>
-
-		 <button class=" clicavel btn btn-mini btn-domingo" id="domingo" type="button">Domingo</button>
-		 <button class=" clicavel btn btn-mini btn-segunda" id="segunda" type="button">Segunda</button>
-		 <button class=" clicavel btn btn-mini btn-terca" id="terca" type="button">Terça</button>
-		 <button class=" clicavel btn btn-mini btn-quarta" id="quarta" type="button">Quarta</button>
-		 <button class=" clicavel btn btn-mini btn-quinta" id="quinta" type="button">Quinta</button>
-		 <button class=" clicavel btn btn-mini btn-sexta" id="sexta" type="button">Sexta</button>
-		 <button class=" clicavel btn btn-mini btn-sabado" id="sabado" type="button">Sábado</button>
+		
+		
+		
+		<% end %>
+		
 	</div>
 
 	<br clea clicavel r="all" />

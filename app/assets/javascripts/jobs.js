@@ -26,7 +26,7 @@ jQuery(document).ready(function(){
 			$(this).removeClass("btn-kilo");
 			setCookie(dia,"true",1);
 		}
-			location.reload();
+			//location.reload();
     });
  });
 
@@ -37,8 +37,8 @@ function verificaBotoes(){
 
 	for (x in dias)
 	  {
-	  	console.log(dias[x]);
-	  	console.log(getCookie(dias[x]));
+	  	//console.log(dias[x]);
+	  	//console.log(getCookie(dias[x]));
 
   		if ( getCookie(dias[x]) == null )
   			setCookie(dias[x],"true",1);

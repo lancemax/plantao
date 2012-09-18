@@ -15,45 +15,57 @@ class JobsController < ApplicationController
 	# GET /jobs
 	# GET /jobs.json
 	def index
+    @job = Job.new
     query = Job
-  
     
-  if !params[:job].nil?  && !params[:job][:hospital_id].nil?  && params[:job][:hospital_id] != ""
-      query =  query.where("hospital_id = ?",params[:job][:hospital_id])
- 	end
+    #verifica se veio POST
+    if !params[:job].nil?  
 
-   if !params[:job].nil?  && !params[:job][:area_id].nil?  && params[:job][:area_id] != ""
-      query =  query.where("area_id = ?",params[:job][:area_id])
-   end
+      #verifica se hospital veio pelo POST
+      if !params[:job][:hospital_id].nil?  && params[:job][:hospital_id] != ""
+        query =  query.where("hospital_id = ?",params[:job][:hospital_id])
+      end
+      #verifica se area veio pelo POST
+      if !params[:job][:area_id].nil?  && params[:job][:area_id] != ""
+        query =  query.where("area_id = ?",params[:job][:area_id])  
+      end
+      #verifica se shift veio pelo POST
+      if !params[:job][:shift_id].nil?  && params[:job][:shift_id] != ""
+        query =  query.where("shift_id = ?",params[:job][:shift_id])
+      end
+      #verifica se price veio pelo POST
+      if !params[:job][:price].nil?  && params[:job][:price] != ""
+        setMoney(params[:job][:price])
+        query =  query.where("price >= ?",params[:job][:price])
+      end
 
-   if !params[:job].nil?  && !params[:job][:shift_id].nil?  && params[:job][:shift_id] != ""
-      query =  query.where("shift_id = ?",params[:job][:shift_id])
-   end
-	query = query.where("request_id is null")
+      query = query.where("request_id is null")
 
-  p $diasSemana
+      
 
-  # filtro dos dias da semana 
- $diasSemana.each do  |i|
+
+    end
+    
+    # filtro dos dias da semana 
+    $diasSemana.each do  |i|
  
-   if !cookies[i].nil? &&  cookies[i] == "false"
-     query = query.where("EXTRACT(dow from date) != ? ",$diasSemana.index(i))      
-   end 
- end   
+      if !cookies[i].nil? &&  cookies[i] == "false"
+         query = query.where("EXTRACT(dow from date) != ? ",$diasSemana.index(i))      
+      end 
+    end   
+
+    query = query.where("request_id is null")
+    query = query.where(:date => 1.days.ago..Time.now+10.days).paginate(:page => params[:page], :per_page => 4).order("date")
+
+    @jobs = query
 
 
-
-  p query
-
-    @jobs = query.where(:date => 1.days.ago..Time.now+10.days).paginate(:page => params[:page], :per_page => 4).order("date")
-
-
-  @request = Request.new
-  @search = Job.new
-	respond_to do |format|
-	  format.html # index.html.erb
-	  format.json { render json: @jobs }
-	end
+    @request = Request.new
+    
+  	respond_to do |format|
+  	  format.html # index.html.erb
+  	  format.json { render json: @jobs }
+  	end
 	end
 
 

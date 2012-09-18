@@ -7,7 +7,7 @@ class CreateJobs < ActiveRecord::Migration
       t.text :dependencies
       t.timestamp :date
       t.integer :shift_id
-      t.integer :price
+      t.float :price
       t.text :description
       t.integer :request_id
 

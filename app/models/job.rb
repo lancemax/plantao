@@ -11,7 +11,7 @@ class Job < ActiveRecord::Base
   validates_presence_of :hospital_id, :area_id , :price, :date ,:shift_id
   
   validates :price ,:numericality => {:greater_than => 0, :less_than => 9999.99}
-  validates :date, :date => { :after => Time.now, :before => Time.now + 1.year }
+  validates :date, :date => { :after => Time.now - 1.day, :before => Time.now + 1.year }
   
 
 end
