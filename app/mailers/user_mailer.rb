@@ -17,7 +17,7 @@ class UserMailer < ActionMailer::Base
 	def send_emails(job)
 		@users = User.all
 		@users.each do |user|
-			UserMailer.send_email(user,job).deliver
+			UserMailer.delay.send_email(user,job)
 		end
 	end	
 
