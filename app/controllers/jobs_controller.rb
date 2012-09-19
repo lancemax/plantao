@@ -161,7 +161,9 @@ class JobsController < ApplicationController
 
     respond_to do |format|
       if @job.update_attributes(params[:job])
-        UserMailer.send_emails(@job)
+        if Rails.env == 'production' 
+          UserMailer.send_emails(@job) 
+        end 
         format.html { redirect_to @job, notice: 'Plantão atualizado com Sucesso.' }
         format.json { head :no_content }
       else
