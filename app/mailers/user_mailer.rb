@@ -63,8 +63,6 @@ class UserMailer < ActionMailer::Base
     end
 
     def send_email_deny_job(user,job)
-		p job
-		p user
  		@user = user
  		@job  = job
  		@url  = "www.plantaonet.com" 
