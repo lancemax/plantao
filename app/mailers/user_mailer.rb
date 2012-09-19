@@ -10,7 +10,6 @@ class UserMailer < ActionMailer::Base
    	  @url = "www.plantaonet.com" 
 	# attachments['terms.pdf'] = File.read('/path/terms.pdf')
        mail(:to => user.email,:subject => "[PLANTÃO] "+job.area.name+" - "+job.hospital.name)
-       sleep 1
 	end
 
 
@@ -32,29 +31,21 @@ class UserMailer < ActionMailer::Base
  	def send_email_ownner_job_deliver(user,job)
  		@user = user
  		@job  = job
- 		p @job
-		p @user
  		@url  = "www.plantaonet.com" 
-		p @user
-		p @job	
     	mail(:to => job.user.email,:subject => "[NOVO CANDIDATO PLANTÃO] "+job.area.name+" - "+job.hospital.name)
-	sleep 1
  	end	
 
 
  	def send_email_request(job_id,user_id)
  		@job = Job.find_all_by_id(job_id)
 		@job = @job[0]
-		p @job
 		
  		@requests = Request.find_all_by_job_id(job_id)
  		@requests.each do |request|
  			@user = User.find_all_by_id(request.user_id)
-			p @user
  			@user = @user[0]
  			# candidato aceito
  			if @user.id == user_id
-
 				UserMailer.send_email_accept_job(@user,@job).deliver
 			#candidato recusado
 			else
