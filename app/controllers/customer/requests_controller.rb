@@ -71,7 +71,7 @@ class Customer::RequestsController < ApplicationController
     respond_to do |format|
       #caso o moderador ainda não tenho escolhido o eleito. então Cancela
       if @request.job.request_id.nil?
-        Request.deliver.update(@request.id,"status_request_id" => 4)
+        Request.update(@request.id,"status_request_id" => 4)
         @cancelou = 'sim'
         format.js
       elsif @request.job.request_id == @request.id
