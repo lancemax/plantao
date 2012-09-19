@@ -34,7 +34,7 @@ class Customer::RequestsController < ApplicationController
           @num=@request.job.requests.count
 
           # envia o email para o dono do plantão 
-          UserMailer.send_email_ownner_job(@request.job_id,current_user.id)
+          UserMailer.delay.send_email_ownner_job(@request.job_id,current_user.id)
           
           p @num
         else
