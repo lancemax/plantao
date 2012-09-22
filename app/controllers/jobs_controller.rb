@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*-
 class JobsController < ApplicationController
   before_filter :authenticate_user!, :only => [:new,:create,:edit]
+  before_filter :pode_editar , :only => [:edit , :update]
+
   attr_accessor :diasSemana
+
 
   $diasSemana = [
     "domingo",
@@ -81,24 +84,6 @@ class JobsController < ApplicationController
     
 	setMoney(params[:job][:price])
 
-	#if params[:job][:price].to_f <= 0.00
-	#		  @name = "O valor não pode ser negativo."
-	# 			@sucesso = false
-#				return false
-	#end
-
-
-	#if params[:job][:price].to_f > 9999.99
-	#	  @name = "O valor não pode ser maior que R$9.999,99."
- 	#		@sucesso = false
-	#		return false
-	#end
-	#if params[:job][:date] < Time.now
-	#	  @name = "A Data do Plantão não pode ser um data retroativa."
-#		  @sucesso = false
-#		  return false
-#	end
-
 	@job = Job.new(params[:job])
 	@job.user_id = current_user.id
 	#@job.date = Time.now
@@ -155,8 +140,10 @@ class JobsController < ApplicationController
 
     respond_to do |format|
       if @job.update_attributes(params[:job])
+
+        Request.update_all("status_request_id = "++"", ["id != ? and job_id = ?",@request.id,@request.job.id])
         if Rails.env == 'production' 
-          UserMailer.send_emails(@job) 
+          UserMailer.send_emails_edit(@job) 
         end 
         format.html { redirect_to @job, notice: 'Plantão atualizado com Sucesso.' }
         format.json { head :no_content }
@@ -167,5 +154,18 @@ class JobsController < ApplicationController
     end
   end
 
+  protected
+
+  def pode_editar
+    # verifica se existe algum escolhido nesse plantão
+     @job = Job.find(params[:id])
+     if !@job.request_id.nil?
+        respond_to do |format|
+          format.html {  redirect_to @job, notice: 'O Plantão não pode ser editado pois possui um escolhido.É possível excluir o plantão.'}
+        end
+     end 
+
+
+  end
 
 end

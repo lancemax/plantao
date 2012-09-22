@@ -2,11 +2,15 @@
 class Customer::RequestsController < ApplicationController
   
   before_filter :authenticate_user!
+  
+
   layout 'customer/applicationcustomer'
 
-  AGUARDANDO_RESPOSTA = 1
-  CANCELADO = 4
-  DESISTENCIA = 5
+
+
+  CONS::REQUEST[:AGUARDANDO_RESPOSTA] = 1
+  CONS::REQUEST[:CANCELADO] = 4
+  CONS::REQUEST[:DESISTENCIA] = 5
   # GET /requests
   # GET /requests.json
   def index
@@ -27,7 +31,7 @@ class Customer::RequestsController < ApplicationController
     respond_to do |format|
       unless @verifica
         @request.user_id = current_user.id
-        @request.status_request_id = AGUARDANDO_RESPOSTA
+        @request.status_request_id = CONS::REQUEST[:AGUARDANDO_RESPOSTA]
          
         if @request.save
           @name='Você se candidatou a esse plantão com sucesso.'
@@ -38,7 +42,7 @@ class Customer::RequestsController < ApplicationController
 
           # envia o email para o dono do plantão  
           if Rails.env == 'production' 
-            UserMailer.delay.send_email_ownner_job(@request.job_id,current_user.id,AGUARDANDO_RESPOSTA)
+            UserMailer.delay.send_email_ownner_job(@request.job_id,current_user.id,CONS::REQUEST[:AGUARDANDO_RESPOSTA])
           end
           
           p @num
@@ -58,9 +62,9 @@ class Customer::RequestsController < ApplicationController
     respond_to do |format|
       # se o plantao ainda nao foi encerrado pode repleitear
       if @request.job.request_id.nil?
-        Request.update(@request.id,"status_request_id" => AGUARDANDO_RESPOSTA)
+        Request.update(@request.id,"status_request_id" => CONS::REQUEST[:AGUARDANDO_RESPOSTA])
         if Rails.env == 'production'
-          UserMailer.send_email_ownner_job(@request.job.id,current_user.id,AGUARDANDO_RESPOSTA)
+          UserMailer. (@request.job.id,current_user.id,CONS::REQUEST[:AGUARDANDO_RESPOSTA])
         end
         @alterou = 'sim'
         format.js
@@ -78,20 +82,21 @@ class Customer::RequestsController < ApplicationController
     respond_to do |format|
       #caso o moderador ainda não tenho escolhido o eleito. então Cancela
       if @request.job.request_id.nil?
-        Request.update(@request.id,"status_request_id" => CANCELADO)
+        Request.update(@request.id,"status_request_id" => CONS::REQUEST[:CANCELADO])
         @cancelou = 'sim'
         format.js
-      # solicita desistencia ao moderador e envia o email para o mesmo  
+      # solicita CONS::REQUEST[:DESISTENCIA] ao moderador e envia o email para o mesmo  
       elsif @request.job.request_id == @request.id
 
-        Request.update(@request.id,"status_request_id" => DESISTENCIA)
+        Request.update(@request.id,"status_request_id" => CONS::REQUEST[:DESISTENCIA])
          #declara que esse job volta a estar aberto
         Job.update(params[:job][:job_id],"request_id" => nil)
         #declara os demais requests como aguardando resposta do moderador
         Request.update_all("status_request_id = 1", ["id != ? and job_id = ?",@request.id,@request.job.id])
 
         if Rails.env == 'production'
-          UserMailer.send_email_ownner_job(@request.job.id,current_user.id,DESISTENCIA)
+          # envia email pro moderador avisando da CONS::REQUEST[:DESISTENCIA] e pros demais usuarios avisando da reabertura do plantao
+          UserMailer.send_email_ownner_job(@request.job.id,current_user.id,CONS::REQUEST[:DESISTENCIA])
         end
 
         @cancelou = 'sim'
@@ -102,4 +107,7 @@ class Customer::RequestsController < ApplicationController
       end
     end
   end
+
+
+
 end
