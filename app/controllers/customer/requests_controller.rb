@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 class Customer::RequestsController < ApplicationController
   
-  before_filter :authenticate_user\!
+  before_filter :authenticate_user!
   
 
   layout 'customer/applicationcustomer'
