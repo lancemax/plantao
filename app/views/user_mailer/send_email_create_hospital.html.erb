@@ -434,7 +434,7 @@
                                                         <td valign="top" class="bodyContent">
                                             
                                                             <!-- // Begin Module: Standard Content \\ -->
-                                                            <!--table border="0" cellpadding="5" cellspacing="0" width="100%">
+                                                            <table border="0" cellpadding="5" cellspacing="0" width="100%">
                                                                 <tr>
                                                                   <td colspan="2" align="center"> Hospital criado/editado:
                                                                     </td>
@@ -464,80 +464,20 @@
                                                                   <th align="left">Descrição:</th> <td><%= @hospital.description %>
                                                                 </td>
                                                                 </tr>
+                                                                 <tr>
+                                                                <th align="left">Imagen:</th> <td><img src="<%= @url+@hospital.image.url(:small) %>" alt="foto hospital">
+                                                                </td>
+                                                                </tr>
                                                              
                                                                
-                                                            </table-->
+                                                            </table>
                                                             <!-- // End Module: Standard Content \\ -->
                                                             <br />
                                                         </td>
                                                     </tr>
                                                 </table>
                                             </td>
-                                          <!-- // Begin Sidebar \\  -->
-                                          <td valign="top" width="200" id="templateSidebar">
-                                              <table border="0" cellpadding="0" cellspacing="0" width="200">
-                                                  <tr>
-                                                      <td valign="top" class="sidebarContent">
-                                                        
-                                                            <!-- // Begin Module: Social Block with Icons \\ -->
-                                                            <!--table border="0" cellpadding="0" cellspacing="0" width="100%">
-                                                                <tr>
-                                                                    <td valign="top" style="padding-top:10px; padding-right:20px; padding-left:20px;">
-                                                                        <table border="0" cellpadding="0" cellspacing="4">
-                                                                            <tr mc:hideable>
-                                                                                <td align="left" valign="middle" width="16">
-                                                                                    <img src="http://gallery.mailchimp.com/653153ae841fd11de66ad181a/images/sfs_icon_facebook.png" style="margin:0 !important;" />
-                                                                                </td>
-                                                                                <td align="left" valign="top">
-                                                                                    <div mc:edit="sbwi_link_one">
-                                                                                        <a href="*|FACEBOOK:PROFILEURL|*">Friend on Facebook</a>
-                                                                                    </div>
-                                                                                </td>
-                                                                            </tr>
-                                                                            <tr mc:hideable>
-                                                                                <td align="left" valign="middle" width="16">
-                                                                                    <img src="http://gallery.mailchimp.com/653153ae841fd11de66ad181a/images/sfs_icon_twitter.png" style="margin:0 !important;" />
-                                                                                </td>
-                                                                                <td align="left" valign="top">
-                                                                                    <div mc:edit="sbwi_link_two">
-                                                                                        <a href="*|TWITTER:PROFILEURL|*">Follow on Twitter</a>
-                                                                                    </div>
-                                                                                </td>
-                                                                            </tr>
-                                                                            <tr mc:hideable>
-                                                                                <td align="left" valign="middle" width="16">
-                                                                                    <img src="http://gallery.mailchimp.com/653153ae841fd11de66ad181a/images/sfs_icon_forward.png" style="margin:0 !important;" />
-                                                                                </td>
-                                                                                <td align="left" valign="top">
-                                                                                    <div mc:edit="sbwi_link_three">
-                                                                                        <a href="*|FORWARD|*">Forward to a Friend</a>
-                                                                                    </div>
-                                                                                </td>
-                                                                            </tr>
-                                                                        </table>
-                                                                    </td>
-                                                                </tr>
-                                                            </table-->
-                                                            <!-- // End Module: Social Block with Icons \\ -->
-
-                                                            <!-- // Begin Module: Top Image with Content \\ -->
-                                                            <table border="0" cellpadding="20" cellspacing="0" width="100%">
-                                                                <tr mc:repeatable>
-                                                                    <td valign="top">
-                  <a href="http://www.plantaonet.com/jobs/<%=@job.id%>">
-                                                                        <img src="http://www.plantaonet.com/assets/ver_plantao_btn.gif" style="max-width:160px;" mc:label="image" mc:edit="tiwc200_image00" border="0" />
-                                                                      </a>
-                                                                        
-                                                                    </td>
-                                                                </tr>
-                                                            </table>
-                                                            <!-- // End Module: Top Image with Content \\ -->
-                                                        
-                                                        </td>
-                                                    </tr>
-                                                </table>
-                                            </td>
-                                            <!-- // End Sidebar \\ -->
+                                          
                                         </tr>
                                     </table>
                                     <!-- // End Template Body \\ -->
