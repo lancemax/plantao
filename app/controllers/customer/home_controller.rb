@@ -41,7 +41,7 @@ class Customer::HomeController < ApplicationController
         User.consume_credits(@aceito.user_id)
 
         #declara todos os outros como negados
-        Request.update_all :status_request_id => CONS::REQUEST[:NEGADO],["status_request_id = ? and job_id = ? ", CONS::REQUEST[:AGUARDANDO_RESPOSTA],params[:job][:job_id]]
+        Request.update_all(:status_request_id => CONS::REQUEST[:NEGADO],["status_request_id = ? and job_id = ? ", CONS::REQUEST[:AGUARDANDO_RESPOSTA],params[:job][:job_id]])        
         #notifica candidatos por email
         if Rails.env == 'production'
           UserMailer.send_email_request(params[:job][:job_id])
