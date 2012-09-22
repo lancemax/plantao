@@ -33,7 +33,12 @@
               <th>Pré-requisitos:</th> <td><%= @job.dependencies %></td>
             </tr> 
             <tr>
-               <th>Data:</th> <td><%= @job.date.strftime("%d/%m/%Y") %> (<%= I18n.t("date."+@job.date.strftime("%A"))%> - <%= @job.shift.name %>)</td>
+               <th>Data:</th> <td><b><%= @job.date.strftime("%d/%m/%Y") %></b> 
+               <b class=" clicavel btn btn-mini btn-d<%= @job.date.strftime('%w')%>"  type="button">
+                    
+                    <%= I18n.t("date."+@job.date.strftime("%A"))%>
+                    </b>
+                   <b class="btn btn-mini btn-<%=@job.shift.name%>"><%=@job.shift.name%></b></td>
             </tr>
             <tr>
                <th>Valor:</th> <td><%= to_real(@job.price) %></td>
@@ -45,7 +50,7 @@
           </table>
             <% if user_signed_in? %>
 
-            <% if @job.user_id == current_user.id %>
+            <% if @job.user_id == current_user.id and @job.requests.count !=0 %>
              <h3>Candidatos</h3>
                 
               
