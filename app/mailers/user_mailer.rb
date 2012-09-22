@@ -95,7 +95,7 @@ class UserMailer < ActionMailer::Base
     	@user = user
  		@job  = job
  		@url  = "www.plantaonet.com" 
-    	mail(:to => job.user.email,:subject => "[REABERTURA PLANTÃO] "+job.area.name+" - "+job.hospital.name) + "("+ job.date.strftime("%d/%m/%Y") +")")
+    	mail(:to => job.user.email,:subject => "[REABERTURA PLANTÃO] "+job.area.name+" - "+job.hospital.name + "("+ job.date.strftime("%d/%m/%Y") +")")
     end
 
 
