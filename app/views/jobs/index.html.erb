@@ -137,5 +137,5 @@
 		<% end %>
 
 	</ul>
-	<%= will_paginate @jobs %>
+	<%= will_paginate @jobs ,options = { :previous_label => "Anterior", :next_label => "Próximo", :class => "apple_pagination"} %>
 </div> 
