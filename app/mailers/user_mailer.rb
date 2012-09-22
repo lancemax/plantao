@@ -118,6 +118,7 @@ class UserMailer < ActionMailer::Base
     end
 
     def send_email_create_hospital(hospital)
+    	@hospital = hospital
  		@url  = "www.plantaonet.com" 
  		@users = User.find_all_by_role("admin")
  		@users.each do |user|
