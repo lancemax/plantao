@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-	
 class UserMailer < ActionMailer::Base
   default from: "PlantaoNet <noreply@plantaonet.com>", :return_path => 'contato@plantaonet.com'
-  ACEITO = 2 
+  CONS::REQUEST[:ACEITO] = 2 
   
   #STATUS DE REQUUESTS
-  AGUARDANDO_RESPOSTA = 1
-  DESISTENCIA = 5
+  CONS::REQUEST[:AGUARDANDO_RESPOSTA] = 1
+  CONS::REQUEST[:DESISTENCIA] = 5
   	def send_email(user,job)
 
 	  @user = user
@@ -25,14 +25,25 @@ class UserMailer < ActionMailer::Base
 		end
 	end	
 
+	# envio de email para o caso de edição de plantão
+	def send_emails_edit(job)
+		@users = User.all
+		@users.each do |user| 
+		 	if Rails.env == 'production' 
+		 		
+				UserMailer.delay.send_email(user,job)
+			end
+		end
+	end	
+
 	
 	def send_email_ownner_job(job_id,user_id,status)
 		@job = Job.find_all_by_id(job_id)
 		@user = User.find_all_by_id(user_id)
 		if Rails.env == 'production' 
-			if(status == AGUARDANDO_RESPOSTA)
+			if(status == CONS::REQUEST[:AGUARDANDO_RESPOSTA])
 				UserMailer.delay.send_email_ownner_job_deliver(@user[0],@job[0])
-			elsif (status == DESISTENCIA)
+			elsif (status == CONS::REQUEST[:DESISTENCIA])
 				UserMailer.delay.send_email_ownner_job_desistir_deliver(@user[0],@job[0])
 				# enviar pros candidatos que voltaram a estar concorrendo
 				@requests = Request.find_all_by_job_id(job_id)
@@ -59,8 +70,8 @@ class UserMailer < ActionMailer::Base
  		@requests.each do |request|
  			
  			if Rails.env == 'production' 
-	 			# candidato aceito
-	 			if request.status_request_id == ACEITO 
+	 			# candidato CONS::REQUEST[:ACEITO]
+	 			if request.status_request_id == CONS::REQUEST[:ACEITO] 
 					UserMailer.delay.send_email_accept_job(request.user,request.job)
 				#candidato recusado
 				else
@@ -103,7 +114,7 @@ class UserMailer < ActionMailer::Base
     def send_email_admin_request(hospital)
     	
     	UserMailer.delay.send_email_accept_job(hospital)
-    	
+
     	end
     end
 
