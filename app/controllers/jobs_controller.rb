@@ -123,25 +123,11 @@ class JobsController < ApplicationController
   def update
 	setMoney(params[:job][:price])
 
-	if params[:job][:price].to_f <= 0.00
-			  @name = "O valor não pode ser negativo "
-	 			@sucesso = false
-				return false
-	end
-
-
-	if params[:job][:price].to_f > 9999.99
-		  @name = "O valor não pode ser maior que R$9.999,99 "
- 			@sucesso = false
-			return false
-	end
-
     @job = Job.find(params[:id])
 
     respond_to do |format|
       if @job.update_attributes(params[:job])
-
-        Request.update_all("status_request_id = "++"", ["id != ? and job_id = ?",@request.id,@request.job.id])
+        Request.update_all(:status_request_id => CONS::REQUEST[:CANCELADO], ["job_id = ?",@request.job.id])
         if Rails.env == 'production' 
           UserMailer.send_emails_edit(@job) 
         end 
@@ -151,6 +137,29 @@ class JobsController < ApplicationController
         format.html { render action: "edit" }
         format.json { render json: @job.errors, status: :unprocessable_entity }
       end
+    end
+  end
+
+  # DELETE /jobs/1
+  # DELETE /jobs/1.json
+  def destroy
+    @job = Job.find(params[:id])
+    
+    @aceito  =  @job.requests.where("status_request_id = ?", CONS::REQUEST[:ACEITO])
+    respond_to do |format|
+      if @aceito.count > 0
+        # cancela todos os requests , consome credito do moderador , elege o mesmo e envia email para os pleitiados
+        # troco a moeda
+        User.consume_credits(@job.user_id)
+        User.payback_credits(@aceito.user_id)
+      end
+
+        UserMailer.send_email_cancel_job(@job,@job.requests,@aceito)
+        # cancela todos  
+        Request.update_all(:status_request_id => CONS::REQUEST[:CANCELADO], ["job_id = ?", @job.id])   
+        Job.cancel_job(@job.id)
+
+      
     end
   end
 
@@ -164,8 +173,9 @@ class JobsController < ApplicationController
           format.html {  redirect_to @job, notice: 'O Plantão não pode ser editado pois possui um escolhido.É possível excluir o plantão.'}
         end
      end 
-
-
   end
+
+
+
 
 end

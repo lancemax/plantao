@@ -68,45 +68,22 @@
                     <td><%=cand.user.email%></td>
                
                     <td>
+
+
                       <% if @job.request_id.nil? %>
-                        <% if cand.status_request_id == 4%>
-                          <div class="btn btn-inverse"><%=cand.status_request.name%></div>
-                        <% elsif cand.status_request_id == 6%>
-                          <div class="btn btn-inverse"><%=cand.status_request.name%></div>
-                        <% else %>
                           <%= simple_form_for :job, :url => '/setJobRequest' ,:html => {:class => 'form-inline'}, :remote => true  do |f| %>
                             <%= f.hidden_field :job_id ,:value => @job.id %>
                             <%= f.hidden_field :request_id ,:value => cand.id %>
                             <%= f.submit "Eleger", :class => "btn btn-success" %>
                           <% end %>
-                        <% end %>
-                      <% elsif @job.request_id == cand.id %>
-                          <% if cand.status_request_id == 5 %>
-                            <div class="btn btn-warning"><b>Desistência:</b>
-                              <table>
-                                <tr>
-                                  <td>
-                                    <%= simple_form_for :job, :url => '/acceptResire' ,:html => {:class => 'form-inline'}, :remote => true  do |f| %>
-                                      <%= f.hidden_field :job_id ,:value => @job.id %>
-                                      <%= f.hidden_field :request_id ,:value => cand.id %>
-                                      <%= f.submit "Aceitar", :class => "btn btn-mini btn-primary" %>
-                                    <% end %>
-                                  </td>
-                                  <td>
-                                    <%= simple_form_for :job, :url => '/denyResire' ,:html => {:class => 'form-inline'}, :remote => true  do |f| %>
-                                      <%= f.hidden_field :job_id ,:value => @job.id %>
-                                      <%= f.hidden_field :request_id ,:value => cand.id %>
-                                      <%= f.submit "Negar", :class => "btn btn-mini btn-danger" %>
-                                    <% end %>
-                                  </td>
-                                </tr>
-                              </table>
-                          <% else %>
-                            <div class="btn btn-success">Escolhido</div>
-                          <% end %>
-                       <% else  %>   
-                        <div class="btn btn-inverse">Negado</div>
+                        <% else %>
+                        <div class="btn ">
+                          <%= cand.status_request.name %>
+                        </div>
+
                       <% end %>
+
+
                     </td>
                   </tr>
                 <% end %>             
@@ -116,6 +93,9 @@
               <div class="btn btn-success" ><%= @job.requests.count %> Cadidato(s)</div>     
               <% if current_user.id ==@job.user.id  %>
                 <%= link_to 'Editar', edit_job_path(@job) ,:class => "btn btn-primary" %> 
+                <%= link_to 'Excluir', job_path(@job) , confirm: 'Você tem Certeza que deseja excluir? Caso exista algum candidato para esse plantão, será debitado 1 crédito da sua conta!',:method => :delete  ,:class => "btn btn-primary" %> 
+
+
               <% else %>
                
                   <% if !Request.where(:user_id => current_user.id,:job_id =>@job.id).first %>

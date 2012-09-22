@@ -30,11 +30,19 @@ class UserMailer < ActionMailer::Base
 		@users = User.all
 		@users.each do |user| 
 		 	if Rails.env == 'production' 
-		 		
-				UserMailer.delay.send_email(user,job)
+				UserMailer.delay.send_email_edit_deliver(user,job)
 			end
 		end
 	end	
+
+	def send_email_edit_deliver(user,job)
+
+	  @user = user
+	  @job = job
+   	  @url = "www.plantaonet.com" 
+	# attachments['terms.pdf'] = File.read('/path/terms.pdf')
+       mail(:to => user.email,:subject => "[PLANTÃO ALTERADO] "+job.area.name+" - "+job.hospital.name + "(" + job.date.strftime("%d/%m/%Y") +")")
+	end
 
 	
 	def send_email_ownner_job(job_id,user_id,status)
@@ -126,4 +134,32 @@ class UserMailer < ActionMailer::Base
     	end
     end
 
+
+    def send_email_cancel_job(job,requests,aceito)
+    	if aceito.nil?
+			# job excluido 
+			requests.each do |request|
+				if request.status_request_id != CONS::REQUEST[:CANCELADO]
+					UserMailer.delay.send_email_cancel_job_deliver(request.user,job)
+				end
+			end
+    	else
+    	  # credito devolvido  e job excluido	
+    	  UserMailer.delay.send_email_payback_deliver(aceito.user,job)
+    	end
+    end
+
+    def send_email_payback_deliver(user,job)
+    	@user = user
+ 		@job  = job
+ 		@url  = "www.plantaonet.com" 
+    	mail(:to => job.user.email,:subject => "[PLANTÃO EXCLUÍDO] "+user.name+" - "+ job.area.name + "("+ job.date.strftime("%d/%m/%Y") +")")
+    end
+
+    def send_email_cancel_job_deliver(user,job)
+    	@user = user
+ 		@job  = job
+ 		@url  = "www.plantaonet.com" 
+    	mail(:to => job.user.email,:subject => "[PLANTÃO EXCLUÍDO] "+user.name+" - "+ job.area.name + "("+ job.date.strftime("%d/%m/%Y") +")")
+    end
 end
