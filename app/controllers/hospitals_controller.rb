@@ -58,6 +58,11 @@ class HospitalsController < ApplicationController
 
     respond_to do |format|
       if @hospital.save
+        # enviar email pra administração 
+        if Rails.env == 'production'
+          UserMailer.send_email_admin_request(@hospital)
+        end
+
         format.html { redirect_to @hospital, notice: 'Hospital Criado com Sucesso.' }
         format.json { render json: @hospital, status: :created, location: @hospital }
       else

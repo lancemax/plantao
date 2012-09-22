@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-	
 class UserMailer < ActionMailer::Base
-  default from: "PlantaoNet <noreply@plantaonet.com>"
+  default from: "PlantaoNet <noreply@plantaonet.com>", :return_path => 'contato@plantaonet.com'
   ACEITO = 2 
   
   #STATUS DE REQUUESTS
@@ -37,7 +37,9 @@ class UserMailer < ActionMailer::Base
 				# enviar pros candidatos que voltaram a estar concorrendo
 				@requests = Request.find_all_by_job_id(job_id)
 	 			@requests.each do |request|				
-	 				UserMailer.delay.send_email_reopen_job(request.user,request.job)
+	 				if request.user_id != @user[0].id
+	 					UserMailer.delay.send_email_reopen_job(request.user,request.job)
+	 				end
 				end
 			end
 		end
@@ -98,5 +100,19 @@ class UserMailer < ActionMailer::Base
     	mail(:to => job.user.email,:subject => "[REABERTURA PLANTÃO] "+job.area.name+" - "+job.hospital.name + "("+ job.date.strftime("%d/%m/%Y") +")")
     end
 
+    def send_email_admin_request(hospital)
+    	
+    	UserMailer.delay.send_email_accept_job(hospital)
+    	
+    	end
+    end
+
+    def send_email_create_hospital(hospital)
+ 		@url  = "www.plantaonet.com" 
+ 		@users = User.find_all_by_role("admin")
+ 		@users.each do |user|
+	    	mail(:to => user.email,:subject => "[CRIAÇÃO DE HOSPITAL] "+hospital.name + "("+ hospital.created_at.strftime("%d/%m/%Y") +")")
+    	
+    end
 
 end
