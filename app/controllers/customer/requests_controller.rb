@@ -33,8 +33,10 @@ class Customer::RequestsController < ApplicationController
           #passa o numero de candidatos pro js
           @num=@request.job.requests.count
 
-          # envia o email para o dono do plantão 
-          UserMailer.send_email_ownner_job(@request.job_id,current_user.id)
+          # envia o email para o dono do plantão  
+          if Rails.env == 'production' 
+            UserMailer.delay.send_email_ownner_job(@request.job_id,current_user.id)
+          end
           
           p @num
         else
@@ -54,7 +56,9 @@ class Customer::RequestsController < ApplicationController
       #caso o moderador ainda não tenho escolhido o eleito. então Cancela
       if @request.job.request_id.nil?
         Request.update(@request.id,"status_request_id" => 1)
-        UserMailer.send_email_ownner_job(@request.job.id,current_user.id)
+        if Rails.env == 'production'
+          UserMailer.send_email_ownner_job(@request.job.id,current_user.id)
+        end
         @alterou = 'sim'
         format.js
       else

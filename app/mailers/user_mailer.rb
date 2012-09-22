@@ -15,8 +15,10 @@ class UserMailer < ActionMailer::Base
 
 	def send_emails(job)
 		@users = User.all
-		@users.each do |user|
-			UserMailer.delay.send_email(user,job)
+		@users.each do |user| 
+		 	if Rails.env == 'production' 
+				UserMailer.delay.send_email(user,job)
+			end
 		end
 	end	
 
@@ -24,8 +26,9 @@ class UserMailer < ActionMailer::Base
 	def send_email_ownner_job(job_id,user_id)
 		@job = Job.find_all_by_id(job_id)
 		@user = User.find_all_by_id(user_id)
-		UserMailer.delay.send_email_ownner_job_deliver(@user[0],@job[0])
-
+		if Rails.env == 'production' 
+			UserMailer.delay.send_email_ownner_job_deliver(@user[0],@job[0])
+		end
  	end
 
  	def send_email_ownner_job_deliver(user,job)
@@ -44,12 +47,14 @@ class UserMailer < ActionMailer::Base
  		@requests.each do |request|
  			@user = User.find_all_by_id(request.user_id)
  			@user = @user[0]
- 			# candidato aceito
- 			if @user.id == user_id
-				UserMailer.send_email_accept_job(@user,@job).deliver
-			#candidato recusado
-			else
-				UserMailer.send_email_deny_job(@user,@job).deliver
+ 			if Rails.env == 'production' 
+	 			# candidato aceito
+	 			if @user.id == user_id
+					UserMailer.delay.send_email_accept_job(@user,@job)
+				#candidato recusado
+				else
+					UserMailer.delay.send_email_deny_job(@user,@job).
+				end
 			end
 		end
  		

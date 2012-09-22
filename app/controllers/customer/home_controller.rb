@@ -40,8 +40,9 @@ class Customer::HomeController < ApplicationController
         #declara todos os outros como negados
         Request.update_all("status_request_id = 3", ["id != ?",params[:job][:request_id]])
         #notifica candidatos por email
-        UserMailer.send_email_request(params[:job][:job_id],params[:job][:request_id])
-
+        if Rails.env == 'production'
+          UserMailer.send_email_request(params[:job][:job_id],params[:job][:request_id])
+        end
         @name='Substituto Selecionado com Sucesso'
         @job=params[:job][:job_id]
       else
