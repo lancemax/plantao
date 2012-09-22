@@ -136,7 +136,9 @@ class UserMailer < ActionMailer::Base
 
 
     def send_email_cancel_job(job,requests,aceito)
-    	if aceito.user_id.nil?
+    	p aceito
+    	p aceito[0]
+    	if aceito.nil? and aceito.user_id.nil?
 			# job excluido 
 			requests.each do |request|
 				if request.status_request_id != CONS::REQUEST[:CANCELADO]
