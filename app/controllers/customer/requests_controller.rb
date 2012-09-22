@@ -4,6 +4,9 @@ class Customer::RequestsController < ApplicationController
   before_filter :authenticate_user!
   layout 'customer/applicationcustomer'
 
+  AGUARDANDO_RESPOSTA = 1
+  CANCELADO = 4
+  SOLICITA_DESISTENCIA = 5
   # GET /requests
   # GET /requests.json
   def index
@@ -24,7 +27,7 @@ class Customer::RequestsController < ApplicationController
     respond_to do |format|
       unless @verifica
         @request.user_id = current_user.id
-        @request.status_request_id = 1
+        @request.status_request_id = AGUARDANDO_RESPOSTA
          
         if @request.save
           @name='Você se candidatou a esse plantão com sucesso.'
@@ -53,9 +56,9 @@ class Customer::RequestsController < ApplicationController
   def update
     @request = Request.find(params[:id])
     respond_to do |format|
-      #caso o moderador ainda não tenho escolhido o eleito. então Cancela
+      # se o plantao ainda nao foi encerrado pode repleitear
       if @request.job.request_id.nil?
-        Request.update(@request.id,"status_request_id" => 1)
+        Request.update(@request.id,"status_request_id" => AGUARDANDO_RESPOSTA)
         if Rails.env == 'production'
           UserMailer.send_email_ownner_job(@request.job.id,current_user.id)
         end
@@ -75,11 +78,12 @@ class Customer::RequestsController < ApplicationController
     respond_to do |format|
       #caso o moderador ainda não tenho escolhido o eleito. então Cancela
       if @request.job.request_id.nil?
-        Request.update(@request.id,"status_request_id" => 4)
+        Request.update(@request.id,"status_request_id" => CANCELADO)
         @cancelou = 'sim'
         format.js
+      # solicita desistencia ao moderador e envia o email para o mesmo  
       elsif @request.job.request_id == @request.id
-        Request.update(@request.id,"status_request_id" => 5)
+        Request.update(@request.id,"status_request_id" => SOLICITA_DESISTENCIA)
         @cancelou = 'sim'
         format.js
       else  
