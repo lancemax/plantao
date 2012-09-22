@@ -2,14 +2,17 @@
 class UserMailer < ActionMailer::Base
   default from: "PlantaoNet <noreply@plantaonet.com>"
   ACEITO = 2 
-
+  
+  #STATUS DE REQUUESTS
+  AGUARDANDO_RESPOSTA = 1
+  DESISTENCIA = 5
   	def send_email(user,job)
 
 	  @user = user
 	  @job = job
    	  @url = "www.plantaonet.com" 
 	# attachments['terms.pdf'] = File.read('/path/terms.pdf')
-       mail(:to => user.email,:subject => "[PLANTÃO] "+job.area.name+" - "+job.hospital.name)
+       mail(:to => user.email,:subject => "[PLANTÃO] "+job.area.name+" - "+job.hospital.name) + "("+ job.date.strftime("%d/%m/%Y") +")")
 	end
 
 
@@ -23,11 +26,20 @@ class UserMailer < ActionMailer::Base
 	end	
 
 	
-	def send_email_ownner_job(job_id,user_id)
+	def send_email_ownner_job(job_id,user_id,status)
 		@job = Job.find_all_by_id(job_id)
 		@user = User.find_all_by_id(user_id)
 		if Rails.env == 'production' 
-			UserMailer.delay.send_email_ownner_job_deliver(@user[0],@job[0])
+			if(status == AGUARDANDO_RESPOSTA)
+				UserMailer.delay.send_email_ownner_job_deliver(@user[0],@job[0])
+			elsif (status == DESISTENCIA)
+				UserMailer.delay.send_email_ownner_job_desistir_deliver(@user[0],@job[0])
+				# enviar pros candidatos que voltaram a estar concorrendo
+				@requests = Request.find_all_by_job_id(job_id)
+	 			@requests.each do |request|				
+	 				UserMailer.delay.send_email_reopen_job(request.user,request.job)
+				end
+			end
 		end
  	end
 
@@ -69,6 +81,21 @@ class UserMailer < ActionMailer::Base
  		@job  = job
  		@url  = "www.plantaonet.com" 
     	mail(:to => user.email,:subject => "[RESULTADO DO PLANTÃO] "+job.area.name+" - "+job.hospital.name + "("+ job.date.strftime("%d/%m/%Y")  +")")
+    end
+
+    def send_email_ownner_job_desistir_deliver(user,job)
+    	@user = user
+ 		@job  = job
+ 		@url  = "www.plantaonet.com" 
+    	mail(:to => job.user.email,:subject => "[DESISTÊNCIA] "+user.name+" - "+ job.area.name + "("+ job.date.strftime("%d/%m/%Y") +")")
+    	
+    end
+
+    def send_email_reopen_job(user,job)
+    	@user = user
+ 		@job  = job
+ 		@url  = "www.plantaonet.com" 
+    	mail(:to => job.user.email,:subject => "[REABERTURA PLANTÃO] "+job.area.name+" - "+job.hospital.name) + "("+ job.date.strftime("%d/%m/%Y") +")")
     end
 
 
