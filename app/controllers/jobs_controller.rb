@@ -144,18 +144,17 @@ class JobsController < ApplicationController
   # DELETE /jobs/1.json
   def destroy
     @job = Job.find(params[:id])
-    
     @aceito  =  @job.requests.where("status_request_id = ?", CONS::REQUEST[:ACEITO])
     respond_to do |format|
       if @aceito.count > 0
         # cancela todos os requests , consome credito do moderador , elege o mesmo e envia email para os pleitiados
         # troco a moeda
         @user = User.new
-        @user.consume_credits(@job.user_id)
+        @user.consume_credits(@job[0].user_id)
         @user.payback_credits(@aceito.user_id)
       end
 
-        UserMailer.send_email_cancel_job(@job,@job.requests,@aceito)
+        UserMailer.send_email_cancel_job(@job[0],@job.requests,@aceito)
         # cancela todos  
         Request.update_all(["status_request_id = ?", CONS::REQUEST[:CANCELADO] ] , ["job_id = ?", @job.id])   
         Job.cancel_job(@job.id)
