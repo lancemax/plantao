@@ -5,17 +5,7 @@
 <div class="container">
    <div class="row-fluid">
 
-	   <div class="span10">
-	 		<h3>Aqui você vai encontrar todos os plantões que estão disponiveis, plantões que foram cedidos por outros médicos, assim facilitando a manutenção do serviço nos hospitais e ajudando a evitar as faltas nos plantões e emergencias nos hospitais no Brasil.</h2>
-
-	   </div> 
-	   <div class="span2">
-			<%= link_to 'Cadastrar Plantão', new_job_path ,:class => "btn huge btn-success" %>
-		</div> 
-	</div>
-	<br clear="all" />
-	<div class="row-fluid">
-		<div class="span12 tabbable">
+	   <div class="span10 tabbable">
 			<%= simple_form_for @job, :validate => true ,:html => {:class => 'form ',:novalidate => true },:method => 'get' do |f| %>
 			<a href="#submitform" data-toggle="tab" class="btn">Filtrar: 
 			   <b class="btn btn-small btn-primary" data-toggle="collapse" data-target="#hospitalform">Hospital</b>
@@ -39,6 +29,13 @@
 				</b>
 			</a>
 		</div>
+	   <div class="span2">
+			<%= link_to 'Cadastrar Plantão', new_job_path ,:class => "btn huge btn-success" %>
+		</div> 
+	</div>
+	<br clear="all" />
+	<div class="row-fluid">
+		
 		<br clear="all"><br clear="all">
 		<div class="span4">
 			<div id="hospitalform" class="collapse out">
