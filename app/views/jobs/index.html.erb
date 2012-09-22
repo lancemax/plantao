@@ -28,45 +28,44 @@
 					<b class=" clicavel btn btn-small btn-sabado" id="sabado" type="button">Sábado</b>
 				</b>
 			</a>
+			
+			<br clear="all" />
+			<div class="row-fluid">
+				
+				<br clear="all"><br clear="all">
+				<div class="span4">
+					<div id="hospitalform" class="collapse out">
+
+								<%= f.association :hospital , :prompt => "--- Hospital ---", :label => false, :class => "span3" %>
+					</div>
+				
+					<div id="areaform" class="collapse out">
+								<%= f.association :area , :prompt => "--- Especialidade ---", :label => false, :class => "span3" %>
+					</div>
+				
+					<div id="shiftform" class="collapse out">
+				    			<%= f.association :shift,:prompt => "--- Turno ---", :label => false, :class => "span3" %>
+					</div>
+
+					<div id="priceform" class="collapse out input-prepend">
+				    			<span class="add-on">Maior que </span><%= f.text_field :price, :class => 'span3', :placeholder => "Valor" %>
+					</div>
+					
+					<div class="tab-content">
+						<div id="submitform" class="tab-pane">
+							<%= f.button :submit, "Filtrar", :class => "btn btn-primary " %>
+						</div>
+					</div>
+				</div>
+
+				
+				<% end %>
+				
+			</div>
 		</div>
 	   <div class="span2">
 			<%= link_to 'Cadastrar Plantão', new_job_path ,:class => "btn huge btn-success" %>
 		</div> 
-	</div>
-	<br clear="all" />
-	<div class="row-fluid">
-		
-		<br clear="all"><br clear="all">
-		<div class="span4">
-			<div id="hospitalform" class="collapse out">
-
-						<%= f.association :hospital , :prompt => "--- Hospital ---", :label => false, :class => "span3" %>
-			</div>
-		
-			<div id="areaform" class="collapse out">
-						<%= f.association :area , :prompt => "--- Especialidade ---", :label => false, :class => "span3" %>
-			</div>
-		
-			<div id="shiftform" class="collapse out">
-		    			<%= f.association :shift,:prompt => "--- Turno ---", :label => false, :class => "span3" %>
-			</div>
-
-			<div id="priceform" class="collapse out input-prepend">
-		    			<span class="add-on">Maior que </span><%= f.text_field :price, :class => 'span3', :placeholder => "Valor" %>
-			</div>
-			
-			<div class="tab-content">
-				<div id="submitform" class="tab-pane">
-					<%= f.button :submit, "Filtrar", :class => "btn btn-primary " %>
-				</div>
-			</div>
-		</div>
-
-		
-		
-		
-		<% end %>
-		
 	</div>
 
 	<br clear="all" />
