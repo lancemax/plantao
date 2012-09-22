@@ -35,10 +35,14 @@ class Customer::HomeController < ApplicationController
       #declara esse requesto como o eleito
       if Job.update(params[:job][:job_id],"request_id" => params[:job][:request_id])
         #declara o request com aceito
-        Request.update(params[:job][:request_id],"status_request_id" => 2)
-        
+        Request.update(params[:job][:request_id],:status_request_id => CONS::REQUEST[:ACEITO])
+        # busca o usuario e consume o credito
+        @aceito = Request.find_by_id(params[:job][:request_id])
+        User.consume_credits(@aceito.user_id)
+
         #declara todos os outros como negados
-        Request.update_all("status_request_id = 3", ["id != ?",params[:job][:request_id]])
+        Request.update_all(:status_request_id => CONS::REQUEST[:NEGADO],
+                           ["status_request_id = ? and job_id = ? ", CONS::REQUEST[:AGUARDANDO_RESPOSTA],params[:job][:job_id]])
         #notifica candidatos por email
         if Rails.env == 'production'
           UserMailer.send_email_request(params[:job][:job_id])
