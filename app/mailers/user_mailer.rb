@@ -53,7 +53,7 @@ class UserMailer < ActionMailer::Base
 					UserMailer.delay.send_email_accept_job(@user,@job)
 				#candidato recusado
 				else
-					UserMailer.delay.send_email_deny_job(@user,@job).
+					UserMailer.delay.send_email_deny_job(@user,@job)
 				end
 			end
 		end
