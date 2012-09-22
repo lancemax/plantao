@@ -122,7 +122,7 @@ class UserMailer < ActionMailer::Base
  		@users = User.find_all_by_role("admin")
  		@users.each do |user|
 	    	mail(:to => user.email,:subject => "[CRIAÇÃO DE HOSPITAL] "+hospital.name + "("+ hospital.created_at.strftime("%d/%m/%Y") +")")
-    	
+    	end
     end
 
 end
