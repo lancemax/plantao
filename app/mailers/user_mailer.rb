@@ -12,7 +12,7 @@ class UserMailer < ActionMailer::Base
 	  @job = job
    	  @url = "www.plantaonet.com" 
 	# attachments['terms.pdf'] = File.read('/path/terms.pdf')
-       mail(:to => user.email,:subject => "[PLANTÃO] "+job.area.name+" - "+job.hospital.name) + "("+ job.date.strftime("%d/%m/%Y") +")")
+       mail(:to => user.email,:subject => "[PLANTÃO] "+job.area.name+" - "+job.hospital.name + "(" + job.date.strftime("%d/%m/%Y") +")")
 	end
 
 
