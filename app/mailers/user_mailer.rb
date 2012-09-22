@@ -121,7 +121,7 @@ class UserMailer < ActionMailer::Base
  		@url  = "www.plantaonet.com" 
  		@users = User.find_all_by_role("admin")
  		@users.each do |user|
-	    	mail(:to => user.email,:subject => "[CRIAÇÃO DE HOSPITAL] "+hospital.name + "("+ hospital.created_at.strftime("%d/%m/%Y") +")")
+	    	mail(:to => user.email,:subject => "[CRIAÇÃO/EDIÇÃO DE HOSPITAL] "+hospital.name + "("+ hospital.created_at.strftime("%d/%m/%Y") +")")
     	end
     end
 

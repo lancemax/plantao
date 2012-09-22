@@ -79,6 +79,9 @@ class HospitalsController < ApplicationController
 
     respond_to do |format|
       if @hospital.update_attributes(params[:hospital])
+        if Rails.env == 'production'
+          UserMailer.send_email_admin_request(@hospital)
+        end
         format.html { redirect_to @hospital, notice: 'Hospital atualizado com Sucesso.' }
         format.json { head :no_content }
       else
