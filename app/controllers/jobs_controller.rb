@@ -37,12 +37,7 @@ class JobsController < ApplicationController
       if !params[:job][:price].nil?  && params[:job][:price] != ""
         setMoney(params[:job][:price])
         query =  query.where("price >= ?",params[:job][:price])
-      end
-
-      query = query.where("request_id is null")
-
-      
-
+      end    
 
     end
     
@@ -54,8 +49,7 @@ class JobsController < ApplicationController
       end 
     end   
 
-    query = query.where("request_id is null")
-    query = query.where(:date => 1.days.ago..Time.now+10.days).paginate(:page => params[:page], :per_page => 4).order("date")
+    query = query.where(:date => 1.days.ago..Time.now+10.days).paginate(:page => params[:page], :per_page => 8).order("date")
 
     @jobs = query
 

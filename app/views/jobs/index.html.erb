@@ -72,7 +72,7 @@
 		
 	</div>
 
-	<br clea clicavel r="all" />
+	<br clear="all" />
 	<ul class="thumbnails">
 		<% @jobs.each do |job| %>
 	    	<a href="<%=  job_path(job) %>">
@@ -92,10 +92,11 @@
 			            	<th>Data:</th>
 			            	<td><%= job.date.strftime("%d/%m/%Y") %> 
 
-							<button class=" clicavel btn btn-mini btn-d<%= job.date.strftime('%w')%>"  type="button">
+							<b class=" clicavel btn btn-mini btn-d<%= job.date.strftime('%w')%>"  type="button">
 			            	
 			            	<%= I18n.t("date."+job.date.strftime("%A"))%>
-			            	</button>
+			            	</b>
+			            	<b class="btn btn-mini btn-<%=job.shift.name%>"><%=job.shift.name%></b>
 			            	</td>
 			            </tr>
 						<tr>
