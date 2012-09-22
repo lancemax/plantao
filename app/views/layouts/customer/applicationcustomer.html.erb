@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>PlantãoNet</title>
+	<title>Plantão Net</title>
+
+	<%= favicon_link_tag "/images/logo_icon.ico" %>
 	<%= stylesheet_link_tag    "application" %>
 	<%= javascript_include_tag "application" %>
 	<%= csrf_meta_tags %>
@@ -10,11 +12,11 @@
 <body>
 
 	<%= render "layouts/menu" %>
-	
-	
-	<div class="container">
 
-		<div class="row">
+	
+	<div class="container-fluid">
+
+		<div class="row-fluid">
 			
 			<% if flash %>
 				<% if flash[:error] %>
@@ -38,12 +40,14 @@
 				</div>
 				<%end%>
 			<% end -%>
-			
+			<div class="row"> 
+				<% image_tag "logo_teste1.png", :size => "200x91" %> 
+			</div>
 			<br clear="all" />
-			<div class="content">
-				
-			<%= yield %>
 		</div>
+
+			<%= yield %>
+		
 		<br clear="all" />		
 	</div>
 

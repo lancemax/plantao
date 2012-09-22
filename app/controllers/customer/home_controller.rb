@@ -15,7 +15,7 @@ class Customer::HomeController < ApplicationController
 
   def userJobs
   	authorize! :customer_home, ""
-  	@jobs = Job.find_all_by_user_id(current_user.id)
+  	@jobs = Job.paginate(:page => params[:page], :per_page => 8).order("date DESC").find_all_by_user_id(current_user.id)
     
     
   	 
@@ -52,41 +52,6 @@ class Customer::HomeController < ApplicationController
     end
 
     
-  end
-
-  def acceptResire
-
-    respond_to do |format|
-      #declara que esse job volta a estar aberto
-      if Job.update(params[:job][:job_id],"request_id" => nil)
-        #declara esse request como cancelado por desistencia
-        Request.update(params[:job][:request_id],"status_request_id" => 6)
-        #declara os demais requests como aguardando resposta do moderador
-        Request.update_all("status_request_id = 1", ["id != ?",params[:job][:request_id]])
-        @name='Desistencia Aceita'
-        @job=params[:job][:job_id]
-      else
-       @name='Não Foi Possivel executar requerimento'
-      end
-      format.js
-    end
-
-  end
-
-  def denyResire
-
-    respond_to do |format|
-     
-      #declara esse request como aceito sem mais oportunidade de desistencia
-      if Request.update(params[:job][:request_id],"status_request_id" => 7)
-        @name='Desistencia Negada'
-        @job=params[:job][:job_id]
-      else
-       @name='Não Foi Possivel executar requerimento'
-      end
-      format.js
-    end
-
   end
 
 end

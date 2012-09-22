@@ -8,16 +8,17 @@ class HospitalsController < ApplicationController
   
   def index
     @hospital = Hospital.new
-    
-    if params[:hospital].nil?
-      @hospitals = Hospital.paginate(:page => params[:page], :per_page => 3)
-    elsif params[:hospital][:state_id]=="" and params[:hospital][:city_id]==""
-      @hospitals = Hospital.paginate(:page => params[:page], :per_page => 3)
-    else
-      @hospitals = Hospital.paginate(:page => params[:page], :per_page => 3).find_all_by_state_id_and_city_id(params[:hospital][:state_id],params[:hospital][:city_id],:order => "hospitals.id")
+    query = Hospital
+
+    query = query.paginate(:page => params[:page], :per_page => 8)
+    if !params[:hospital].nil? and params[:hospital][:state_id]!=""
+      
+      query = query.find_all_by_state_id_and_city_id(params[:hospital][:state_id],params[:hospital][:city_id],:order => "hospitals.id")
 
     end 
+    
 
+    @hospitals = query
     respond_to do |format|
       format.html # index.html.erb
       #format.json { render json: @hospitals }
