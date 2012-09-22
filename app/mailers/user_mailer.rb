@@ -64,14 +64,14 @@ class UserMailer < ActionMailer::Base
  		@user = user
  		@job  = job
  		@url  = "www.plantaonet.com" 
-    	mail(:to => user.email,:subject => "[VOCÊ FOI ELEITO NO PLANTÃO] "+job.area.name+" - "+job.hospital.name)
+    	mail(:to => user.email,:subject => "[VOCÊ FOI ELEITO NO PLANTÃO] "+job.area.name+" - "+job.hospital.name + "("+ job.date.strftime("%d/%m/%Y")  +")")
     end
 
     def send_email_deny_job(user,job)
  		@user = user
  		@job  = job
  		@url  = "www.plantaonet.com" 
-    	mail(:to => user.email,:subject => "[RESULTADO DO PLANTÃO] "+job.area.name+" - "+job.hospital.name)
+    	mail(:to => user.email,:subject => "[RESULTADO DO PLANTÃO] "+job.area.name+" - "+job.hospital.name + "("+ job.date.strftime("%d/%m/%Y")  +")")
     end
 
 
