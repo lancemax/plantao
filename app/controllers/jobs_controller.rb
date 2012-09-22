@@ -150,8 +150,9 @@ class JobsController < ApplicationController
       if @aceito.count > 0
         # cancela todos os requests , consome credito do moderador , elege o mesmo e envia email para os pleitiados
         # troco a moeda
-        User.consume_credits(@job.user_id)
-        User.payback_credits(@aceito.user_id)
+        @user = User.new
+        @user.consume_credits(@job.user_id)
+        @user.payback_credits(@aceito.user_id)
       end
 
         UserMailer.send_email_cancel_job(@job,@job.requests,@aceito)

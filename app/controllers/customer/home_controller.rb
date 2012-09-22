@@ -38,7 +38,8 @@ class Customer::HomeController < ApplicationController
         Request.update(params[:job][:request_id],:status_request_id => CONS::REQUEST[:ACEITO])
         # busca o usuario e consume o credito
         @aceito = Request.find_by_id(params[:job][:request_id])
-        User.consume_credits(@aceito.user_id)
+        @user = User.new
+        @user.consume_credits(@aceito.user_id)
 
         #declara todos os outros como negados
         Request.update_all( ["status_request_id = ?",CONS::REQUEST[:NEGADO] ],["status_request_id = ? and job_id = ? ", CONS::REQUEST[:AGUARDANDO_RESPOSTA],params[:job][:job_id]])        
