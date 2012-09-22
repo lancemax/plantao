@@ -42,7 +42,7 @@ class Customer::RequestsController < ApplicationController
 
           # envia o email para o dono do plantão  
           if Rails.env == 'production' 
-            UserMailer.delay.send_email_ownner_job(@request.job_id,current_user.id,CONS::REQUEST[:AGUARDANDO_RESPOSTA])
+            UserMailer.send_email_ownner_job(@request.job_id,current_user.id,CONS::REQUEST[:AGUARDANDO_RESPOSTA])
           end
           
           p @num
@@ -64,7 +64,7 @@ class Customer::RequestsController < ApplicationController
       if @request.job.request_id.nil?
         Request.update(@request.id,"status_request_id" => CONS::REQUEST[:AGUARDANDO_RESPOSTA])
         if Rails.env == 'production'
-          UserMailer. (@request.job.id,current_user.id,CONS::REQUEST[:AGUARDANDO_RESPOSTA])
+          UserMailer.send_email_ownner_job(@request.job.id,current_user.id,CONS::REQUEST[:AGUARDANDO_RESPOSTA])
         end
         @alterou = 'sim'
         format.js

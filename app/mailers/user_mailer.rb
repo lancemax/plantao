@@ -49,7 +49,7 @@ class UserMailer < ActionMailer::Base
 				@requests = Request.find_all_by_job_id(job_id)
 	 			@requests.each do |request|				
 	 				if request.user_id != @user[0].id
-	 					UserMailer.delay.send_email_reopen_job(request.user,request.job)
+	 					UserMailer.delay.send_email_reopen_job_deliver(request.user,request.job)
 	 				end
 				end
 			end
@@ -72,24 +72,24 @@ class UserMailer < ActionMailer::Base
  			if Rails.env == 'production' 
 	 			# candidato CONS::REQUEST[:ACEITO]
 	 			if request.status_request_id == CONS::REQUEST[:ACEITO] 
-					UserMailer.delay.send_email_accept_job(request.user,request.job)
+					UserMailer.delay.send_email_accept_job_deliver(request.user,request.job)
 				#candidato recusado
 				else
-					UserMailer.delay.send_email_deny_job(request.user,request.job)
+					UserMailer.delay.send_email_deny_job_deliver(request.user,request.job)
 				end
 			end
 		end
  		
  	end
 
- 	def send_email_accept_job(user,job)
+ 	def send_email_accept_job_deliver(user,job)
  		@user = user
  		@job  = job
  		@url  = "www.plantaonet.com" 
     	mail(:to => user.email,:subject => "[VOCÊ FOI ELEITO NO PLANTÃO] "+job.area.name+" - "+job.hospital.name + "("+ job.date.strftime("%d/%m/%Y")  +")")
     end
 
-    def send_email_deny_job(user,job)
+    def send_email_deny_job_deliver(user,job)
  		@user = user
  		@job  = job
  		@url  = "www.plantaonet.com" 
@@ -104,20 +104,20 @@ class UserMailer < ActionMailer::Base
     	
     end
 
-    def send_email_reopen_job(user,job)
+    def send_email_reopen_job_deliver(user,job)
     	@user = user
  		@job  = job
  		@url  = "www.plantaonet.com" 
     	mail(:to => job.user.email,:subject => "[REABERTURA PLANTÃO] "+job.area.name+" - "+job.hospital.name + "("+ job.date.strftime("%d/%m/%Y") +")")
     end
 
-    def send_email_admin_request(hospital)
+    def send_email_admin_request_deliver(hospital)
     	if Rails.env == 'production' 
-	    	UserMailer.delay.send_email_create_hospital(hospital)
+	    	UserMailer.delay.send_email_create_hospital_deliver(hospital)
     	end
     end
 
-    def send_email_create_hospital(hospital)
+    def send_email_create_hospital_deliver(hospital)
     	@hospital = hospital
  		@url  = "www.plantaonet.com" 
  		@users = User.find_all_by_role("admin")
