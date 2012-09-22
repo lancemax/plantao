@@ -127,7 +127,7 @@ class JobsController < ApplicationController
 
     respond_to do |format|
       if @job.update_attributes(params[:job])
-        Request.update_all(:status_request_id => CONS::REQUEST[:CANCELADO], ["job_id = ?",@request.job.id])
+        Request.update_all( ["status_request_id = ? " ,CONS::REQUEST[:CANCELADO] ], ["job_id = ?",@request.job.id])
         if Rails.env == 'production' 
           UserMailer.send_emails_edit(@job) 
         end 
@@ -156,7 +156,7 @@ class JobsController < ApplicationController
 
         UserMailer.send_email_cancel_job(@job,@job.requests,@aceito)
         # cancela todos  
-        Request.update_all(:status_request_id => CONS::REQUEST[:CANCELADO], ["job_id = ?", @job.id])   
+        Request.update_all(["status_request_id = ?", CONS::REQUEST[:CANCELADO] ] , ["job_id = ?", @job.id])   
         Job.cancel_job(@job.id)
 
       

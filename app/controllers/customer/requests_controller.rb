@@ -92,7 +92,7 @@ class Customer::RequestsController < ApplicationController
          #declara que esse job volta a estar aberto
         Job.update(params[:job][:job_id],"request_id" => nil)
         #declara os demais requests como aguardando resposta do moderador
-        Request.update_all(:status_request_id = CONS::REQUEST[:AGUARDANDO_RESPOSTA] , 
+        Request.update_all(["status_request_id = ?" , CONS::REQUEST[:AGUARDANDO_RESPOSTA] ] , 
                           ["status_request_id = ? and job_id = ?",CONS::REQUEST[:NEGADO],@request.job.id])
 
         if Rails.env == 'production'
