@@ -44,6 +44,7 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.string :cellphone
       t.integer :minor_value, :null => false, :default => 300
       t.string :role, :null => false, :default => 'customer'
+      t.integer :credits,:null => false, :default => 0
 
       t.timestamps
     end

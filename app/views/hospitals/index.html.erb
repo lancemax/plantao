@@ -7,8 +7,9 @@
   <div class="row-fluid">
 
     <div class="span8"> 
-      <%= simple_form_for @hospital , :url => :showHospitals do |f| %>
+      <%= simple_form_for @hospital , :url => :showHospitals, :method => 'get' do |f| %>
             Filtrar por:
+
             <%= f.association :state , :prompt => "Estado", :label => false %>
             <%= f.association :city ,:collection => City.find_all_by_state_id(0), :prompt => "Cidade", :label => false %>
             
@@ -34,10 +35,11 @@
                   <%=image_tag hospital.image.url(:small) %>
                   
                   <div class="caption">
+                    <h5><%= hospital.acronym %></h5> 
                     <h5><%= hospital.name %></h5>
                     <h5><%= hospital.address %></h5>
-                    <h5><%= hospital.city.name %></h5>
-                    <h5><%= hospital.state.name %></h5>
+                    <h5><%= hospital.city.name %> - <%= hospital.state.acronym %></h5>
+                    
                     
                     <p>
                       <%= link_to 'Visualizar', hospital_path(hospital), :class => "btn btn-primary" %>

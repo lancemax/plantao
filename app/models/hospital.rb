@@ -4,8 +4,8 @@ class Hospital < ActiveRecord::Base
 	belongs_to :state
 	
 
-	attr_accessible :address, :city_id, :complement, :description, :name, :neighborhood, :state_id, :zip_code, :image
-	validates_presence_of :name,:address, :neighborhood, :zip_code, :city_id, :state_id 
+	attr_accessible :address, :acronym , :city_id, :complement, :description, :name, :neighborhood, :state_id, :zip_code, :image
+	validates_presence_of :name, :acronym, :address, :neighborhood, :zip_code, :city_id, :state_id 
 
 	has_attached_file :image, 
 	:styles => { :small=> ["250"], :medium =>["400"]},

@@ -66,14 +66,27 @@
 								</a>
 								<a class="btn btn-primary dropdown-toggle" href="#" data-toggle="dropdown"> 
 									<span class="caret"></span>
+								</a> 
+								&nbsp;
+								<% 
+									if current_user.credits >0 
+										@class = "btn-success"
+									elsif current_user.credits < 0 
+										@class = "btn-danger"
+									end
+								  %>
+								<a href="#" class="label label-info credits">
+									<b>Créditos:</b>&nbsp; <b class="btn <%=@class%>"><%= current_user.credits %></b>&nbsp;
 								</a>
+								
 								<ul class="dropdown-menu">
 									
 									<li>
 										<a href="#">
-											<b>Email:</b> <div id="user_numbids_menu" class="btn"><%= current_user.email %></div>
+											<b>Email: </b> <div id="user_numbids_menu" class="btn"><%= current_user.email %></div>
 										</a>
 									</li>
+									
 
 									<li>
 										<a href="#">

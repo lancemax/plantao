@@ -68,5 +68,20 @@ class User < ActiveRecord::Base
     update_attributes(params) 
   end
 
+  def consume_credits(user_id)
+    if User.find(user_id).try(:decrement!,:credits,1)
+      return true
+    else
+      return false
+    end
+  end
+
+  def payback_credits(user_id)
+    if User.find(user_id).try(:increment!,:credits,1)
+      return true
+    else
+      return false
+    end
+  end
 
 end

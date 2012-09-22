@@ -16,7 +16,7 @@
           <table class="table table-striped well">
           <tbody>
             <tr>
-                <th>Hospital:</th><td><%= @hospital.name %></td><td rowspan="6" width="250px"><%=image_tag @hospital.image.url(:small) %></td>
+                <th>Hospital:</th><td><%= @hospital.name %> - <%= @hospital.acronym %></td><td rowspan="6" width="250px"><%=image_tag @hospital.image.url(:small) %></td>
             </tr>
             <tr>
               <th>Endereço:</th><td><%= @hospital.address %></td>
