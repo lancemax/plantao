@@ -119,7 +119,7 @@ class UserMailer < ActionMailer::Base
     	mail(:to => job.user.email,:subject => "[REABERTURA PLANTÃO] "+job.area.name+" - "+job.hospital.name + "("+ job.date.strftime("%d/%m/%Y") +")")
     end
 
-    def send_email_admin_request_deliver(hospital)
+    def send_email_admin_request(hospital)
     	if Rails.env == 'production' 
 	    	UserMailer.delay.send_email_create_hospital_deliver(hospital)
     	end
