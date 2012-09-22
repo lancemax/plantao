@@ -161,7 +161,7 @@ class JobsController < ApplicationController
      @job = Job.find(params[:id])
      if !@job.request_id.nil?
         respond_to do |format|
-          format.html {  redirect_to @job, noticex
+          format.html {  redirect_to @job, notice:
             : 'O Plantão não pode ser editado pois possui um escolhido.É possível excluir o plantão.'}
         end
      end 
