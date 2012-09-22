@@ -112,9 +112,8 @@ class UserMailer < ActionMailer::Base
     end
 
     def send_email_admin_request(hospital)
-    	
-    	UserMailer.delay.send_email_accept_job(hospital)
-
+    	if Rails.env == 'production' 
+	    	UserMailer.delay.send_email_create_hospital(hospital)
     	end
     end
 
