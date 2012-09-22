@@ -88,7 +88,7 @@ class Customer::RequestsController < ApplicationController
          #declara que esse job volta a estar aberto
         Job.update(params[:job][:job_id],"request_id" => nil)
         #declara os demais requests como aguardando resposta do moderador
-        Request.update_all("status_request_id = 1", ["id != ? and job_id = ?",@request.id,@request.job.id)
+        Request.update_all("status_request_id = 1", ["id != ? and job_id = ?",@request.id,@request.job.id])
 
         if Rails.env == 'production'
           UserMailer.send_email_ownner_job(@request.job.id,current_user.id,DESISTENCIA)
