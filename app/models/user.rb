@@ -76,4 +76,12 @@ class User < ActiveRecord::Base
     end
   end
 
+  def payback_credits(user_id)
+    if User.find(user_id).try(:increment!,:credits,1)
+      return true
+    else
+      return false
+    end
+  end
+
 end
