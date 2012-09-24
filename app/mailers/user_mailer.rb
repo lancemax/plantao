@@ -137,7 +137,7 @@ class UserMailer < ActionMailer::Base
 
     def send_email_cancel_job(job,requests,aceito)
     	p aceito
-    	p aceito[0]
+    	
     	if aceito.nil? and aceito.user_id.nil?
 			# job excluido 
 			requests.each do |request|
@@ -149,19 +149,28 @@ class UserMailer < ActionMailer::Base
     	  # credito devolvido  e job excluido	
     	  UserMailer.delay.send_email_payback_deliver(aceito.user,job)
     	end
+	# email para o medico responsavel avisando que a exclusão teve sucesso
+	UserMailer.delay.send_email_ownner_cancel_job_deliver(job)
     end
 
     def send_email_payback_deliver(user,job)
     	@user = user
  		@job  = job
  		@url  = "www.plantaonet.com" 
-    	mail(:to => job.user.email,:subject => "[PLANTÃO EXCLUÍDO] "+user.name+" - "+ job.area.name + "("+ job.date.strftime("%d/%m/%Y") +")")
+    	mail(:to => user.email,:subject => "[PLANTÃO EXCLUÍDO] "+job.area.name+" - "+job.hospital.name + "("+ job.date.strftime("%d/%m/%Y") +")")
     end
 
     def send_email_cancel_job_deliver(user,job)
     	@user = user
  		@job  = job
  		@url  = "www.plantaonet.com" 
-    	mail(:to => job.user.email,:subject => "[PLANTÃO EXCLUÍDO] "+user.name+" - "+ job.area.name + "("+ job.date.strftime("%d/%m/%Y") +")")
+    	mail(:to => user.email,:subject => "[PLANTÃO EXCLUÍDO] "+job.area.name+" - "+job.hospital.name + "("+ job.date.strftime("%d/%m/%Y") +")")
+    end
+    
+    def send_email_ownner_cancel_job_deliver(job)
+    	
+ 		@job  = job
+ 		@url  = "www.plantaonet.com" 
+    	mail(:to => job.user.email,:subject => "[PLANTÃO EXCLUÍDO] "+job.area.name+" - "+job.hospital.name + "("+ job.date.strftime("%d/%m/%Y") +")")
     end
 end

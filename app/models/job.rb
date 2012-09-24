@@ -13,5 +13,8 @@ class Job < ActiveRecord::Base
   validates :price ,:numericality => {:greater_than => 0, :less_than => 9999.99}
   validates :date, :date => { :after => Time.now - 1.day, :before => Time.now + 1.year }
   
-
+  
+  def cancel_job(job_id)
+      Job.update(job_id,"request_id" => "0")
+  end
 end

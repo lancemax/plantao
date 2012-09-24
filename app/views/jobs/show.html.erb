@@ -15,8 +15,12 @@
       <div class="span8">
           <table class="table table-striped well">
           <tbody>
-            <% if !@job.request_id.nil? %>
-                <h1>Plantão encerrado.</h1>
+            <% if !@job.request_id.nil?%>
+		<% if @job.request_id != 0 %>
+		  <b class="btn huge btn-warning">Plantão Encerrado.</b>
+		<% else %>
+		  <b class="btn huge btn-danger">Plantão Excluido Pelo Médico Responsável.</b>
+		<% end %>
             <% end %>
 
             <tr>
@@ -90,10 +94,18 @@
                 </table>
               <% end %>  
 
-              <div class="btn btn-success" ><%= @job.requests.count %> Cadidato(s)</div>     
+              <div class="btn btn-success" ><%= @job.requests.count %> Cadidato(s)</div>   
+              
               <% if current_user.id ==@job.user.id  %>
-                <%= link_to 'Editar', edit_job_path(@job) ,:class => "btn btn-primary" %> 
-                <%= link_to 'Excluir', job_path(@job) , confirm: 'Você tem Certeza que deseja excluir? Caso exista algum candidato para esse plantão, será debitado 1 crédito da sua conta!',:method => :delete  ,:class => "btn btn-primary" %> 
+		 <% if @job.request_id.nil?%>
+		    <%= link_to 'Editar', edit_job_path(@job) ,:class => "btn btn-primary" %> 
+		 <% end %>   
+		 
+		 <% if @job.request_id.nil? or @job.request_id != 0 %>
+		    <%= link_to 'Excluir', job_path(@job) , confirm: 'Você tem Certeza que deseja excluir? Caso exista algum candidato para esse plantão, será debitado 1 crédito da sua conta!',:method => :delete  ,:class => "btn btn-primary" %> 
+		 <% end %>
+		    
+		      
 
 
               <% else %>
