@@ -2,6 +2,7 @@
 class JobsController < ApplicationController
   before_filter :authenticate_user!, :only => [:new,:create,:edit]
   before_filter :pode_editar , :only => [:edit , :update]
+  before_filter :pode_criar , :only => [:create]
 
   attr_accessor :diasSemana
 
@@ -174,7 +175,19 @@ class JobsController < ApplicationController
         end
      end 
   end
-
+  # valida se o usuário tem créditos para ceder um plantão
+  def pode_criar
+    @user =  User.find_all_by_id(current_user.id)
+    @user = @user[0] 
+    if @user.credits >= 0 
+      return true
+    else
+        respond_to do |format|
+          format.html {  redirect_to @job, notice: 'Você não pode ceder um plantão pois está com um número negativo de créditos.Por favor coloque créditos e tente novamente.'}
+          return false
+        end 
+    end
+  end
 
 
 

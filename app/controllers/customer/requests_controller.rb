@@ -2,7 +2,7 @@
 class Customer::RequestsController < ApplicationController
   
   before_filter :authenticate_user!
-  
+  before_filter :pode_candidatar , :only => [:create]  
 
   layout 'customer/applicationcustomer'
 
@@ -108,7 +108,18 @@ class Customer::RequestsController < ApplicationController
       end
     end
   end
-
-
+  # usuário só pode se candidatar se tiver créditos
+  def pode_candidatar
+    @user =  User.find_all_by_id(current_user.id)
+    @user = @user[0] 
+    if @user.credits > 0 
+      return true
+    else
+      respond_to do |format|
+        format.html {  redirect_to @job, notice: 'Você não se candidatar em um plantão pois não possue créditos.Por favor coloque créditos e tente novamente.'}
+        return false
+      end 
+    end
+  end
 
 end
