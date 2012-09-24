@@ -1,13 +1,17 @@
 source 'https://rubygems.org'
 
 gem 'rails', '3.2.3'
+
+#envio de emails embackground
 gem 'daemons'
 gem 'delayed_job_active_record'
+# captcha
+gem 'rack-recaptcha', :require => 'rack/recaptcha'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
+#login com gmail e facebok utilizando o  omniauth
 gem "omniauth-facebook"
-
 gem 'omniauth-google-oauth2'
 
 #gem 'omniauth-twitter'
@@ -25,10 +29,6 @@ gem "pag_seguro"
 
 #thin rack
 gem 'thin'
-
-#nodeJS gem faye
-gem "faye"
-
 
 # Gems used only for assets and not required
 # in production environments by default.

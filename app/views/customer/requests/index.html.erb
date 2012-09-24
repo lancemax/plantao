@@ -34,18 +34,18 @@
                   <td colspan="2" id="job<%=request.job.id%>">
                     <div class="btn btn-info"><b><%=request.status_request.name%></b></div>
                     <% if request.job.request_id.nil? %>
-                        <% if request.status_request_id == 1 %>
+                        <% if request.status_request_id == CONS::REQUEST[:AGUARDANDO_RESPOSTA] %>
                             <%= link_to customer_request_path(request), confirm: 'Você tem Certeza que deseja Cancelar?', method: :delete, :remote => true do %>
                                <div class="btn btn-danger"><b>Cancelar</b></div>
                             <% end %>
                         <% else %>
-                            <%= link_to customer_request_path(request), confirm: 'Você tem Certeza que deseja Repleitear?', method: :put, :remote => true do %>
+                            <%= link_to customer_request_path(request), confirm: 'Você tem certeza que deseja Repleitear?', method: :put, :remote => true do %>
                                <div class="btn btn-warning"><b>Repleitear</b></div>
                             <% end %>
                         <% end %>
-                    <% elsif  request.job.request_id == request.id and request.status_request_id == 2 %>  
-                        <%= link_to customer_request_path(request), confirm: 'A desistência depende da aceitação do moderador desse plantão, Caso o moderador não conceda a Desistência até o dia do plantão, você deverá assumi-lo. Você tem certeza que deseja continuar?', method: :delete, :remote => true do %>
-                            <div class="btn btn-danger"><b>Solicitar Desistência</b></div>
+                    <% elsif  request.job.request_id == request.id and request.status_request_id == CONS::REQUEST[:ACEITO] %>  
+                        <%= link_to customer_request_path(request), confirm: 'Ao efetuar a desistência o médico responsável será notificado,mas o crédito não será devolvido. Você tem certeza que deseja continuar?', method: :delete, :remote => true do %>
+                            <div class="btn btn-danger"><b>Efetuar Desistência</b></div>
                         <% end %>
                     <% end %> 
                   </td>

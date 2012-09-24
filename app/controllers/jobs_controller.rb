@@ -82,24 +82,29 @@ class JobsController < ApplicationController
   # POST /jobs
   # POST /jobs.json
   def create
-    
-	setMoney(params[:job][:price])
+    if recaptcha_valid?
+    	setMoney(params[:job][:price])
 
-	@job = Job.new(params[:job])
-	@job.user_id = current_user.id
-	#@job.date = Time.now
-    respond_to do |format|
-      if @job.save
-        if Rails.env == 'production' 
-          UserMailer.send_emails(@job) 
-        end 
-        format.html { redirect_to @job, notice: 'Plantão Criado com Sucesso.' }
-        format.json { render json: @job, status: :created, location: @job }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @job.errors, status: :unprocessable_entity }
+    	@job = Job.new(params[:job])
+    	@job.user_id = current_user.id
+    	#@job.date = Time.now
+        respond_to do |format|
+          if @job.save
+            if Rails.env == 'production' 
+              UserMailer.send_emails(@job) 
+            end 
+            format.html { redirect_to @job, notice: 'Plantão Criado com Sucesso.' }
+            format.json { render json: @job, status: :created, location: @job }
+          else
+            format.html { render action: "new" }
+            format.json { render json: @job.errors, status: :unprocessable_entity }
+          end
+        end
+   else
+      respond_to do |format|
+      format.html { redirect_to new_job_path, alert: 'Captcha inválido.' }
       end
-    end
+    end  
   end
 	
 

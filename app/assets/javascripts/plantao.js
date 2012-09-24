@@ -1,13 +1,11 @@
+  jQuery(document).ready(function(){
+   
 
-jQuery(document).ready(function(){
+   /* jobs */
    $("input[name*='price']").maskMoney({symbol:'R$ ', showSymbol:true, thousands:'.', decimal:',', symbolStay: true});
    $('.date').datepicker({"format": "dd/mm/yyyy", "weekStart": 1, "autoclose": true, "language": "br"});
 
-
    verificaBotoes();
-
-
-
 
    $(".clicavel").click(function(){
    		
@@ -28,7 +26,40 @@ jQuery(document).ready(function(){
 		}
 			//location.reload();
     });
+
+
+   /* states */
+ // when the #search field changes
+  $("#hospital_state_id").change(function() {
+  	
+   
+     estado=$(this).val();
+    if(estado=="")
+      $("#hospital_city_id").html("<option>Escolha uma cidade</option>");	
+  	else
+  	{	
+	   	$.post("/cities/load_cities/"+estado, function(data) {
+	      //console.log(data);
+	      $("#hospital_city_id").html(data);
+	   	});
+   }
+
+  });
+
+  	// hospitals
+   $("#hospital_zip_code").mask("99999-999");  
+
+
+
+
+
+
  });
+
+
+
+
+
 
 
 function verificaBotoes(){
@@ -82,6 +113,3 @@ exdate.setDate(exdate.getDate() + exdays);
 var c_value=escape(value) + ((exdays==null) ? "" : "; expires="+exdate.toUTCString());
 document.cookie=c_name + "=" + c_value +";path=/";
 }
-
-
-

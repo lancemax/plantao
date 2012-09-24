@@ -62,5 +62,16 @@ module Plantao
     end
 
 
+    # captcha
+    config.gem 'rack-recaptcha', :lib => 'rack/recaptcha'
+    if Rails.env == 'production'
+     config.middleware.use Rack::Recaptcha,
+     :public_key => '6Lc42dYSAAAAAKMxbs-o1Gf8s1ccZp_TqWIQYFme',
+     :private_key => '6Lc42dYSAAAAAPbGBFqUC8FuXHqvPL4k3qdrzN4f'
+    else
+      config.middleware.use Rack::Recaptcha,
+     :public_key => '6LdF2dYSAAAAAN4hD4HL2F18rXw4UUjLSFScBw8N',
+     :private_key => '6LdF2dYSAAAAAJxYAe1OhoVxxKExBCPYzxfxtZgu'
+    end
   end
 end

@@ -35,7 +35,7 @@
   </div>
   <div class="control-group">
     <%= f.label 'CEP'  , :class => 'control-label' %>
-    <div class="controls"><%= f.number_field :zip_code, :class => 'input-small' %></div>
+    <div class="controls"><%= f.text_field :zip_code, :class => 'input-small' %></div>
   </div>
   
   <div class="control-group">
@@ -61,5 +61,10 @@
     <%= f.label 'Foto'  , :class => 'control-label' %>
     <div class="controls"><%= f.file_field :image ,:title => 'Procurar', :class => 'span5' %></div>
   </div>
+  <div class="control-group">
+    <div class="controls">
+      <%= raw recaptcha_tag(:challenge) %>
+    </div>    
+  </div>  
   <div class="form-actions"><%= f.submit "Salvar", :class => "btn btn-primary" %></div>
 <% end %>

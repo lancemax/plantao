@@ -16,7 +16,7 @@
 //= require twitter/bootstrap
 //= require bootstrap-datepicker
 //= require bootstrap-datepicker/core
-//= require states.js
 //= require jquery.maskmoney.js
-//= require jobs.js
+//= require jquery.maskedinput.js
+//= require plantao.js
 // require_tree .

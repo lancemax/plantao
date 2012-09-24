@@ -96,41 +96,33 @@
 
               <div class="btn btn-success" ><%= @job.requests.count %> Cadidato(s)</div>   
               
-              <% if current_user.id ==@job.user.id  %>
+<% if current_user.id ==@job.user.id  %>
 		 <% if @job.request_id.nil?%>
 		    <%= link_to 'Editar', edit_job_path(@job) ,:class => "btn btn-primary" %> 
 		 <% end %>   
 		 
 		 <% if @job.request_id.nil? or @job.request_id != 0 %>
-		    <%= link_to 'Excluir', job_path(@job) , confirm: 'Você tem Certeza que deseja excluir? Caso exista algum candidato para esse plantão, será debitado 1 crédito da sua conta!',:method => :delete  ,:class => "btn btn-primary" %> 
+		    <%= link_to 'Excluir', job_path(@job) , confirm: 'Você tem certeza que deseja excluir? Caso exista algum candidato para esse plantão, será debitado 1 crédito da sua conta!',:method => :delete  ,:class => "btn btn-primary" %> 
 		 <% end %>
-		    
-		      
-
-
-              <% else %>
-               
-                  <% if !Request.where(:user_id => current_user.id,:job_id =>@job.id).first %>
-                    <% if current_user.id != @job.user_id  %>
-                      <%= simple_form_for [:customer,@request],:html => {:class => 'form-inline'}, :remote => true  do |f| %>
-                        <%= f.hidden_field :job_id ,:value => @job.id %>
-                        <%= f.submit "Pegar Plantão", :class => "btn btn-success" %>
-                      <% end %>
-                    <% else %>  
-                    <div class="btn">Meu Plantão</div>
-                    <% end %>
-                  <% else  %>   
-                    <div class="btn btn-warning">Pleiteado</div>
-                  <% end %> 
-                <% end %>
-              
+<% else %>
+        <% if !Request.where(:user_id => current_user.id,:job_id =>@job.id).first %>
+          <% if current_user.id != @job.user_id  %>
+            <%= simple_form_for [:customer,@request],:html => {:class => 'form-inline'}, :remote => true  do |f| %>
+              <%= f.hidden_field :job_id ,:value => @job.id %>
+              <%= f.submit "Pegar Plantão",  :confirm => 'Você tem certeza?', :class => "btn btn-success" %>
             <% end %>
-               
-            <%= link_to 'Voltar', jobs_path , :class => "btn btn-warning" %>
-            
-    
-      
+          <% else %>  
+          <div class="btn">Meu Plantão</div>
+          <% end %>
+        <% else  %>   
+          <div class="btn btn-warning">Pleiteado</div>
 
+        <% end %> 
+      <% end %>
+    
+  <% end %>
+     
+  <%= link_to 'Voltar', jobs_path , :class => "btn btn-warning" %>
 
     </div>
   </div>

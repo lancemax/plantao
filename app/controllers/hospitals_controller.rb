@@ -55,22 +55,30 @@ class HospitalsController < ApplicationController
   # POST /hospitals
   # POST /hospitals.json
   def create
-    @hospital = Hospital.new(params[:hospital])
 
-    respond_to do |format|
-      if @hospital.save
-        # enviar email pra administração 
-        if Rails.env == 'production'
-          UserMailer.send_email_admin_request(@hospital)
+    if recaptcha_valid?
+
+      @hospital = Hospital.new(params[:hospital])
+
+      respond_to do |format|
+        if @hospital.save
+          # enviar email pra administração 
+          if Rails.env == 'production'
+            UserMailer.send_email_admin_request(@hospital)
+          end
+
+          format.html { redirect_to @hospital, notice: 'Hospital Criado com Sucesso.' }
+          format.json { render json: @hospital, status: :created, location: @hospital }
+        else
+          format.html { render action: "new" }
+          format.json { render json: @hospital.errors, status: :unprocessable_entity }
         end
-
-        format.html { redirect_to @hospital, notice: 'Hospital Criado com Sucesso.' }
-        format.json { render json: @hospital, status: :created, location: @hospital }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @hospital.errors, status: :unprocessable_entity }
       end
-    end
+    else
+      respond_to do |format|
+      format.html { redirect_to new_hospital_path, alert: 'Captcha inválido.' }
+      end
+    end  
   end
 
   # PUT /hospitals/1

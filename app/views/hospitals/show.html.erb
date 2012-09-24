@@ -25,6 +25,9 @@
               <th>Complemento:</th>  <td><%= @hospital.complement %></td>
             </tr>
             <tr>
+              <th>Cep:</th><td><%= @hospital.zip_code %></td>
+            </tr>
+            <tr>
               <th>Bairro:</th><td><%= @hospital.neighborhood %></td>
             </tr>
             <tr>
@@ -34,7 +37,9 @@
               <th>Estado:</th>  <td><%= @hospital.state.name %></td>
             </tr>
             <tr>
-               <th>Descrição:</th> <td colspan="2"><%= @hospital.description %></td>
+               <th>Descrição:</th> <td colspan="2">
+               <%= @hospital.description %>
+            </td>
             </tr>
            </tbody>          
           </table>
