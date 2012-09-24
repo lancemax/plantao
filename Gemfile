@@ -66,6 +66,9 @@ gem 'simple-navigation', '3.3.3'
 #paginação
 gem 'will_paginate', '~> 3.0'
 
+# autenticação
+gem 'cancan'
+
 #upload de imagens
 gem 'paperclip', '~> 2.4'
 

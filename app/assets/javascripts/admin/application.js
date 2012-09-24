@@ -15,5 +15,5 @@
 //= require jquery_ujs
 //= require twitter/bootstrap
 //= require jquery.maskmoney.js
-//= require admin/packages.js
+//= require plantao.js
 // require_tree .
