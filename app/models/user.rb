@@ -4,7 +4,8 @@ class User < ActiveRecord::Base
   has_many :jobs
 	belongs_to :push_time
   has_many :requests
-
+  before_save :verificaPromocao
+  
 
 	ROLES = [:admin, :customer]
 
@@ -17,6 +18,11 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :remember_me, 
   			:name, :phone, :cellphone,:workplace ,:provider, :uid, :area_id, :push_time_id, :minor_value
   # attr_accessible :title, :body
+
+
+  def verificaPromocao
+    p "passo aqui"
+  end
 
   def self.find_for_facebook_oauth(auth, signed_in_resource=nil)
     user = User.where(:email => auth.info.email).first

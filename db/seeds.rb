@@ -9791,7 +9791,6 @@ StatusRequest.create!(:name=>'aguardando resposta')
 StatusRequest.create!(:name=>'aceito')
 StatusRequest.create!(:name=>'negado')
 StatusRequest.create!(:name=>'cancelado')
-StatusRequest.create!(:name=>'solicitação de desistência')
 StatusRequest.create!(:name=>'desistente')
 
 Shift.create!(:name=>'M')
