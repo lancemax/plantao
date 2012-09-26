@@ -6,4 +6,14 @@ class Admin::AdminController < ApplicationController
   check_authorization
   
   layout 'admin/applicationadmin'
+
+  def setMoney(value)
+    if value.gsub!(".","")
+      #retira o '.' caso o numero seja maior que 999 (Ex: 1.323,00)
+    end
+     value.gsub!(",",".")
+     value.gsub!("R$ ","")
+     value.gsub!("-","")
+
+  end
 end

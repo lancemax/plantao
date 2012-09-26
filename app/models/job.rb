@@ -18,15 +18,14 @@ class Job < ActiveRecord::Base
       Job.update(job_id,"request_id" => "0")
   end
 
-  def reminderMorning
+
+  def self.reminderMorning
   end
 
-  def reminderAfternoon
-    
+  def self.reminderAfternoon
   end
 
-  def reminderNight
-    
+  def self.reminderNight
   end
 
 

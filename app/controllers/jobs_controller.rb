@@ -2,7 +2,7 @@
 class JobsController < ApplicationController
   before_filter :authenticate_user!, :only => [:new,:create,:edit]
   before_filter :pode_editar , :only => [:edit , :update]
-  before_filter :pode_criar , :only => [:create]
+  before_filter :pode_criar , :only => [:create,:new]
 
   attr_accessor :diasSemana
 
@@ -52,21 +52,26 @@ class JobsController < ApplicationController
          query = query.where("EXTRACT(dow from date) != ? ",$diasSemana.index(i))      
       end 
     end   
+    #Não pega os jobs excluidos
+    #query = query.where("request_id != 0")
 
+    #pega jobs de hoje a 10 dias e faz a paginação
     query = query.where(:date => 1.days.ago..Time.now+10.days).paginate(:page => params[:page], :per_page => 8).order("date")
 
     @jobs = query
 
-
+    #instancia para formulario de pegar plantão
     @request = Request.new
     
+    
+
   	respond_to do |format|
   	  format.html # index.html.erb
   	  format.json { render json: @jobs }
   	end
 	end
-
-
+ 
+ 
 
   # GET /jobs/new
   # GET /jobs/new.json
@@ -113,6 +118,9 @@ class JobsController < ApplicationController
   def show
     @job = Job.find(params[:id])
     @request = Request.new
+    if user_signed_in?
+      @eh_candidato = is_candidate(@job.id)
+    end
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @job }
@@ -133,7 +141,7 @@ class JobsController < ApplicationController
 
     respond_to do |format|
       if @job.update_attributes(params[:job])
-        Request.update_all( ["status_request_id = ? " ,CONS::REQUEST[:CANCELADO] ], ["job_id = ?",@request.job.id])
+        Request.update_all( ["status_request_id = ? " ,CONS::REQUEST[:CANCELADO] ], ["job_id = ?",@job.id])
         if Rails.env == 'production' 
           UserMailer.send_emails_edit(@job) 
         end 
@@ -154,10 +162,8 @@ class JobsController < ApplicationController
     @aceito  =  Request.find_all_by_job_id_and_status_request_id(params[:id], CONS::REQUEST[:ACEITO])
     respond_to do |format|
       if @aceito.count > 0
-        # cancela todos os requests , consome credito do moderador , elege o mesmo e envia email para os pleitiados
+        
         # troco a moeda
-	p @job
-	p @aceito
         @user = User.new
         @user.consume_credits(@job.user.id)
         @user.payback_credits(@aceito[0].user.id)
@@ -186,24 +192,32 @@ class JobsController < ApplicationController
      @job = Job.find(params[:id])
      if !@job.request_id.nil?
         respond_to do |format|
-          format.html {  redirect_to @job, notice: 'O Plantão não pode ser editado pois possui um escolhido.É possível excluir o plantão.'}
+          format.html {  redirect_to @job, alert: 'O Plantão não pode ser editado pois possui um escolhido.É possível excluir o plantão.'}
         end
      end 
   end
   # valida se o usuário tem créditos para ceder um plantão
   def pode_criar
-    @user =  User.find_all_by_id(current_user.id)
-    @user = @user[0] 
-    if @user.credits >= 0 
-      return true
+    @job = Job.new
+    @user =  User.find_by_id(current_user.id)
+    #@user = @user[0] 
+    if !@user.area.nil?
+      if @user.credits <= 0 
+          respond_to do |format|
+            format.html {  redirect_to @job, alert: 'Você não pode Cadastrar um plantão pois você não possui créditos. Para continuar utilizando nossos serviços, recarregue seus créditos.'}
+          end 
+      end
     else
-        respond_to do |format|
-          format.html {  redirect_to @job, notice: 'Você não pode ceder um plantão pois está com um número negativo de créditos.Por favor coloque créditos e tente novamente.'}
-          return false
-        end 
+      respond_to do |format|
+        format.html {  redirect_to edit_user_registration_url, alert: 'Você não pode Cadastrar um plantão pois você não completou o seu cadastro. preencha os dados abaixo'}
+      end 
     end
   end
 
+  def is_candidate(job_id)
+    @candidato = Request.where(:user_id => current_user.id,:job_id =>job_id).first
+    return @candidato
+  end
 
 
 end

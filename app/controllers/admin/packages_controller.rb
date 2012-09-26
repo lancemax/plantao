@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 class Admin::PackagesController < Admin::AdminController
+	before_filter :authenticate_user!
 	
-	respond_to :html
   	inherit_resources	
 
 	# GET /packages
@@ -15,20 +15,6 @@ class Admin::PackagesController < Admin::AdminController
 	# POST /packages.json
 	def create
 		setMoney(params[:package][:price])
-
-		if params[:package][:price].to_f <= 0.00
-				  @name = "O valor não pode ser negativo "
-		 			@sucesso = false
-					return false
-		end
-
-
-		if params[:package][:price].to_f > 9999.99
-			  @name = "O valor não pode ser maior que R$9.999,99 "
-	 			@sucesso = false
-				return false
-		end
-
 
 	    @package = Package.new(params[:package])
 

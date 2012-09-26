@@ -9,6 +9,8 @@ gem 'delayed_job_active_record'
 gem 'rack-recaptcha', :require => 'rack/recaptcha'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
+# cronjob
+gem 'whenever', require: false
 
 #login com gmail e facebok utilizando o  omniauth
 gem "omniauth-facebook"
@@ -65,6 +67,9 @@ gem 'simple-navigation', '3.3.3'
 
 #paginação
 gem 'will_paginate', '~> 3.0'
+
+# autenticação
+gem 'cancan'
 
 #upload de imagens
 gem 'paperclip', '~> 2.4'

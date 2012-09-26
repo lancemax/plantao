@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class CONS
 
   REQUEST = {
@@ -9,7 +10,12 @@ class CONS
 
   }
 
+  JOB = {
+    :ABERTO => 'Plantão Disponível', 
+    :ENCERRADO => 'Plantão Finalizado',
+    :EXCLUIDO => 'Plantão Excluído',
 
+  }
 
 
 

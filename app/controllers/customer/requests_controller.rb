@@ -2,7 +2,7 @@
 class Customer::RequestsController < ApplicationController
   
   before_filter :authenticate_user!
-  before_filter :pode_candidatar , :only => [:create]  
+  before_filter :pode_candidatar , :only => [:create,:update]  
 
   layout 'customer/applicationcustomer'
 
@@ -66,7 +66,7 @@ class Customer::RequestsController < ApplicationController
         if Rails.env == 'production'
           UserMailer.send_email_ownner_job(@request.job.id,current_user.id,CONS::REQUEST[:AGUARDANDO_RESPOSTA])
         end
-        @alterou = 'sim'
+        @alterou = @request.job.id
         format.js
       else
         @name = 'Seleção para esse Plantão já foi encerrada. Você não pode mais Pleitear'
@@ -83,14 +83,14 @@ class Customer::RequestsController < ApplicationController
       #caso o moderador ainda não tenho escolhido o eleito. então Cancela
       if @request.job.request_id.nil?
         Request.update(@request.id,"status_request_id" => CONS::REQUEST[:CANCELADO])
-        @cancelou = 'sim'
+        @cancelou = @request.job.id
         format.js
       # solicita CONS::REQUEST[:DESISTENCIA] ao moderador e envia o email para o mesmo  
       elsif @request.job.request_id == @request.id
 
         Request.update(@request.id,"status_request_id" => CONS::REQUEST[:DESISTENCIA])
          #declara que esse job volta a estar aberto
-        Job.update(params[:job][:job_id],"request_id" => nil)
+        Job.update(@request.job_id,"request_id" => nil)
         #declara os demais requests como aguardando resposta do moderador
         Request.update_all(["status_request_id = ?" , CONS::REQUEST[:AGUARDANDO_RESPOSTA] ] , 
                           ["status_request_id = ? and job_id = ?",CONS::REQUEST[:NEGADO],@request.job.id])
@@ -100,7 +100,7 @@ class Customer::RequestsController < ApplicationController
           UserMailer.send_email_ownner_job(@request.job.id,current_user.id,CONS::REQUEST[:DESISTENCIA])
         end
 
-        @cancelou = 'sim'
+        @cancelou = @request.job.id
         format.js
       else  
         @name = 'Seleção para esse Plantão já foi encerrada. Você não pode mais Desistir'
@@ -108,17 +108,26 @@ class Customer::RequestsController < ApplicationController
       end
     end
   end
+
+  protected
   # usuário só pode se candidatar se tiver créditos
   def pode_candidatar
-    @user =  User.find_all_by_id(current_user.id)
-    @user = @user[0] 
-    if @user.credits > 0 
-      return true
+    @job = Job.new
+    @user =  User.find_by_id(current_user.id)
+    if !@user.area.nil?
+      if @user.credits <= 0 
+        respond_to do |format|
+          @name = 'Você não pode se candidatar em um plantão pois não possui créditos. Para continuar utilizando esse serviço, recarregue seus créditos.'
+          format.js
+          #format.html {  redirect_to @job, alert: 'Você não se candidatar em um plantão pois não possui créditos. Para continuar utilizando esse serviço, recarregue seus créditos.'}
+        end 
+      end
     else
       respond_to do |format|
-        format.html {  redirect_to @job, notice: 'Você não se candidatar em um plantão pois não possue créditos.Por favor coloque créditos e tente novamente.'}
-        return false
-      end 
+        @redirect = edit_user_registration_url
+        @name = 'Você não pode se candidatar em um plantão pois não possui créditos. Para continuar utilizando esse serviço, recarregue seus créditos.'
+        format.js
+      end
     end
   end
 
