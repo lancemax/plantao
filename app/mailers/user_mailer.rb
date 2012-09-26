@@ -136,9 +136,8 @@ class UserMailer < ActionMailer::Base
 
 
     def send_email_cancel_job(job,requests,aceito)
-    	p aceito
     	
-    	if aceito.nil? and aceito.user_id.nil?
+    	if aceito.nil? and !requests.nil?
 			# job excluido 
 			requests.each do |request|
 				if request.status_request_id != CONS::REQUEST[:CANCELADO]
@@ -149,8 +148,8 @@ class UserMailer < ActionMailer::Base
     	  # credito devolvido  e job excluido	
     	  UserMailer.delay.send_email_payback_deliver(aceito.user,job)
     	end
-	# email para o medico responsavel avisando que a exclusão teve sucesso
-	UserMailer.delay.send_email_ownner_cancel_job_deliver(job)
+		# email para o medico responsavel avisando que a exclusão teve sucesso
+		UserMailer.delay.send_email_ownner_cancel_job_deliver(job)
     end
 
     def send_email_payback_deliver(user,job)

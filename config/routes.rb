@@ -3,7 +3,6 @@ Plantao::Application.routes.draw do
 
   resources :jobs
   resources :hospitals
-  resources :packages
   resources :cities
   resources :states
 
@@ -18,10 +17,8 @@ Plantao::Application.routes.draw do
   
   match 'myJobs' => 'customer/home#userJobs', :as => :my_jobs
   match 'setJobRequest' => 'customer/home#setJobRequest', :as => :setJobRequest
-  match 'acceptResire' => 'customer/home#acceptResire', :as => :acceptResire
-  match 'denyResire' => 'customer/home#denyResire', :as => :denyResire
-
-  match 'buy' => 'customer/home#buy', :as => :buy
+  
+  match 'buy' => 'customer/packages#index', :as => :buy
 
   
 
@@ -46,7 +43,7 @@ Plantao::Application.routes.draw do
     resources :jobs
     resources :states
     resources :cities
-    resources :packages
+    resources :requests
     resources :status_orders
 
   end

@@ -17,4 +17,8 @@ class Job < ActiveRecord::Base
   def cancel_job(job_id)
       Job.update(job_id,"request_id" => "0")
   end
+
+  def self.reminder
+	p Time.now
+  end
 end

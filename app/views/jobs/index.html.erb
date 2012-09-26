@@ -5,32 +5,32 @@
 <div class="container">
    <div class="row-fluid">
 
-	   <div class="span10 tabbable">
+	   <div class="span9 tabbable">
 			<%= simple_form_for @job, :validate => true ,:html => {:class => 'form ',:novalidate => true },:method => 'get' do |f| %>
-			<a href="#submitform" data-toggle="tab" class="btn">Filtrar: 
-			   <b class="btn btn-small btn-primary" data-toggle="collapse" data-target="#hospitalform">Hospital</b>
-			   <b class="btn btn-small btn-primary" data-toggle="collapse" data-target="#areaform">Especialidade</b>
-			   <b class="btn btn-small btn-primary" data-toggle="collapse" data-target="#shiftform">Turno</b>
-			   <b class="btn btn-small btn-primary" data-toggle="collapse" data-target="#priceform">Valor</b>
+			<a href="#submitform" data-toggle="tab" class="btn btn-small">Filtrar: 
+			   <b class="btn btn-mini btn-primary" data-toggle="collapse" data-target="#hospitalform">Hospital</b>
+			   <b class="btn btn-mini btn-primary" data-toggle="collapse" data-target="#areaform">Especialidade</b>
+			   <b class="btn btn-mini btn-primary" data-toggle="collapse" data-target="#shiftform">Turno</b>
+			   <b class="btn btn-mini btn-primary" data-toggle="collapse" data-target="#priceform">Valor</b>
 			   
 
 			
 				<b class="btn btn-small btn-group bordazero">
-					<b class="btn btn-small btn-primary">	Dias da Semana:</b>	
-					<b class=" clicavel btn btn-small btn-domingo" id="domingo" type="button">Domingo</b>
-					<b class=" clicavel btn btn-small btn-segunda" id="segunda" type="button">Segunda</b>
-					<b class=" clicavel btn btn-small btn-terca" id="terca" type="button">Terça</b>
-					<b class=" clicavel btn btn-small btn-quarta" id="quarta" type="button">Quarta</b>
-					<b class=" clicavel btn btn-small btn-quinta" id="quinta" type="button">Quinta</b>
-					<b class=" clicavel btn btn-small btn-sexta" id="sexta" type="button">Sexta</b>
-					<b class=" clicavel btn btn-small btn-sabado" id="sabado" type="button">Sábado</b>
+					<b class="btn btn-mini btn-primary">	Dias da Semana:</b>	
+					<b class=" clicavel btn btn-mini btn-domingo" id="domingo" type="button">Domingo</b>
+					<b class=" clicavel btn btn-mini btn-segunda" id="segunda" type="button">Segunda</b>
+					<b class=" clicavel btn btn-mini btn-terca" id="terca" type="button">Terça</b>
+					<b class=" clicavel btn btn-mini btn-quarta" id="quarta" type="button">Quarta</b>
+					<b class=" clicavel btn btn-mini btn-quinta" id="quinta" type="button">Quinta</b>
+					<b class=" clicavel btn btn-mini btn-sexta" id="sexta" type="button">Sexta</b>
+					<b class=" clicavel btn btn-mini btn-sabado" id="sabado" type="button">Sábado</b>
 				</b>
 			</a>
 			
 			<br clear="all" />
 			<div class="row-fluid">
 				
-				<br clear="all"><br clear="all">
+				
 				<div class="span4">
 					<div id="hospitalform" class="collapse out">
 
@@ -61,7 +61,7 @@
 				
 			</div>
 		</div>
-	   <div class="span2">
+	   <div class="span3">
 			<%= link_to 'Cadastrar Plantão', new_job_path ,:class => "btn huge btn-success" %>
 		</div> 
 	</div>
@@ -69,12 +69,29 @@
 	<br clear="all" />
 	<ul class="thumbnails">
 		<% @jobs.each do |job| %>
+			<% 
+				if !job.request_id.nil? and  job.request_id != 0
+					@caixa = "caixa"
+				elsif job.request_id == 0
+					@caixa = "caixa-vermelha"
+				else
+					@caixa = "caixa-verde"
+				end
+				#@caixa = "caixa"
+			%>
 	    	<a href="<%=  job_path(job) %>">
-	    		<li class="span3 white">
-			        <table class="table table-condensed	caixa thumbnail" >
+	    		<li class="span4 white">
+			        <table class="table table-condensed	<%=@caixa%> thumbnail" >
 			        	<thead>
 			        	<tr>
 			        		<th colspan="2">
+			        			<% if !job.request_id.nil? and  job.request_id != 0 %>
+									<div class="alert alert-info txt-centralizado span12"><h4><%=CONS::JOB[:ENCERRADO]%></h4></div>
+								<% elsif job.request_id == 0 %>
+									<div class="alert alert-error txt-centralizado span12"><h4><%=CONS::JOB[:EXCLUIDO]%></h4></div>
+								<% else %>
+									<div class="alert alert-success txt-centralizado span12"><h4><%=CONS::JOB[:ABERTO]%></h4></div>
+								<% end %>
 			        			<h4><%= job.area.name %> <br>(<%= job.hospital.city.name %> - <%= job.hospital.state.acronym %>) </h4>
 			        		</th>
 			        	</tr>
@@ -98,31 +115,88 @@
 							<td><%= to_real(job.price) %></td> 
 						</tr>
 						<tr>
-							<th>Cedente:</th>
+							<th>Responsável:</th>
 							<td><%= truncate(job.user.name,:ommision => "...", :length => 30) %></td> 
 						</tr>
 			            <tr>
 			            
 			            	<td colspan="2" id="job<%=job.id%>">
+			            		<table border="0" class="table-buttons">
+			            			<tr>
+			            				<td><div class="btn btn-large btn-info"><b><%=job.requests.count%></b>
+			            					<% if job.requests.count==1 %> 
+			            						Candidato
+			            					<% else %>
+			            						Candidatos
+			            					<% end %>
+			            					</div>
+			            				</td>
+			            				<td align="center" valign="middle">
+
 		            			<% if user_signed_in? %>
-		            				<%= simple_form_for [:customer,@request],:html => {:class => 'form-inline'}, :remote => true  do |f| %>
-		            					<div class="btn btn-info"><b><%=job.requests.count%></b> Candidato(s)</div>
-				            			<% if !Request.where(:user_id => current_user.id,:job_id =>job.id).first %>
-					            			<% if !job.request_id.nil? %>
-					            				<div class="btn">Plantão Encerrado</div>
-					            			<% elsif current_user.id != job.user_id  %>
-				            				
-				            					<%= f.hidden_field :job_id ,:value => job.id %>
-				            					<%= f.submit "Pegar Plantão", :class => "btn btn-success" %>
-				            				<% else %>	
-				            					<div class="btn">Meu Plantão</div>
-				            				<% end %>
-				            			<% else  %>		
-				            				<div class="btn btn-warning">Pleiteado</div>
-				            			<% end %>	
-				            		<% end %>
+		            			<%# se current_user é um candidato a esse plantão %>
+			            		<% @eh_candidato = Request.where(:user_id => current_user.id,:job_id =>job.id).first%>
+		            				<%# se current_user é o dono do plantão %>
+						            <% if current_user.id ==job.user.id  %>
+
+						              <div class="btn">Meu Plantão:
+						                <% if job.request_id.nil?%>
+						                  <%= link_to 'Editar', edit_job_path(job) ,:class => "btn btn-mini btn-primary" %> 
+						                <% end %>   
+
+						                <% if job.request_id.nil? or job.request_id != 0 %>
+						                  <%= link_to 'Excluir', job_path(job) , confirm: 'Você tem certeza que deseja excluir? Caso exista algum candidato para esse plantão, será debitado 1 crédito da sua conta!',:method => :delete  ,:class => "btn btn-mini btn-danger" %> 
+						                <% end %>
+
+						              </div>
+
+						            <% else %><%# se current_user NÃO é o dono do plantão %>
+						              <%#se nenhum candidato foi eleito%>
+						              <% if job.request_id.nil?%>
+						                <%# se current_user NÃO se candidatou ao plantão %>
+						                <% if @eh_candidato.nil? %>
+						                  <%= simple_form_for [:customer,@request],:html => {:class => 'form-inline'}, :remote => true  do |f| %>
+						                    <%= f.hidden_field :job_id ,:value => job.id %>
+						                    <%= f.submit "Pegar Plantão",  :confirm => 'Você tem certeza?', :class => "btn btn-primary" %>
+						                  <% end %>
+						                <% else  %><%# se current_user já se candidatou ao plantão %>   
+
+						                    <% if @eh_candidato.status_request_id == CONS::REQUEST[:AGUARDANDO_RESPOSTA] %>
+						                      <div class="btn">Pleiteado: 
+						                        <%= link_to customer_request_path(@eh_candidato), confirm: 'Você tem Certeza que deseja Cancelar?', method: :delete, :remote => true do %>
+						                          <div class="btn btn-mini btn-danger"><b>Cancelar</b></div>
+						                        <% end %>
+						                      </div>
+						                    <% else %>
+						                      <div class="btn">Cancelado: 
+						                        <%= link_to customer_request_path(@eh_candidato), confirm: 'Você tem certeza que deseja Repleitear?', method: :put, :remote => true do %>
+						                           <div class="btn btn-mini btn-success"><b>Repleitear</b></div>
+						                        <% end %>
+						                      </div>
+						                    <% end %>
+
+						                <% end %> 
+						              <% elsif !@eh_candidato.nil? and @eh_candidato.status_request_id == CONS::REQUEST[:ACEITO] %>
+						                  <div class="btn">Você é o Eleito: 
+						                    <%= link_to customer_request_path(@eh_candidato), confirm: 'Ao efetuar a desistência o médico responsável será notificado,mas o crédito não será devolvido. Você tem certeza que deseja continuar?', method: :delete, :remote => true do %>
+						                        <div class="btn btn-mini btn-danger"> <b>Desistir</b> </div>
+						                    <% end %>
+						                  </div>
+						              <% end %>
+						            <% end %>
 		            			<% end %>
 
+
+
+
+
+
+
+
+
+		            				</td>
+		            			</tr>
+		            		</table>
 			            	</td>
 			             </tr>
 			             </thead>

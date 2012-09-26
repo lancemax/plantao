@@ -10,7 +10,7 @@ class Admin::HomeController < ApplicationController
 
   def listUsers
   	@search = User.where(:role => "customer").search(params[:search])
-	@users = @search.paginate(:page => params[:page],:per_page => 50).order("name ASC")    
+	  @users = @search.paginate(:page => params[:page],:per_page => 50).order("name ASC")    
   end	
 
   def showUser

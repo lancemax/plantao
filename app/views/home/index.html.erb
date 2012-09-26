@@ -11,7 +11,9 @@
 				
 			</div>
 			 <div class="span2">
-		     	<%= link_to('Cadastre-se', new_user_registration_path, :class => 'btn huge btn-success')  %>
+			 	<% if !user_signed_in? %>
+		     		<%= link_to('Cadastre-se', new_user_registration_path, :class => 'btn huge btn-success')  %>
+		     	<% end %>
 		    </div>	
 		     <div class="span12 destaque">
 		    <%=image_tag "doctors.jpg" , :class => 'medicos' %> 
