@@ -17,7 +17,7 @@ class Job < ActiveRecord::Base
   
   
   def cancel_job(job_id)
-      Job.update(job_id,"/" => "0")
+      Job.update(job_id,"request_id" => "0")
   end
 
 
