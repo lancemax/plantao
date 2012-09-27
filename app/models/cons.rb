@@ -17,6 +17,15 @@ class CONS
 
   }
 
+  SHIFT = {
+
+    :MANHA => '1',
+    :TARDE => '2',
+    :MANHA_TARDE => '3',
+    :NOITE => '4',
+
+  }
+
 
 
 end
