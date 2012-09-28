@@ -56,7 +56,7 @@ class JobsController < ApplicationController
     #query = query.where("request_id != 0")
 
     #pega jobs de hoje a 10 dias e faz a paginação
-    query = query.where(:date => 1.days.ago..Time.now+10.days).paginate(:page => params[:page], :per_page => 8).order("date")
+    query = query.where(:date => 1.days.ago..Time.now+10.days).paginate(:page => params[:page], :per_page => 6).order("date")
 
     @jobs = query
 
