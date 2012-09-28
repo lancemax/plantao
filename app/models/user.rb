@@ -4,8 +4,7 @@ class User < ActiveRecord::Base
   has_many :jobs
 	belongs_to :push_time
   has_many :requests
-  before_save :verificaPromocao
-  
+  before_create :verificaPromocao
 
 	ROLES = [:admin, :customer]
 
@@ -21,7 +20,8 @@ class User < ActiveRecord::Base
 
 
   def verificaPromocao
-    p "passo aqui"
+    @promo= Promotions.new
+    self.credits =  @promo.getPromotion
   end
 
   def self.find_for_facebook_oauth(auth, signed_in_resource=nil)

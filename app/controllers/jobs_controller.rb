@@ -1,8 +1,9 @@
-# -*- coding: utf-8 -*-
+  # -*- coding: utf-8 -*-
 class JobsController < ApplicationController
   before_filter :authenticate_user!, :only => [:new,:create,:edit]
   before_filter :pode_editar , :only => [:edit , :update]
   before_filter :pode_criar , :only => [:create,:new]
+  before_filter :populaCombos , :only => [:index]
 
   attr_accessor :diasSemana
 
@@ -219,5 +220,8 @@ class JobsController < ApplicationController
     return @candidato
   end
 
+  def populaCombos
+    @states_array = State.all.map { |state| [state.name, state.id] }
+  end
 
 end

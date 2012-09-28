@@ -172,4 +172,16 @@ class UserMailer < ActionMailer::Base
  		@url  = "www.plantaonet.com" 
     	mail(:to => job.user.email,:subject => "[PLANTÃO EXCLUÍDO] "+job.area.name+" - "+job.hospital.name + "("+ job.date.strftime("%d/%m/%Y") +")")
     end
+
+    def send_email_relembra_encerra_plantao(job)
+		UserMailer.delay.send_email_relembra_encerra_plantao_deliver(job)
+    end
+
+	def send_email_relembra_encerra_plantao_deliver(job)
+		@job  = job
+ 		@url  = "www.plantaonet.com" 
+    	mail(:to => job.user.email,:subject => "[ALERTA PLANTÃO EXCLUÍDO] "+job.area.name+" - "+job.hospital.name + "("+ job.date.strftime("%d/%m/%Y") +")")
+
+    end    
+
 end
