@@ -16,13 +16,14 @@
         <%= f.association :state , :prompt => "Estado", :label => false %>
         <%= f.association :city ,:collection => City.find_all_by_state_id(0), :prompt => "Cidade", :label => false %>
 
+        <%= f.button :submit, "Filtrar", :class => "btn btn-primary " %>
+      <% end %>
       
-      
+        
    </a>
-    <%= f.button :submit, "Filtrar", :class => "btn btn-primary " %> 
-    <% end %>
- </div>
 
+
+ </div>
     <div class="span2"> 
       <% if user_signed_in? %> 
         <%= link_to 'Cadastrar Hospital', new_hospital_path ,:class => "btn huge btn-success" %>  

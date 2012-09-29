@@ -1,6 +1,14 @@
   jQuery(document).ready(function(){
    
+   $("input[type=submit]").click(function(){
+   	$("#new_hospital").submit();
 
+   });
+
+  	$('a[href="#submitform"]').click(function(e) {
+    e.preventDefault();
+    //do other stuff when a click happens
+	});
    /* jobs */
    $("input[name*='price']").maskMoney({symbol:'R$ ', showSymbol:true, thousands:'.', decimal:',', symbolStay: true});
    $('.date').datepicker({"format": "dd/mm/yyyy", "weekStart": 1, "autoclose": true, "language": "br"});
