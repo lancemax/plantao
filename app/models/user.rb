@@ -1,10 +1,13 @@
+# -*- coding: utf-8 -*-
 class User < ActiveRecord::Base
 
 	belongs_to :area
+  belongs_to :state
   has_many :jobs
 	belongs_to :push_time
   has_many :requests
   before_create :verificaPromocao
+  before_save :verificaCrm
 
 	ROLES = [:admin, :customer]
 
@@ -15,7 +18,7 @@ class User < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me, 
-  			:name, :phone, :cellphone,:workplace ,:provider, :uid, :area_id, :push_time_id, :minor_value
+  			:name, :phone, :cellphone,:workplace ,:provider, :uid, :area_id, :push_time_id, :minor_value, :state_id , :crm
   # attr_accessible :title, :body
 
 
@@ -23,6 +26,31 @@ class User < ActiveRecord::Base
     @promo= Promotions.new
     self.credits =  @promo.getPromotion
   end
+
+  def verificaCrm
+    require 'nokogiri'
+    require 'open-uri'
+
+    url = "http://portal.cfm.org.br/index.php?medicosNome=&medicosCRM=#{self.crm}&medicosUF=#{self.state.acronym}&medicosSituacao=&medicosTipoInscricao=&medicosEspecialidade=&buscaEfetuada=true&option=com_medicos#buscaMedicos"
+    p url
+    doc = Nokogiri::HTML(open(url))
+    puts doc.css(".row0 span").text
+    cont = 0 
+    aux = []
+    doc.css(".row0 span").each do |span|
+      aux[cont] = span.to_s.gsub(%r{</?[^>]+?>}, '')
+      cont=cont+1
+
+    end
+
+
+    if self.crm != aux[2].to_i || self.state.acronym != aux[3] || aux[1] != "Ativo" 
+     errors.add(:crm, "( Crm / UF inválidos, ou Médico inativo )")
+     return false
+    end  
+    
+  end
+
 
   def self.find_for_facebook_oauth(auth, signed_in_resource=nil)
     user = User.where(:email => auth.info.email).first

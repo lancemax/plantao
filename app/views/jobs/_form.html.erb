@@ -44,11 +44,14 @@ select { width: auto;}
     		<%= f.association :shift, :label => false,:collection => Shift.all(:order => 'shifts.id') %>
     	</div>
   	</div>
-  
 
 	<div class="control-group">
 		<%= f.label 'Valor'  , :class => 'control-label' %>
-	<div class="controls"><%= f.text_field :price, :class => 'span2' %></div>
+	<div class="controls">
+	 <%= f.text_field :price %>
+	 <%= select_tag(:price_type,  options_for_select([['Bruto', 1], ['Liquído', 2]])) %>
+	</div>
+
 	</div>
 
 	<div class="control-group">
@@ -61,8 +64,12 @@ select { width: auto;}
     <div class="controls">
       <%= raw recaptcha_tag(:challenge) %>
     </div>    
-  </div>  4
+  </div>  
  
-  <div class="form-actions"><%= f.submit "Salvar", :class => "btn btn-success" %></div>
+  <div class="form-actions">
+  	<%= f.submit "Salvar", :class => "btn btn-success" %>
+
+	<%= link_to 'Voltar', jobs_path , :class => "btn btn-warning"%>				
+  </div>		
   
 <% end %>

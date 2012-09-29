@@ -15,6 +15,16 @@
     <div class="controls"><%= f.email_field :email, :class => 'span4' %></div>
   </div>
 
+   <div class="control-group">
+    <%= f.label :crm  , :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :crm, :class => 'span2' %>
+      <%= f.collection_select :state_id, State.all, :id, :acronym, :prompt => "UF" %>
+      
+    </div>
+  </div>
+
+
   <div class="control-group">
     <%= f.label 'Telefone'  , :class => 'control-label' %>
     <div class="controls"><%= f.text_field :phone, :class => 'span2' %></div>
@@ -26,8 +36,10 @@
   </div>
 
   <div class="control-group">
-    <%= f.association :area, :label => 'Especialidade', :class => 'span3' %>
-    <div class="controls"></div>
+        <%= f.label 'Especialidade'  , :class => 'control-label' %>
+    <div class="controls">
+      <%= f.collection_select :area_id, Area.all, :id, :name, :include_blank => true %>
+    </div>
   </div>
 
   <div class="control-group">
