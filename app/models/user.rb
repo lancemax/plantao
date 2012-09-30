@@ -43,11 +43,12 @@ class User < ActiveRecord::Base
 
     end
 
-
-    if self.crm != aux[2].to_i || self.state.acronym != aux[3] || aux[1] != "Ativo" 
-     errors.add(:crm, "( Crm / UF inválidos, ou Médico inativo )")
-     return false
-    end  
+    if !self.crm.nil? && !self.state.nil?
+      if self.crm != aux[2].to_i || self.state.acronym != aux[3] || aux[1] != "Ativo" 
+       errors.add(:crm, "( Crm / UF inválidos, ou Médico inativo )")
+       return false
+      end  
+    end
     
   end
 
