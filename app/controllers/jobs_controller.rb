@@ -202,7 +202,7 @@ class JobsController < ApplicationController
     @job = Job.new
     @user =  User.find_by_id(current_user.id)
     #@user = @user[0] 
-    if !@user.area.nil?
+    if !@user.area.nil? && !@user.crm.nil?
       if @user.credits <= 0 
           respond_to do |format|
             format.html {  redirect_to @job, alert: 'Você não pode Cadastrar um plantão pois você não possui créditos. Para continuar utilizando nossos serviços, recarregue seus créditos.'}
