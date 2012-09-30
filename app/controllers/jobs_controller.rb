@@ -20,6 +20,7 @@ class JobsController < ApplicationController
 	# GET /jobs
 	# GET /jobs.json
 	def index
+    @pagetitle = 'Plantões'
     @job = Job.new
     query = Job
     
@@ -133,6 +134,7 @@ class JobsController < ApplicationController
   def edit
     @job = Job.find(params[:id])
   end
+
   # PUT /jobs/1
   # PUT /jobs/1.json
   def update

@@ -7,6 +7,7 @@ class HospitalsController < ApplicationController
   # GET /hospitals.json
   
   def index
+    @pagetitle = 'Hospitais'
     @hospital = Hospital.new
     query = Hospital
 
@@ -28,6 +29,7 @@ class HospitalsController < ApplicationController
   # GET /hospitals/1
   # GET /hospitals/1.json
   def show
+    @pagetitle = 'Hospital'
     @hospital = Hospital.find(params[:id])
 
     respond_to do |format|
@@ -39,6 +41,7 @@ class HospitalsController < ApplicationController
   # GET /hospitals/new
   # GET /hospitals/new.json
   def new
+    @pagetitle = 'Novo Hospital'
     @hospital = Hospital.new
 
     respond_to do |format|
@@ -49,6 +52,7 @@ class HospitalsController < ApplicationController
 
   # GET /hospitals/1/edit
   def edit
+    @pagetitle = 'Editar Hospital'
     @hospital = Hospital.find(params[:id])
   end
 

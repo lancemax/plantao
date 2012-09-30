@@ -9,6 +9,19 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
+ *= require homepage
+ *= require template
+ *= require template-responsive
  *= require bootstrap-datepicker
- *= require_tree .
+ *= require bootstrap_and_overrides
+ *= require themes
+ *= require areas
+ *= require cities
+ *= require hospitals
+ *= require jobs
+ *= require orders
+ *= require packages
+ *= require requests
+ *= require states
+ * require_tree .
 */
