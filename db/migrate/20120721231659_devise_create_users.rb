@@ -36,7 +36,6 @@ class DeviseCreateUsers < ActiveRecord::Migration
 
       ## Token authenticatable
       # t.string :authentication_token
-      t.integer :crm
       t.string :state_id , :null => false , :default => 0 
       t.integer :area_id, :null => false, :default => 0
       t.string :workplace
