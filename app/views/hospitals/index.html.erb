@@ -2,20 +2,23 @@
 <div class="container">
   <div class="row-fluid">
 
-    <div class="span8"> 
-      <%= simple_form_for @hospital , :url => :showHospitals, :method => 'get' do |f| %>
-            Filtrar por:
+  <div class="span9"> 
+    <a href="#submitform" data-toggle="tab" class="btn btn-large">
 
-            <%= f.association :state , :prompt => "Estado", :label => false %>
-            <%= f.association :city ,:collection => City.find_all_by_state_id(0), :prompt => "Cidade", :label => false %>
-            
-            <%= f.button :submit, "Filtrar", :class => "btn-mini btn-primary " %>
-            
-     
-      
+    
+      <%= simple_form_for @hospital , :url => :showHospitals, :method => 'get' do |f| %>
+        <%= f.text_field :name, :placeholder => 'Nome do Hospital' %>
+        
+        <%= f.association :state , :prompt => "Estado", :label => false %>
+        <%= f.association :city ,:collection => City.find_all_by_state_id(0), :prompt => "Cidade", :label => false %>
+
+        <%= f.button :submit, "Filtrar", :class => "btn btn-primary " %>
       <% end %>
-    </div>
-    <div class="span4"> 
+   </a>
+
+
+ </div>
+    <div class="span2"> 
       <% if user_signed_in? %> 
         <%= link_to 'Cadastrar Hospital', new_hospital_path ,:class => "btn huge btn-success" %>  
       <% end %>

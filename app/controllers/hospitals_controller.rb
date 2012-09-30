@@ -13,13 +13,15 @@ class HospitalsController < ApplicationController
 
     query = query.paginate(:page => params[:page], :per_page => 8)
     if !params[:hospital].nil? and params[:hospital][:state_id]!=""
-      
-      query = query.find_all_by_state_id_and_city_id(params[:hospital][:state_id],params[:hospital][:city_id],:order => "hospitals.id")
-
+        #query = query.find_all_by_state_id_and_city_id(params[:hospital][:state_id],params[:hospital][:city_id],:order => "hospitals.id")
+        query =  query.where("state_id = ? and city_id = ?",params[:hospital][:state_id],params[:hospital][:city_id])
     end 
-    
 
-    @hospitals = query
+    if !params[:hospital].nil? and params[:hospital][:name]!=""
+      query = query.where("name like '%?%' ",params[:hospital][:name])
+    end 
+
+    @hospitals = query.paginate(:page => params[:page], :per_page => 6).order("name")
     respond_to do |format|
       format.html # index.html.erb
       #format.json { render json: @hospitals }

@@ -1,26 +1,26 @@
 <% @pagetitle = "Plantões" %>
-<div class="container">
+
    <div class="row-fluid">
 
-	   <div class="span9 tabbable">
+	   <div class="span10 tabbable">
 			<%= simple_form_for @job, :validate => true ,:html => {:class => 'form ',:novalidate => true },:method => 'get' do |f| %>
-			<a href="#submitform" data-toggle="tab" class="btn btn-small">Filtrar: 
-			   <b class="btn btn-mini btn-primary" data-toggle="collapse" data-target="#hospitalform">Hospital</b>
-			   <b class="btn btn-mini btn-primary" data-toggle="collapse" data-target="#areaform">Especialidade</b>
-			   <b class="btn btn-mini btn-primary" data-toggle="collapse" data-target="#shiftform">Turno</b>
-			   <b class="btn btn-mini btn-primary" data-toggle="collapse" data-target="#priceform">Valor</b>
+			<a href="#submitform" data-toggle="tab" class="btn btn-large">
+			   <b class="btn btn-small btn-primary" data-toggle="collapse" data-target="#hospitalform">Hospital</b>
+			   <b class="btn btn-small btn-primary" data-toggle="collapse" data-target="#areaform">Especialidade</b>
+			   <b class="btn btn-small btn-primary" data-toggle="collapse" data-target="#shiftform">Turno</b>
+			   <b class="btn btn-small btn-primary" data-toggle="collapse" data-target="#priceform">Valor</b>
 			   
 
 			
 				<b class="btn btn-small btn-group bordazero">
-					<b class="btn btn-mini btn-primary">	Dias da Semana:</b>	
-					<b class=" clicavel btn btn-mini btn-domingo" id="domingo" type="button">Domingo</b>
-					<b class=" clicavel btn btn-mini btn-segunda" id="segunda" type="button">Segunda</b>
-					<b class=" clicavel btn btn-mini btn-terca" id="terca" type="button">Terça</b>
-					<b class=" clicavel btn btn-mini btn-quarta" id="quarta" type="button">Quarta</b>
-					<b class=" clicavel btn btn-mini btn-quinta" id="quinta" type="button">Quinta</b>
-					<b class=" clicavel btn btn-mini btn-sexta" id="sexta" type="button">Sexta</b>
-					<b class=" clicavel btn btn-mini btn-sabado" id="sabado" type="button">Sábado</b>
+					<b class="btn btn-small btn-primary">	Dias da Semana:</b>	
+					<b class=" clicavel btn btn-small btn-domingo" id="domingo" type="button">Domingo</b>
+					<b class=" clicavel btn btn-small btn-segunda" id="segunda" type="button">Segunda</b>
+					<b class=" clicavel btn btn-small btn-terca" id="terca" type="button">Terça</b>
+					<b class=" clicavel btn btn-small btn-quarta" id="quarta" type="button">Quarta</b>
+					<b class=" clicavel btn btn-small btn-quinta" id="quinta" type="button">Quinta</b>
+					<b class=" clicavel btn btn-small btn-sexta" id="sexta" type="button">Sexta</b>
+					<b class=" clicavel btn btn-small btn-sabado" id="sabado" type="button">Sábado</b>
 				</b>
 			</a>
 			
@@ -64,7 +64,7 @@
 				
 			</div>
 		</div>
-	   <div class="span3">
+	   <div class="span2">
 			<%= link_to 'Cadastrar Plantão', new_job_path ,:class => "btn huge btn-success" %>
 		</div> 
 	</div>

@@ -55,8 +55,6 @@
 					</ul>
 					<% if user_signed_in? %>
 
-							
-
 							<div class="btn-group pull-right">
 								<% 
 									if current_user.credits >0 
@@ -71,13 +69,11 @@
 												<%= current_user.credits %></b>
 			       				</b>
 								</a>
+
 								<a class="btn btn-large btn-primary dropdown-toggle" href="#" data-toggle="dropdown"> 
 									<span class="caret"></span>
 								</a> 
-								
-								
 							
-								
 								<ul class="dropdown-menu">
 									
 									<li>
@@ -93,23 +89,24 @@
 									</li>
 
 									<li>
+
 										<a href="#">
 											<i class="icon-shopping-cart"></i>
 											Meus Plantões
 										</a>
-									</li>
+									</li-->
 									<li>
 										<a href="/users/edit">
 											<i class="icon-th-list"></i>
 											Meus Dados
 										</a>
 									</li>
-									<li>
+									<!--li>
 										<a href="#">
 											<i class="icon-star"></i>
 											Créditos
 										</a>
-									</li>
+									</li-->
 									<li class="divider"></li>
 									<li>
 										<a href="<%= destroy_user_session_path %>"  data-method="delete">
