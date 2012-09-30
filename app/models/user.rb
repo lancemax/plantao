@@ -31,23 +31,23 @@ class User < ActiveRecord::Base
     require 'nokogiri'
     require 'open-uri'
 
-    url = "http://portal.cfm.org.br/index.php?medicosNome=&medicosCRM=#{self.crm}&medicosUF=#{self.state.acronym}&medicosSituacao=&medicosTipoInscricao=&medicosEspecialidade=&buscaEfetuada=true&option=com_medicos#buscaMedicos"
-    p url
-    doc = Nokogiri::HTML(open(url))
-    puts doc.css(".row0 span").text
-    cont = 0 
-    aux = []
-    doc.css(".row0 span").each do |span|
-      aux[cont] = span.to_s.gsub(%r{</?[^>]+?>}, '')
-      cont=cont+1
-
-    end
-
     if !self.crm.nil? && !self.state.nil?
-      if self.crm != aux[2].to_i || self.state.acronym != aux[3] || aux[1] != "Ativo" 
-       errors.add(:crm, "( Crm / UF inválidos, ou Médico inativo )")
-       return false
-      end  
+      url = "http://portal.cfm.org.br/index.php?medicosNome=&medicosCRM=#{self.crm}&medicosUF=#{self.state.acronym}&medicosSituacao=&medicosTipoInscricao=&medicosEspecialidade=&buscaEfetuada=true&option=com_medicos#buscaMedicos"
+      p url
+      doc = Nokogiri::HTML(open(url))
+      puts doc.css(".row0 span").text
+      cont = 0 
+      aux = []
+      doc.css(".row0 span").each do |span|
+        aux[cont] = span.to_s.gsub(%r{</?[^>]+?>}, '')
+        cont=cont+1
+
+      end
+
+        if self.crm != aux[2].to_i || self.state.acronym != aux[3] || aux[1] != "Ativo" 
+         errors.add(:crm, "( Crm / UF inválidos, ou Médico inativo )")
+         return false
+        end  
     end
     
   end
