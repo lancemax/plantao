@@ -15,7 +15,14 @@
           <%= f.label :email  , :class => 'control-label' %>
           <div class="controls"><%= f.email_field :email, :class => 'input-xlarge' %></div>
         </div>
-
+	<div class="control-group">
+	    <%= f.label :crm , :class => 'control-label' %>
+	    <div class="controls">
+	      <%= f.text_field :crm, :class => 'span2' %>
+	      <%= f.collection_select :state_id, State.all, :id, :acronym, :prompt => "UF" %>
+      
+    </div>
+  </div>
         <div class="control-group">
           <%= f.label 'Telefone'  , :class => 'control-label' %>
           <div class="controls"><%= f.text_field :phone, :class => 'input-xlarge' %></div>
