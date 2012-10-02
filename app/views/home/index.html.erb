@@ -3,16 +3,16 @@
 <div class="content">
 	
   <div class="container">
+  		<% @texto = "Plantão Net é um sistema especializado para ajudar você (Médico) a efetuar uma troca de plantão. Para você que quer pegar mais plantões e não sabe onde tem vagas disponíveis na sua cidade. Com um design facilitado e ágil, PlantãoNet é a solução perfeita para você." %>
+
 	    <div class="row-fluid">
-		    <div class="span10 destaque">
-				<p>Plantão Net é um sistema especializado para ajudar você (Médico) a encontrar Substitutos para um plantão, ou você que está a procura de trabalhar em algum plantão. Design facilitado para que você </p>    
-				
-			</div>
-			 <div class="span2">
-			 	<% if !user_signed_in? %>
-		     		<%= link_to('Cadastre-se', new_user_registration_path, :class => 'btn huge btn-success')  %>
-		     	<% end %>
-		    </div>	
+	    	<% if !user_signed_in? %>
+		    	<div class="span10 destaque"><p><%= @texto %></p></div>
+			 	<div class="span2"><%= link_to('Cadastre-se', new_user_registration_path, :class => 'btn huge btn-success')  %></div>
+			<% else %>
+				<div class="span12 destaque"><p><%= @texto %></p></div>
+			<% end %>
+		    
 		     <div class="span12 destaque">
 		    <%=image_tag "doctors-new.jpg" , :class => 'medicos' %> 
 		      </div>
