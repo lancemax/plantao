@@ -13,15 +13,24 @@
 
 			
 				<b class="btn btn-small btn-group bordazero">
-					<b class="btn btn-small btn-primary">	Dias da Semana:</b>	
-					<b class=" clicavel btn btn-small btn-domingo" id="domingo" type="button">Domingo</b>
-					<b class=" clicavel btn btn-small btn-segunda" id="segunda" type="button">Segunda</b>
-					<b class=" clicavel btn btn-small btn-terca" id="terca" type="button">Terça</b>
-					<b class=" clicavel btn btn-small btn-quarta" id="quarta" type="button">Quarta</b>
-					<b class=" clicavel btn btn-small btn-quinta" id="quinta" type="button">Quinta</b>
-					<b class=" clicavel btn btn-small btn-sexta" id="sexta" type="button">Sexta</b>
-					<b class=" clicavel btn btn-small btn-sabado" id="sabado" type="button">Sábado</b>
+					<b class="btn btn-small btn-primary">	Dias:</b>	
+					<b class=" clicavel btn btn-small btn-domingo" id="domingo" type="button">Dom</b>
+					<b class=" clicavel btn btn-small btn-segunda" id="segunda" type="button">Seg</b>
+					<b class=" clicavel btn btn-small btn-terca" id="terca" type="button">Ter</b>
+					<b class=" clicavel btn btn-small btn-quarta" id="quarta" type="button">Qua</b>
+					<b class=" clicavel btn btn-small btn-quinta" id="quinta" type="button">Qui</b>
+					<b class=" clicavel btn btn-small btn-sexta" id="sexta" type="button">Sex</b>
+					<b class=" clicavel btn btn-small btn-sabado" id="sabado" type="button">Sáb</b>
 				</b>
+
+				<b class="btn btn-small btn-group bordazero">
+					<b class="btn btn-small btn-primary">	Exibir:</b>	
+					<b class=" exibir btn btn-small btn-terca" id="todos" type="button">Todos</b>
+					<b class=" exibir btn btn-small btn-kilo" id="meus" type="button">Meus</b>
+					<b class=" exibir btn btn-small btn-kilo" id="pleiteados" type="button">Pleiteados</b>
+				</b>
+
+
 			</a>
 			
 			<br clear="all" />
@@ -126,7 +135,7 @@
 			            	<td colspan="2" id="job<%=job.id%>">
 			            		<table border="0" class="table-buttons">
 			            			<tr>
-			            				<td><div class="btn btn-large btn-info"><b><%=job.requests.count%></b>
+			            				<td><div class="btn btn-large btn-info txt-pequeno"><b><%=job.requests.count%></b>
 			            					<% if job.requests.count==1 %> 
 			            						Candidato
 			            					<% else %>
@@ -142,7 +151,7 @@
 		            				<%# se current_user é o dono do plantão %>
 						            <% if current_user.id ==job.user.id  %>
 
-						              <div class="btn">Meu Plantão:
+						              <div class="btn txt-pequeno">Meu Plantão:
 						                <% if job.request_id.nil?%>
 						                  <%= link_to 'Editar', edit_job_path(job) ,:class => "btn btn-mini btn-primary" %> 
 						                <% end %>   
@@ -160,7 +169,7 @@
 						                <% if @eh_candidato.nil? %>
 						                  <%= simple_form_for [:customer,@request],:html => {:class => 'form-inline'}, :remote => true  do |f| %>
 						                    <%= f.hidden_field :job_id ,:value => job.id %>
-						                    <%= f.submit "Pegar Plantão",  :confirm => 'Você tem certeza?', :class => "btn btn-primary" %>
+						                    <%= f.submit "Pegar Plantão",  :confirm => 'Você tem certeza?', :class => "btn btn-large btn-primary  txt-pequeno" %>
 						                  <% end %>
 						                <% else  %><%# se current_user já se candidatou ao plantão %>   
 
@@ -189,14 +198,6 @@
 						            <% end %>
 		            			<% end %>
 
-
-
-
-
-
-
-
-
 		            				</td>
 		            			</tr>
 		            		</table>
@@ -207,7 +208,6 @@
 		    	</li>
 			</a>
 		<% end %>
-
 	</ul>
 	<%= will_paginate @jobs ,options = { :previous_label => "Anterior", :next_label => "Próximo", :class => "apple_pagination"} %>
 </div> 

@@ -13,8 +13,8 @@ Plantao::Application.routes.draw do
   end
   match 'cities/load_cities/:state' => 'cities#load_cities'
   match 'showHospitals' => 'hospitals#index', :as => :showHospitals
-  match 'showJobs' => 'jobs#index', :as => :showJobs
   
+  match 'myRequests' => 'customer/requests#index', :as => :my_requests
   match 'myJobs' => 'customer/home#userJobs', :as => :my_jobs
   match 'setJobRequest' => 'customer/home#setJobRequest', :as => :setJobRequest
   

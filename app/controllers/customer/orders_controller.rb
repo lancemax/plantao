@@ -2,7 +2,6 @@
 class Customer::OrdersController < ApplicationController
 
 	before_filter :authenticate_user!
-	layout 'customer/applicationcustomer'
 
 	# POST /orders
 	# POST /orders.json

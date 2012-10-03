@@ -2,11 +2,10 @@
 class Customer::HomeController < ApplicationController
 
 	before_filter :authenticate_user!
-  	layout 'customer/applicationcustomer'
   	
   def index
   	authorize! :customer_home, ""
-    redirect_to :showJobs
+    redirect_to jobs_path
   end
 
   def show

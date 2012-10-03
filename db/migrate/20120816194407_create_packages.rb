@@ -2,7 +2,7 @@ class CreatePackages < ActiveRecord::Migration
   def change
     create_table :packages do |t|
       t.string :name
-      t.integer :price
+      t.float :price
       t.integer :amount
 
       #for image

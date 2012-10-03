@@ -35,6 +35,54 @@
 			//location.reload();
     });
 
+   	$(".exibir").click(function(){
+   		
+   		var exibe=$(this).attr("id");
+
+   		if ( getCookie(exibe) != "true" ){
+   			if (exibe =='todos' ){
+   				$('#todos').addClass("btn-terca");
+   				$('#todos').removeClass("btn-kilo");
+   				setCookie('todos',"true",1);
+
+   				$('#meus').addClass("btn-kilo");
+   				$('#meus').removeClass("btn-terca");
+   				setCookie('meus',"false",1);
+
+   				$('#pleiteados').addClass("btn-kilo");
+   				$('#pleiteados').removeClass("btn-terca");
+   				setCookie('pleiteados',"false",1);
+   			}else if (exibe =='meus'){
+   				$('#meus').addClass("btn-terca");
+   				$('#meus').removeClass("btn-kilo");
+   				setCookie('meus',"true",1);
+
+   				$('#todos').addClass("btn-kilo");
+   				$('#todos').removeClass("btn-terca");
+   				setCookie('todos',"false",1);
+
+   				$('#pleiteados').addClass("btn-kilo");
+   				$('#pleiteados').removeClass("btn-terca");
+   				setCookie('pleiteados',"false",1);
+
+   			}else if (exibe =='pleiteados'){
+   				$('#pleiteados').addClass("btn-terca");
+   				$('#pleiteados').removeClass("btn-kilo");
+   				setCookie('pleiteados',"true",1);
+
+   				$('#todos').addClass("btn-kilo");
+   				$('#todos').removeClass("btn-terca");
+   				setCookie('todos',"false",1);
+
+   				$('#meus').addClass("btn-kilo");
+   				$('#meus').removeClass("btn-terca");
+   				setCookie('meus',"false",1);
+
+   			}
+   			location.reload();
+		}
+			
+    });
 
    /* states */
  // when the #search field changes
@@ -73,7 +121,7 @@
 function verificaBotoes(){
 
 	dias = ["domingo","segunda","terca","quarta", "quinta", "sexta", "sabado"];
-
+	exibe = ["todos","meus","pleiteados"];
 	for (x in dias)
 	  {
 	  	//console.log(dias[x]);
@@ -95,6 +143,22 @@ function verificaBotoes(){
 			
 		}
 	  }
+
+	for (y in exibe){
+		if ( getCookie(exibe[y]) == null ){
+			setCookie("todos","true",1);
+  			setCookie("meus","false",1);
+  			setCookie("pleiteados","false",1);
+		}
+  		
+  		if ( getCookie(exibe[y]) == "false" ){
+  			$("#"+exibe[y]).removeClass("btn-terca");
+			$("#"+exibe[y]).addClass("btn-kilo");
+  		}else{
+  			$("#"+exibe[y]).addClass("btn-terca");
+			$("#"+exibe[y]).removeClass("btn-kilo");
+  		}
+	}
 
 
 }

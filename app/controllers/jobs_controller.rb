@@ -17,6 +17,7 @@ class JobsController < ApplicationController
     "sexta",
     "sabado",
     ]
+  
 	# GET /jobs
 	# GET /jobs.json
 	def index
@@ -54,6 +55,18 @@ class JobsController < ApplicationController
          query = query.where("EXTRACT(dow from date) != ? ",$diasSemana.index(i))      
       end 
     end   
+
+    if user_signed_in?
+      # filtro de exibicao 
+      if !cookies['meus'].nil? && cookies['meus'] == "true"
+        query = query.where("user_id = ? ",current_user.id)      
+      end
+
+      if !cookies['pleiteados'].nil? &&  cookies['pleiteados'] == "true"
+           query = query.where("user_id != ? ",current_user.id)
+           query = query.where(:id => Request.select("job_id").where(:user_id => current_user.id))
+      end   
+    end
     #Não pega os jobs excluidos
     #query = query.where("request_id != 0")
 

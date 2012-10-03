@@ -4,17 +4,14 @@ class Customer::RequestsController < ApplicationController
   before_filter :authenticate_user!
   before_filter :pode_candidatar , :only => [:create,:update]  
 
-  layout 'customer/applicationcustomer'
-
-
-
+  
   CONS::REQUEST[:AGUARDANDO_RESPOSTA] = 1
   CONS::REQUEST[:CANCELADO] = 4
   CONS::REQUEST[:DESISTENCIA] = 5
   # GET /requests
   # GET /requests.json
   def index
-    @requests = Request.find_all_by_user_id(current_user.id)
+    @requests = Request.paginate(:page => params[:page], :per_page => 8).order("created_at DESC").find_all_by_user_id(current_user.id)
 
     respond_to do |format|
       format.html # index.html.erb

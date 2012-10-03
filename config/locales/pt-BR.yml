@@ -139,8 +139,8 @@ pt-BR:
       already_confirmed: "was already confirmed, please try signing in"
       not_locked: "was not locked"
       not_saved:
-        one: "1 error prohibited this %{resource} from being saved:"
-        other: "%{count} errors prohibited this %{resource} from being saved:"
+        one: "1 erro foi encontrado nesse %{resource}:"
+        other: "%{count} erros nesse %{resource}:"
       not_a_date: "inválida"
       after: "deve ser maior que %{date}"
       after_or_equal_to: "deve ser maior ou igual a %{date}"
