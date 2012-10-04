@@ -47,7 +47,7 @@
                         <td><%= job.description %></td>
                         <td><%= job.requests.count %></td>
                         <td>
-                            <% if (!job.request_id.nil? and  job.request_id != 0) or ( job.date < Time.now + 1.day ) %>                    
+                            <% if (!job.request_id.nil? and  job.request_id != 0) or ( job.date <= 1.day.ago.localtime ) %>                    
                                 <%=CONS::JOB[:ENCERRADO]%>
                             <% elsif job.request_id == 0 %>
                                 <%=CONS::JOB[:EXCLUIDO]%>
