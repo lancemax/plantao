@@ -61,7 +61,6 @@ module Plantao
     #  Devise::RegistrationsController.layout proc{ |controller| user_signed_in? ? "customer/applicationcustomer" : "application" }       
     #end
 
-
     # captcha
     config.gem 'rack-recaptcha', :lib => 'rack/recaptcha'
     if Rails.env == 'production'

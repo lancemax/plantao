@@ -12,8 +12,8 @@
 
 					<ul class="nav">
 						<li ><a href="/"><i class="icon-white icon-home"></i>Inicio</a></li>
-						<li><a href="/jobs"><i class="icon-white icon-time"></i>Plantões</a></li>
-						<li><a href="/hospitals"><i class="icon-white  icon-plus-sign"></i>Hospitais</a></li>
+						<li><a href="<%=jobs_path%>"><i class="icon-white icon-time"></i>Plantões</a></li>
+						<li><a href="<%=hospitals_path%>"><i class="icon-white icon-plus-sign"></i>Hospitais</a></li>
 						
 						<% if user_signed_in? %>
 								<li class="dropdown">
@@ -22,7 +22,8 @@
 									</a>
 									<ul class="dropdown-menu dropdown-minhaconta">
 
-										<li><a href="/users/edit"><i class="icon-white icon-plus-sign"></i>Meus Dados</a></li>
+										<li>
+											<a href="/users/edit"><i class="icon-white icon-plus-sign"></i>Meus Dados</a></li>
 										<li><a href="/myJobs"><i class="icon-white icon-plus-sign"></i>Plantões Cedidos</a></li>
 										<li>
 											<%= link_to customer_requests_path do %>

@@ -18,7 +18,8 @@ class HospitalsController < ApplicationController
     end 
 
     if !params[:hospital].nil? and params[:hospital][:name]!=""
-      query = query.where("name like '%?%' ",params[:hospital][:name])
+      search = "%"+params[:hospital][:name]+"%"
+      query = query.where("lower(name) like ? ",search.downcase)
     end 
 
     @hospitals = query.paginate(:page => params[:page], :per_page => 6).order("name")

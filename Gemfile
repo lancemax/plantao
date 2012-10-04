@@ -83,6 +83,10 @@ gem 'has_scope'
 
 gem 'simple_form'
 
+#tradução das rotas
+gem 'route_translator'
+
+
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 

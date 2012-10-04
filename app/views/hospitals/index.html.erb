@@ -3,10 +3,10 @@
   <div class="row-fluid">
 
   <div class="span9"> 
-    <a href="#submitform" data-toggle="tab" class="btn btn-large">
+    <b class="btn btn-large">
 
     
-      <%= simple_form_for @hospital , :url => :showHospitals, :method => 'get' do |f| %>
+      <%= simple_form_for @hospital , :method => 'get' do |f| %>
         <%= f.text_field :name, :placeholder => 'Nome do Hospital' %>
         
         <%= f.association :state , :prompt => "Estado", :label => false %>
@@ -14,7 +14,7 @@
 
         <%= f.button :submit, "Filtrar", :class => "btn btn-primary " %>
       <% end %>
-   </a>
+   </b>
 
 
  </div>

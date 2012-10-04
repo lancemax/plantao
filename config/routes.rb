@@ -1,11 +1,6 @@
 Plantao::Application.routes.draw do
   
 
-  resources :jobs
-  resources :hospitals
-  resources :cities
-  resources :states
-
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
 
   devise_scope :user do 
@@ -14,11 +9,11 @@ Plantao::Application.routes.draw do
   match 'cities/load_cities/:state' => 'cities#load_cities'
   match 'showHospitals' => 'hospitals#index', :as => :showHospitals
   
-  match 'myRequests' => 'customer/requests#index', :as => :my_requests
-  match 'myJobs' => 'customer/home#userJobs', :as => :my_jobs
+  match 'plantoesPleiteados' => 'customer/requests#index', :as => :my_requests
+  match 'meusPlantoes' => 'customer/home#userJobs', :as => :my_jobs
   match 'setJobRequest' => 'customer/home#setJobRequest', :as => :setJobRequest
   
-  match 'buy' => 'customer/packages#index', :as => :buy
+  match 'comprar' => 'customer/packages#index', :as => :buy
 
   
 
@@ -47,6 +42,20 @@ Plantao::Application.routes.draw do
     resources :status_orders
 
   end
+
+
+  localized do
+    resources :jobs
+    resources :hospitals
+    resources :cities
+    resources :states
+    resources :requests
+    resources :packages
+    resources :orders
+    resources :users
+    resources :shifts
+  end
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -104,3 +113,7 @@ Plantao::Application.routes.draw do
   # Note: This route will make all actions in every controller accessible via GET requests.
   # match ':controller(/:action(/:id))(.:format)'
 end
+
+Plantao::Application.routes.translate_from_file
+# You may pass the file path as a param here,
+# default is config/i18n-routes.yml

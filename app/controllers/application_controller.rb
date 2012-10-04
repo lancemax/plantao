@@ -2,6 +2,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   
+  before_filter :set_locale_from_url
   before_filter :check_url
   #captcha
   include Rack::Recaptcha::Helpers

@@ -1,0 +1,11 @@
+en:
+pt-BR:
+  jobs: "plantoes"
+  hospitals: "hospitais"
+  cities: "cidades"
+  states: "estados"
+  requests: "pleiteados"
+  packages: "pacotes"
+  orders: "pedidos"
+  users: "usuarios"
+  shifts: "turnos"
