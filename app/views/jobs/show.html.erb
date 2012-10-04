@@ -4,8 +4,8 @@
   <div class="container">
      <div class="row-fluid">
       <div class="span4">
-        <% if !@job.request_id.nil?%>
-          <% if @job.request_id != 0 %>
+        <% if !@job.request_id.nil? or ( @job.date < Time.now + 1.day )%>
+          <% if @job.request_id != 0  or ( @job.date < Time.now + 1.day ) %>
             <div class="alert alert-info txt-centralizado"><h2><%=CONS::JOB[:ENCERRADO]%></h2></div>
           <% else %>
             <div class="alert alert-error txt-centralizado"><h2><%=CONS::JOB[:EXCLUIDO]%></h2></div>

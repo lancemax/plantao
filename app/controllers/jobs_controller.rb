@@ -4,6 +4,7 @@ class JobsController < ApplicationController
   before_filter :pode_editar , :only => [:edit , :update]
   before_filter :pode_criar , :only => [:create,:new]
   before_filter :populaCombos , :only => [:index]
+  before_filter :jobExpirou , :only => [:new, :create, :edit, :update , :destroy]
 
   attr_accessor :diasSemana
 
@@ -18,6 +19,9 @@ class JobsController < ApplicationController
     "sabado",
     ]
   
+
+
+
 	# GET /jobs
 	# GET /jobs.json
 	def index
@@ -203,6 +207,7 @@ class JobsController < ApplicationController
 
   protected
 
+  
   def pode_editar
     # verifica se existe algum escolhido nesse plantão
      @job = Job.find(params[:id])
@@ -237,6 +242,20 @@ class JobsController < ApplicationController
 
   def populaCombos
     @states_array = State.all.map { |state| [state.name, state.id] }
+  end
+
+ 
+ 
+  def jobExpirou
+    # verifica se plantao ja expirou
+   
+      @job = Job.find(params[:id])
+      p @job
+      if @job.date < Time.now + 1.day
+        respond_to do |format|
+        format.html {  redirect_to @job , alert: 'O Plantão está fechado, a data expirou.'}
+      end 
+     end 
   end
 
 end

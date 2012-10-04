@@ -2,7 +2,8 @@
 class Customer::RequestsController < ApplicationController
   
   before_filter :authenticate_user!
-  before_filter :pode_candidatar , :only => [:create,:update]  
+  before_filter :pode_candidatar , :only => [:create,:update]
+  before_filter :jobExpirou , :only => [:new, :create, :edit, :update , :destroy]  
 
   
   CONS::REQUEST[:AGUARDANDO_RESPOSTA] = 1
@@ -126,6 +127,20 @@ class Customer::RequestsController < ApplicationController
         format.js
       end
     end
+  end
+
+  def jobExpirou
+    # verifica se plantao ja expirou
+   
+      @request = Request.new(params[:request])
+      @job = Job.find(@request.job_id)
+      p @job
+      if @job.date < Time.now + 1.day
+        respond_to do |format|
+        @name = 'O Plantão está fechado, a data expirou.'
+        format.js 
+      end 
+     end 
   end
 
 end
