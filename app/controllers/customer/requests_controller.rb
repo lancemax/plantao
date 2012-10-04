@@ -135,7 +135,7 @@ class Customer::RequestsController < ApplicationController
       @request = Request.new(params[:request])
       @job = Job.find(@request.job_id)
       p @job
-      if @job.date < Time.now + 1.day
+      if @job.date <=  1.day.ago.localtime
         respond_to do |format|
         @name = 'O Plantão está fechado, a data expirou.'
         format.js 

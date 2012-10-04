@@ -251,7 +251,7 @@ class JobsController < ApplicationController
    
       @job = Job.find(params[:id])
       p @job
-      if @job.date < Time.now + 1.day
+      if @job.date <=  1.day.ago.localtime
         respond_to do |format|
         format.html {  redirect_to @job , alert: 'O Plantão está fechado, a data expirou.'}
       end 
