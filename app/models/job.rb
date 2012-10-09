@@ -45,4 +45,17 @@ class Job < ActiveRecord::Base
       end
   end
 
+
+  def self.closeJob
+       @jobs = Job.where("date between ? and ? and request_id != ? and shift_id = ?",1.days.ago,Time.now,'0', CONS::SHIFT[:MANHA] )
+       @jobs.each do |job| 
+        @request = Request.where("job_id = ? and  status_request_id = ? ",job.id ,CONS::REQUEST[:AGUARDANDO_RESPOSTA] )
+        if !@request.nil?
+          @user = User.new
+          @user.consume_credits(job.user_id)
+        end
+      end
+    
+  end
+
 end

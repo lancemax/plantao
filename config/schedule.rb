@@ -35,4 +35,10 @@ every '0 17 * * *' do
  runner "Job.reminderNight"
 end
 
+every '0 0 * * *' do 
+ runner "Job.closeJob"
+end
+
+
+
 
