@@ -106,7 +106,9 @@
    $("#hospital_zip_code").mask("99999-999");  
 
 
-   $('#myCarousel').carousel();
+   $('#myCarousel').carousel({
+      interval: 20000
+    });
 
 
 
