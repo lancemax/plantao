@@ -2,7 +2,7 @@
 select { width: auto;}
 </style>
 
-<%= simple_form_for @job , :validate => true ,:html => {:class => 'well form-horizontal',:novalidate => true } do |f| %>
+<%= simple_form_for @job , :validate => true ,:html => {:class => 'well-signin form-horizontal',:novalidate => true } do |f| %>
   <% if @job.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@job.errors.count, "error") %> prohibited this job from being saved:</h2>

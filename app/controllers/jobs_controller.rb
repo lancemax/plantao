@@ -4,7 +4,7 @@ class JobsController < ApplicationController
   before_filter :pode_editar , :only => [:edit , :update]
   before_filter :pode_criar , :only => [:create,:new]
   before_filter :populaCombos , :only => [:index]
-  before_filter :jobExpirou , :only => [:new, :create, :edit, :update , :destroy]
+  before_filter :jobExpirou , :only => [:edit, :update , :destroy]
 
   attr_accessor :diasSemana
 

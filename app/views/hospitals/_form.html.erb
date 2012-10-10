@@ -1,4 +1,4 @@
-<%= simple_form_for @hospital , :validate => true ,:html => {:class => 'well form-horizontal',:novalidate => true } do |f| %>
+<%= simple_form_for @hospital , :validate => true ,:html => {:class => 'well-signin form-horizontal',:novalidate => true } do |f| %>
   <% if @hospital.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@hospital.errors.count, "error") %> prohibited this hospital from being saved:</h2>

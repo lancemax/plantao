@@ -12,6 +12,7 @@ Plantao::Application.routes.draw do
   match 'plantoesPleiteados' => 'customer/requests#index', :as => :my_requests
   match 'meusPlantoes' => 'customer/home#userJobs', :as => :my_jobs
   match 'setJobRequest' => 'customer/home#setJobRequest', :as => :setJobRequest
+  match 'ComoFunciona' => 'home#howWorks#index', :as => :howWorks
   
   match 'comprar' => 'customer/packages#index', :as => :buy
 
