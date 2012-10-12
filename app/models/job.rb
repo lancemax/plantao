@@ -28,6 +28,9 @@ class Job < ActiveRecord::Base
       @jobs = Job.joins(:requests).where("date between ? and ? and request_id != ? and shift_id = ?",1.days.ago,Time.now,'0', CONS::SHIFT[:MANHA] )
       @jobs.each do |job| 
         Usermailer.send_email_relembra_encerra_plantao(job)
+        p "relembra plantao manha"
+        p job
+        p Time.now
       end
   end
 
@@ -35,6 +38,9 @@ class Job < ActiveRecord::Base
       @jobs = Job.joins(:requests).where("date between ? and ? and request_id != ? and shift_id = ?",1.days.ago,Time.now,'0', CONS::SHIFT[:TARDE] )
       @jobs.each do |job| 
         Usermailer.send_email_relembra_encerra_plantao(job)
+        p "relembra plantao tarde"
+        p job
+        p Time.now
       end
   end
 
@@ -42,6 +48,9 @@ class Job < ActiveRecord::Base
       @jobs = Job.joins(:requests).where("date between ? and ? and request_id != ? and shift_id = ?",1.days.ago,Time.now,'0', CONS::SHIFT[:NOITE] )
       @jobs.each do |job| 
         Usermailer.send_email_relembra_encerra_plantao(job)
+        p "relembra plantao noite"
+        p job
+        p Time.now
       end
   end
 
@@ -52,6 +61,9 @@ class Job < ActiveRecord::Base
         @request = Request.where("job_id = ? and  status_request_id = ? ",job.id ,CONS::REQUEST[:AGUARDANDO_RESPOSTA] )
         if !@request.nil?
           @user = User.new
+          p "consome creditos do user id:"
+          p job.user_id
+          p Time.now
           @user.consume_credits(job.user_id)
         end
       end

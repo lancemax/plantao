@@ -28,7 +28,7 @@ every '0 6 * * *' do
 end
 
 every '0 11 * * * ' do 
- runner "Job.reminderafternoon"
+ runner "Job.reminderAfternoon"
 end
 
 every '0 17 * * *' do 

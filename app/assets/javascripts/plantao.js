@@ -10,6 +10,16 @@
     //do other stuff when a click happens
 	});
    /* jobs */
+
+   // guardar dados do form
+   $("form").sisyphus({timeout: 0,
+    onSave: function() { console.log("salvo"); },
+    onBeforeRestore: function() {console.log("vai restaurar"); },
+    onRestore: function() {console.log("reustaurado"); },
+    autoRelease:false,
+  });
+   
+
    $("input[name*='price']").maskMoney({symbol:'R$ ', showSymbol:true, thousands:'.', decimal:',', symbolStay: true});
    $('.date').datepicker({"format": "dd/mm/yyyy", "weekStart": 1, "autoclose": true, "language": "br"});
 
@@ -110,7 +120,9 @@
       interval: 20000
     });
 
-
+   // meus dados
+   $("#user_phone").mask("(99)9999-9999?9");  
+   $("#user_cellphone").mask("(99)9999-9999?9");  
 
 
  });

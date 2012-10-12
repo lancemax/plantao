@@ -60,16 +60,18 @@ select { width: auto;}
 			<%= f.text_area :description, :rows => 4,:cols => 860 ,:maxlength => 140 %>
 		</div>
 	</div>
-	<div class="control-group">
+	<!--<div class="control-group">
     <div class="controls">
       <%= raw recaptcha_tag(:challenge) %>
     </div>    
-  </div>  
+ 	</div> -->  
  
   <div class="form-actions">
   	<%= f.submit "Salvar", :class => "btn btn-success" %>
 
-	<%= link_to 'Voltar', jobs_path , :class => "btn btn-warning"%>				
+	<%= link_to 'Voltar', jobs_path , :class => "btn btn-warning"%>
+	<input type="button" value="Limpar Dados" onClick="this.form.reset()" class="btn btn-danger" />
+ 				
   </div>		
   
 <% end %>

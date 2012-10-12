@@ -18,5 +18,6 @@
 //= require bootstrap-datepicker/core
 //= require jquery.maskmoney.js
 //= require jquery.maskedinput.js
+//= require sisyphus.min.js
 //= require plantao.js
 // require_tree .
