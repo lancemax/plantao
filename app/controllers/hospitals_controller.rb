@@ -59,7 +59,7 @@ class HospitalsController < ApplicationController
   # POST /hospitals.json
   def create
 
-    #if recaptcha_valid?
+    if recaptcha_valid?
 
       @hospital = Hospital.new(params[:hospital])
 
@@ -77,11 +77,11 @@ class HospitalsController < ApplicationController
           format.json { render json: @hospital.errors, status: :unprocessable_entity }
         end
       end
-    #else
-    #  respond_to do |format|
-    #  format.html { redirect_to new_hospital_path, alert: 'Captcha inválido.' }
-    #  end
-    #end  
+    else
+      respond_to do |format|
+      format.html { redirect_to new_hospital_path, alert: 'Captcha inválido.' }
+      end
+    end  
   end
 
   # PUT /hospitals/1
