@@ -106,7 +106,7 @@ class JobsController < ApplicationController
   # POST /jobs
   # POST /jobs.json
   def create
-    if recaptcha_valid?
+    #if recaptcha_valid?
     	setMoney(params[:job][:price])
 
     	@job = Job.new(params[:job])
@@ -124,11 +124,11 @@ class JobsController < ApplicationController
             format.json { render json: @job.errors, status: :unprocessable_entity }
           end
         end
-    else
-      respond_to do |format|
-      format.html { redirect_to new_job_path, alert: 'Captcha inválido.' }
-      end
-    end  
+    #else
+    #  respond_to do |format|
+    #  format.html { redirect_to new_job_path, alert: 'Captcha inválido.' }
+    #  end
+    #end  
   end
 	
 
