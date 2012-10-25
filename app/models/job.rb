@@ -61,6 +61,8 @@ class Job < ActiveRecord::Base
         @request = Request.where("job_id = ? and  status_request_id =? ",job.id ,CONS::REQUEST[:AGUARDANDO_RESPOSTA] )
         if !@request.nil?
           @user = User.new
+          p  "Consome creditos user:"
+          p job.user_id
           @user.consume_credits(job.user_id)
         end
       end
