@@ -72,6 +72,7 @@
                   <th>Especialidade</th>
                   <th>Email</th>
                   <th></th>
+                 
                 </tr>
                 <% @job.requests.each do |cand| %>
                   <tr>
@@ -82,7 +83,7 @@
                     <td>
 
 
-                      <% if @job.request_id.nil? and cand.status_request_id == CONS::REQUEST[:AGUARDANDO_RESPOSTA] %>
+                      <% if @job.request_id.nil? and cand.status_request_id == CONS::REQUEST[:AGUARDANDO_RESPOSTA] and @job.date > 1.day.ago.localtime %>
                           <%= simple_form_for :job, :url => '/setJobRequest' ,:html => {:class => 'form-inline'}, :remote => true  do |f| %>
                             <%= f.hidden_field :job_id ,:value => @job.id %>
                             <%= f.hidden_field :request_id ,:value => cand.id %>
