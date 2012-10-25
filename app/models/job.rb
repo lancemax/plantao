@@ -60,7 +60,6 @@ class Job < ActiveRecord::Base
        @jobs.each do |job| 
         @request = Request.where("job_id = ? and  status_request_id =? ",job.id ,CONS::REQUEST[:AGUARDANDO_RESPOSTA] )
         if !@request.nil?
-          Job.update(job.id,:request_id => 0)
           @user = User.new
           p  "Consome creditos user:"
           p job.user_id
