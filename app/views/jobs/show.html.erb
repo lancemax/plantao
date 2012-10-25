@@ -110,6 +110,13 @@
                 <% if @job.request_id.nil?%>
                   <%= link_to 'Editar', edit_job_path(@job) ,:class => "btn btn-mini btn-primary" %> 
                 <% end %>   
+                <% if  @job.request_id != '-1' %> 
+                teste
+                <% end %>
+
+                <% if  @job.request_id != -1 %> 
+                teste 2
+                <% end %>
 
                 <% if (@job.request_id.nil? or @job.request_id != '-1') and @job.date > 1.day.ago.localtime %> 
                   <%= link_to 'Excluir', job_path(@job) , confirm: 'Você tem certeza que deseja excluir? Caso exista algum candidato para esse plantão, será debitado 1 crédito da sua conta!',:method => :delete  ,:class => "btn btn-mini btn-danger" %> 
