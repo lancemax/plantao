@@ -56,7 +56,7 @@ class Job < ActiveRecord::Base
 
 
   def self.closeJob
-       @jobs = Job.where("date between ? and ? and request_id is null ",1.days.ago,Time.now,'0')
+       @jobs = Job.where("date between ? and ? and request_id is null ",1.days.ago,Time.now)
        @jobs.each do |job| 
         @request = Request.where("job_id = ? and  status_request_id =? ",job.id ,CONS::REQUEST[:AGUARDANDO_RESPOSTA] )
         if !@request.nil?
