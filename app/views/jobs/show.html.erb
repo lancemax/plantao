@@ -110,7 +110,7 @@
                 <% if @job.request_id.nil?%>
                   <%= link_to 'Editar', edit_job_path(@job) ,:class => "btn btn-mini btn-primary" %> 
                 <% end %>   
-                <% if  @job.request_id != '-1' and @job.date > 1.day.ago.localtime %> 
+                <% if (@job.request_id.nil? or @job.request_id != '-1') %> 
                 teste
                 <% end %>
 
