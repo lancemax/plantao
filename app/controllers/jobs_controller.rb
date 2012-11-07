@@ -8,6 +8,7 @@ class JobsController < ApplicationController
 
   attr_accessor :diasSemana
 
+  
 
   $diasSemana = [
     "domingo",
@@ -20,37 +21,24 @@ class JobsController < ApplicationController
     ]
   
 
-
-
 	# GET /jobs
 	# GET /jobs.json
 	def index
     @pagetitle = 'Plantões'
     @job = Job.new
     query = Job
+
     
     #verifica se veio POST
-    if !params[:job].nil?  
-
-      #verifica se hospital veio pelo POST
-      if !params[:job][:hospital_id].nil?  && params[:job][:hospital_id] != ""
-        query =  query.where("hospital_id = ?",params[:job][:hospital_id])
-      end
-      #verifica se area veio pelo POST
-      if !params[:job][:area_id].nil?  && params[:job][:area_id] != ""
-        query =  query.where("area_id = ?",params[:job][:area_id])  
-      end
-      #verifica se shift veio pelo POST
-      if !params[:job][:shift_id].nil?  && params[:job][:shift_id] != ""
-        query =  query.where("shift_id = ?",params[:job][:shift_id])
-      end
-      #verifica se price veio pelo POST
-      if !params[:job][:price].nil?  && params[:job][:price] != ""
-        setMoney(params[:job][:price])
-        query =  query.where("price >= ?",params[:job][:price])
-      end    
-
+    if !params[:job].nil? 
+        params[:job].each_key do |aux|
+           if !params[:job][aux].nil?  && params[:job][aux] != ""
+             query = query.method(aux.to_sym).call(params[:job][aux])
+           
+          end 
+        end
     end
+   
     
     # filtro dos dias da semana 
     $diasSemana.each do  |i|

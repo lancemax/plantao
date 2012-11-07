@@ -14,12 +14,36 @@ class Job < ActiveRecord::Base
   validates :price ,:numericality => {:greater_than => 0, :less_than => 9999.99}
   validates :date, :date => { :after => Time.now - 1.day, :before => Time.now + 1.year }
   
+ scope :hospital_id, lambda { |hospital_id|
+    where(:hospital_id =>hospital_id)
+  }
 
+  scope :area_id, lambda { |area_id|
+    where(:area_id =>area_id)
+  }
+
+  scope :shift_id, lambda { |shift_id|
+    where(:shift_id =>shift_id)
+  }
+
+  scope :price, lambda { |price|
+    setMoney(price)
+    where("price >= ?",price)
+  }
   
   def cancel_job(job_id)
       Job.update(job_id,"request_id" => "0")
   end
 
+  def self.setMoney(value)
+    #retira o '.' caso o numero seja maior que 999 (Ex: 1.323,00)
+    if value.gsub!(".","");  end
+    
+     value.gsub!(",",".")
+     value.gsub!("R$ ","")
+     value.gsub!("-","")
+
+  end
 
   def self.reminderMorning
       # relembrar plantões abertos não pleiteados
