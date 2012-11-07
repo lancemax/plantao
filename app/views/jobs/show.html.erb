@@ -50,10 +50,10 @@
             <tr>
               <th>Observações:</th> <td colspan="2"><%= @job.description %></td>
             </tr>
-            <% if !@job.request_id.nil?%>
+            <% if !@job.request_id.nil? and @job.request_id > 0 %>
               <% if @job.request_id != 0 %>
                 <tr>
-                  <th>Candidato(a) Eleito(a):</th> <td colspan="2"><%= @job.request.user.name %> - <%= @job.request.try(:user).try(:area).try(:name) %></td>
+                  <th>Candidato(a) Eleito(a):</th> <td colspan="2"><%= @job.request.try(:user).try(:name) %> - <%= @job.request.try(:user).try(:area).try(:name) %></td>
                 </tr>
               <% end %>
             <% end %>
